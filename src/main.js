@@ -4,11 +4,17 @@
 // Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
-const { JX3BOX } = require("@jx3box/jx3box-common");
+// const { JX3BOX } = require("@jx3box/jx3box-common");
 
-import App from "./App.vue";
+// import Header from "../node_modules/@jx3box/jx3box-common/vue/Header.vue";
+import Header from './components/Header.vue'
 new Vue({
-    render: h => h(App),
-    data:{JX3BOX}
-}).$mount("#app");
+    render: h => h(Header),
+    el: '#c-header'
+});
+
+// import App from "./App.vue";
+// new Vue({
+//     render: h => h(App),
+// }).$mount("#app");
 

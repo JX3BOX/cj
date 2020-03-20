@@ -37,7 +37,6 @@ module.exports = {
             return args;
         });
 
-
         //💝 in-line small imgs ~
         config.module
             .rule("images")
@@ -69,5 +68,6 @@ module.exports = {
 
 
 
-    }
+    },
+    
 };
