@@ -19,7 +19,6 @@ export default {
     methods: {},
     filters: {},
     mounted: function() {
-        //TODO:自动给菜单添加on
     },
     components: {
         Breadcrumb,

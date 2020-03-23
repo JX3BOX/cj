@@ -1,8 +1,12 @@
 <template>
-    <div>list</div>
+    <main class="c-main m-cj-index">
+        1111
+        <Info />
+    </main>
 </template>
 
 <script>
+import Info from '@/components/Info.vue';
     export default {
         name : 'List',
         props:[],
@@ -14,5 +18,8 @@
         computed:{},
         methods:{},
         mounted:function(){},
+        components:{
+            Info
+        }
     }
 </script>
