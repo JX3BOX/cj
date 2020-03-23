@@ -1,29 +1,32 @@
 <template>
-    <div id="app">Hello World</div>
+    <div id="app">
+        <Breadcrumb />
+        <Sidebar />
+        <router-view />
+    </div>
 </template>
 
 <script>
+import Breadcrumb from './components/Breadcrumb.vue';
+import Sidebar from './components/Sidebar.vue';
+
 export default {
     name: "App",
     data: function() {
-        return {
-        };
+        return {};
     },
-    computed: {
-    },
-    methods: {
-    },
-    filters: {
-    },
+    computed: {},
+    methods: {},
+    filters: {},
     mounted: function() {
+        //TODO:自动给菜单添加on
     },
     components: {
+        Breadcrumb,
+        Sidebar
     }
 };
 </script>
 
 <style lang="less">
-body{
-    .color(#f00);
-}
 </style>

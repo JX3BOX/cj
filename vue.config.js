@@ -55,13 +55,13 @@ module.exports = {
         //💖 import common less var * mixin ~
         const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
         var preload_styles = []
-        preload_styles.push(
-            path.resolve(__dirname, './src/assets/css/var.less'),
-            path.resolve(__dirname, './node_modules/csslab/base.less')
-        )
         if(process.env.TPL == 'channel'){
             preload_styles.push(path.resolve(__dirname, './node_modules/@jx3box/jx3box-common/css/common.less'))
         }
+        preload_styles.push(
+            path.resolve(__dirname, './node_modules/csslab/base.less'),
+            path.resolve(__dirname, './src/assets/css/var.less')
+        )
         function addStyleResource (rule) {
             rule.use('style-resource')
               .loader('style-resources-loader')
