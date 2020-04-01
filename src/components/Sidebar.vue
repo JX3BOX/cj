@@ -2,26 +2,33 @@
     <aside class="c-sidebar-left c-sidebar">
         <el-input placeholder="输入关键字进行过滤" v-model="filterText">
         </el-input>
-
-        <el-tree
-            class="filter-tree"
-            :data="data"
-            :render-content="renderContent"
-            @node-click="changeNode"
-            :filter-node-method="filterNode"
-            ref="tree"
-        >
-        </el-tree>
+        <div class="m-menus">
+            <el-tree
+                class="filter-tree"
+                :data="menus"
+                :expand-on-click-node="false"
+                :render-content="renderContent"
+                @node-click="clickNode"
+                @current-change="changeNode"
+                :filter-node-method="filterNode"
+                ref="tree"
+            >
+            </el-tree>
+        </div>
     </aside>
 </template>
 
 <script>
+const {JX3BOX} = require("@jx3box/jx3box-common");
+const axios = require("axios");
+
 export default {
     name: "Sidebar",
     data: function() {
         return {
             filterText: "",
-            data: []
+            menus: [],
+            old_node: null
         };
     },
     watch: {
@@ -34,23 +41,50 @@ export default {
         renderContent(h, { node, data, store }) {
             return (
                 <span class="el-tree-node__label">
-                    <span class="u-name">{node.label}</span>
-                    <em class="u-count">({data.count})</em>
+                    <span class="u-name">{data.name}</span>
+                    <em class="u-count">({data.achievements_count})</em>
                 </span>
             );
         },
         filterNode(value, data) {
             if (!value) return true;
-            return data.label.indexOf(value) !== -1;
+            return data.name.indexOf(value) !== -1;
         },
-        changeNode(data) {
+        clickNode(data,node){
+            if(node.expanded!==true){
+                node.expanded=true;
+            }else if(data.own_achievements_count===0||data.own_achievements_count>0&&this.old_node==node){
+                node.expanded=false;
+            }
+
+            // 记录上一个节点
+            this.old_node = node;
+        },
+        changeNode(data,node) {
             // TODO:点击节点时切换数据
-            console.log(data)
+            console.log(data);
+        },
+        getMenus(general){
+            let that = this;
+            axios({
+                method: "GET",
+                url: `${JX3BOX.__helperUrl}api/achievement/menus?general=${general}`,
+            }).then(function (data) {
+                data = data.data;
+                //if (data.code === 200) {
+                    var menus = [];
+                    for (let i in data.data.menus) menus.push(data.data.menus[i]);
+                    that.menus = menus;
+                //}
+            }, function () {
+                that.menus = false;
+            });
         }
     },
     mounted: function() {
+        this.getMenus(1);
         // TODO:异步加载侧边栏数据
-        this.data = [
+        /*this.data = [
             {
                 id: 2,
                 label: "一级",
@@ -85,7 +119,7 @@ export default {
                     }
                 ]
             }
-        ];
+        ];*/
     }
 };
 </script>
@@ -98,10 +132,14 @@ export default {
     .mb(10px);
 }
 .is-current{
-    .bold;
+    & > .el-tree-node__content{.bold;}
 }
 
 //节点
+.m-menus {
+    height: calc(~"100% - 50px");
+    overflow-y: auto;
+}
 .el-tree-node__label{
     .u-name{
         color: @color-link;
