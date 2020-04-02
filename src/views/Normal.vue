@@ -1,18 +1,21 @@
 <template>
     <main class="c-main m-cj-index">
+        <router-link :to="{ name: 'home' }">home</router-link>
+        <Sidebar :general="general"/>
         <!--<Achievement/>-->
         <Info/>
     </main>
 </template>
 
 <script>
+    import Sidebar from '@/components/Sidebar.vue';
     import Info from '@/components/Info.vue';
 
     const axios = require("axios");
 
     export default {
-        name: 'List',
-        props: [],
+        name: 'Normal',
+        props: ['general'],
         data: function () {
             return {
                 achievements: null,
@@ -43,7 +46,8 @@
         mounted: function () {
         },
         components: {
-            Info
+            Info,
+            Sidebar
         }
     }
 </script>

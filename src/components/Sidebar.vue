@@ -1,9 +1,5 @@
 <template>
     <aside class="c-sidebar-left c-sidebar">
-        <el-select v-model="module" @change="module_change_handle">
-            <el-option v-for="item in modules" :key="item.key" :label="item.name" :value="item.key"></el-option>
-        </el-select>
-        <el-divider></el-divider>
         <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
         <div class="m-menus">
             <el-tree
@@ -30,20 +26,12 @@
 
     export default {
         name: "Sidebar",
+        props: ['general'],
         data: function () {
             return {
                 filterText: "",
                 menus: [],
                 old_node: null,
-                // 模块
-                module: 'normal',
-                modules: [
-                    {key: 'normal', name: '常规成就', url: ''},
-                    {key: 'top_five', name: '五甲成就', url: ''},
-                    {key: 'newest', name: '最新成就', url: ''},
-                    {key: 'waiting', name: '待攻略成就', url: ''},
-                    {key: 'out_print', name: '绝版成就', url: ''},
-                ]
             };
         },
         watch: {
@@ -51,19 +39,7 @@
                 this.$refs.tree.filter(val);
             }
         },
-        computed: {},
         methods: {
-            module_change_handle() {
-                for (let index in this.modules) {
-                    if (this.modules[index].key === this.module) {
-                        this.$emit('moduleChange', this.modules[index]);
-                        break;
-                    }
-                }
-            },
-            menu_change_handle(obj){
-                this.$emit('menuChange', obj);
-            },
             filterNode(value, data) {
                 if (!value) return true;
                 return data.name.indexOf(value) !== -1;
@@ -101,44 +77,8 @@
             }
         },
         mounted: function () {
-            this.getMenus(1);
-            // TODO:异步加载侧边栏数据
-            /*this.data = [
-                {
-                    id: 2,
-                    label: "一级",
-                    count: 123,
-                    children: [
-                        {
-                            id: 5,
-                            label: "二级",
-                            count: 123
-                        },
-                        {
-                            id: 6,
-                            label: "二级",
-                            count: 56
-                        }
-                    ]
-                },
-                {
-                    id: 3,
-                    label: "一级",
-                    count: 123,
-                    children: [
-                        {
-                            id: 7,
-                            label: "二级",
-                            count: 123
-                        },
-                        {
-                            id: 8,
-                            label: "二级",
-                            count: 123
-                        }
-                    ]
-                }
-            ];*/
+            // 异步加载侧边栏数据
+            this.getMenus(this.general);
         }
     };
 </script>
@@ -146,15 +86,6 @@
 <style lang="less">
     .el-tree {
         background: none;
-    }
-
-    .el-select {
-        .w(100%);
-    }
-
-    .el-divider {
-        .mt(0);
-        .mb(10px);
     }
 
     .el-input {
