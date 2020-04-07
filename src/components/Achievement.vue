@@ -1,26 +1,22 @@
 <template>
-    <li class="cj" v-if="JSON.stringify(achievement) !== '{}'">
+    <li class="m-cj" v-if="JSON.stringify(achievement) !== '{}'">
         <span class="none"
-              :data-icon_id="achievement.IconID = isNaN(parseInt(achievement.IconID)) ? 316 : parseInt(achievement.IconID)"
               :data-empty="achievement.empty = !(achievement.Prefix || achievement.Postfix || achievement.SubAchievementList || achievement.SeriesAchievementList)"></span>
         <div class="cj-container" :class="fold?'fold':''">
             <h5 class="cj-head">
-                <a :target="target_filter()" v-text="achievement.Name"
-                   :href="url_filter('/cj/#page=view&cj_id='+achievement.ID)"
-                   @click="toggle_load_url||typeof(toggle_load_url)!=='undefined'?toggle_load_url():''">
+                <a :target="target_filter()" v-text="achievement.Name" @click="location_handle"
+                   :href="url_filter('/cj/#page=view&cj_id='+achievement.ID)">
                 </a>
             </h5>
             <div class="cj-body" :class="achievement.empty ? 'cj-empty' : ''">
                 <p class="cj-desc">
-                    <a v-html="$root.cj_description(achievement.Desc)" style="color:#555555;"
-                       :href="url_filter('/cj/#page=view&cj_id='+achievement.ID)"
-                       @click="toggle_load_url||typeof(toggle_load_url)!=='undefined'?toggle_load_url():''"></a>
+                    <a v-html="cj_description(achievement.Desc)" @click="location_handle"
+                       :href="url_filter('/cj/#page=view&cj_id='+achievement.ID)" style="color:#555555;"></a>
                 </p>
                 <div class="left">
-                    <a class="cj-icon" :target="target_filter()"
-                       :href="url_filter('/cj/#page=view&cj_id='+achievement.ID)"
-                       @click="toggle_load_url||typeof(toggle_load_url)!=='undefined'?toggle_load_url():''">
-                        <img :src="$root.cj_icon_url(achievement.IconID)"></a>
+                    <a class="cj-icon" :target="target_filter()" @click="location_handle"
+                       :href="url_filter('/cj/#page=view&cj_id='+achievement.ID)">
+                        <img :src="cj_icon_url(achievement.IconID)"></a>
                 </div>
                 <div class="right">
                     <jx3-item :item="achievement.Item"></jx3-item>
@@ -34,34 +30,29 @@
                     <div v-if="achievement.PostfixName"
                          v-text="'称号后缀：'+achievement.PostfixName"></div>
                 </div>
-                <div v-if="achievement.SubAchievementList" class="cj-subs">
-                    <div v-for="sub_achievement in achievement.SubAchievementList"
-                         class="col-xs-6 col-sm-4 col-md-4 cj-sub">
+                <el-row v-if="achievement.SubAchievementList" class="cj-subs" :gutter="30">
+                    <el-col v-for="(sub_achievement,key) in achievement.SubAchievementList" :key="key"
+                            :xs="12" :sm="8" :md="8" class="cj-sub">
                         <span class="none"
                               :data-sub_url="sub_achievement.sub_url = sub_achievement.Visible==1 ? '/cj/#page=view&cj_id=' + sub_achievement.ID : 'javascript:void(0);'"
-                              :data-short_desc="sub_achievement.ShortDesc = sub_achievement.ShortDesc ? sub_achievement.ShortDesc : ''"
-                              :data-icon_id="sub_achievement.IconID = isNaN(parseInt(sub_achievement.IconID)) ? 316 : parseInt(sub_achievement.IconID)"></span>
-                        <a :href="sub_achievement.sub_url" target="_blank"
-                           @click="toggle_load_url||typeof(toggle_load_url)!=='undefined'?toggle_load_url():''"
-                           :title="$root.cj_description(sub_achievement.ShortDesc)">
+                              :data-short_desc="sub_achievement.ShortDesc = sub_achievement.ShortDesc ? sub_achievement.ShortDesc : ''"></span>
+                        <a :href="sub_achievement.sub_url" target="_blank" @click="location_handle"
+                           :title="cj_description(sub_achievement.ShortDesc)">
                             <img class="icon" :alt="sub_achievement.Name"
-                                 :src="$root.cj_icon_url(sub_achievement.IconID)">
+                                 :src="cj_icon_url(sub_achievement.IconID)">
                             <span v-text="sub_achievement.Name"></span>
                         </a>
-                    </div>
-                </div>
+                    </el-col>
+                </el-row>
                 <div v-if="achievement.SeriesAchievementList" class="cj-seriess">
-                    <div v-for="series_achievement in achievement.SeriesAchievementList" class="cj-series"
-                         :class="series_achievement.ID==achievement.ID?'active':''">
-                        <span class="none"
-                              :data-icon_id="series_achievement.IconID = isNaN(parseInt(series_achievement.IconID)) ? 316 : parseInt(series_achievement.IconID)"></span>
-                        <a :href="'/cj/#page=view&cj_id='+series_achievement.ID"
-                           @click="toggle_load_url||typeof(toggle_load_url)!=='undefined'?toggle_load_url():''">
+                    <div v-for="(series_achievement,key) in achievement.SeriesAchievementList" class="cj-series"
+                         :key="key" :class="series_achievement.ID==achievement.ID?'active':''">
+                        <a :href="'/cj/#page=view&cj_id='+series_achievement.ID" @click="location_handle">
                             <img class="icon" :alt="series_achievement.Name"
-                                 :src="$root.cj_icon_url(series_achievement.IconID)">
+                                 :src="cj_icon_url(series_achievement.IconID)">
                             <div class="detail">
                                 <h4 v-text="series_achievement.Name"></h4>
-                                <p v-html="$root.cj_description(series_achievement.ShortDesc)"></p>
+                                <p v-html="cj_description(series_achievement.ShortDesc)"></p>
                             </div>
                         </a>
                     </div>
@@ -81,23 +72,42 @@
         name: "Achievement",
         props: ['achievement', 'fold', 'target', 'jump', 'toggle_load_url'],
         methods: {
+            location_handle: function () {
+                if (this.toggle_load_url || typeof (this.toggle_load_url) !== 'undefined') this.toggle_load_url();
+            },
             url_filter: function (url) {
                 return this.jump === true || typeof this.jump === 'undefined' ? url : 'javascript::void(0)'
             },
             target_filter: function () {
                 return this.target || typeof this.target !== 'undefined' ? this.target : '';
-            }
+            },
+            // 成就图标过滤
+            cj_icon_url(icon_id) {
+                if (isNaN(parseInt(icon_id))) {
+                    return 'https://oss.jx3box.com/image/common/nullicon.png';
+                } else {
+                    return 'https://oss.jx3box.com/icon/' + icon_id + '.png';
+                }
+            },
+            // 描述过滤
+            cj_description: function (value) {
+                var matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
+                if (matchs && matchs.length > 1) value = matchs[1].trim();
+                if (value) value = value.replace(/\\n/g, "<br>");
+                return value;
+            },
         }
     };
 </script>
 
 <style lang="less">
-    .cjs {
-        display: inline-block;
-        width: 100%;
+    .m-cjs {
+        display: block;
+        margin-right: @aside-right;
+        padding: 10px 15px 0;
         list-style: none;
 
-        .cj {
+        .m-cj {
             position: relative;
             //float: left;
             width: 100%;

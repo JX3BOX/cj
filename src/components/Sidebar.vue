@@ -11,10 +11,11 @@
                     :filter-node-method="filterNode"
                     ref="tree"
             >
-                <a class="el-tree-node__label" :href="data.id" slot-scope="{ node, data }">
+                <router-link class="el-tree-node__label" slot-scope="{ node, data }"
+                             :to="{ name: 'normal', params: {sub: data.sub, detail: data.detail} }">
                     <span class="u-name" v-text="data.name"></span>
                     <em class="u-count" v-text="`(${data.achievements_count})`"></em>
-                </a>
+                </router-link>
             </el-tree>
         </div>
     </aside>
@@ -55,22 +56,22 @@
                 this.old_node = node;
             },
             changeNode(data, node) {
-                // TODO:点击节点时切换数据
-                //get_achievements
-                console.log(data);
+                // 点击节点时切换数据
+                this.$emit('node_change', data, node);
             },
-            getMenus(general) {
+            get_menus(general) {
                 let that = this;
                 axios({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/menus?general=${general}`,
+                    headers: {Accept: "application/prs.helper.v2+json"},
                 }).then(function (data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    var menus = [];
-                    for (let i in data.data.menus) menus.push(data.data.menus[i]);
-                    that.menus = menus;
-                    //}
+                    if (data.code === 200) {
+                        var menus = [];
+                        for (let i in data.data.menus) menus.push(data.data.menus[i]);
+                        that.menus = menus;
+                    }
                 }, function () {
                     that.menus = false;
                 });
@@ -78,7 +79,7 @@
         },
         mounted: function () {
             // 异步加载侧边栏数据
-            this.getMenus(this.general);
+            this.get_menus(this.general);
         }
     };
 </script>
@@ -105,6 +106,9 @@
     }
 
     .el-tree-node__label {
+        display: block;
+        width: 100%;
+
         .u-name {
             color: @color-link;
         }
