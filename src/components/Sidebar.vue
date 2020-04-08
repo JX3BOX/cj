@@ -5,9 +5,9 @@
             <el-tree
                     class="filter-tree"
                     :data="menus"
+                    node-key="id"
                     :expand-on-click-node="false"
                     @node-click="clickNode"
-                    @current-change="changeNode"
                     :filter-node-method="filterNode"
                     ref="tree"
             >
@@ -46,18 +46,32 @@
                 return data.name.indexOf(value) !== -1;
             },
             clickNode(data, node) {
+                // Sub菜单下无成就时，默认打开第一个Detail菜单
+                let first_node = null;
+                if (data.own_achievements_count === 0) {
+                    first_node = node.childNodes[0];
+                    if (first_node) {
+                        this.$router.push({
+                            name: 'normal',
+                            params: {sub: first_node.data.sub, detail: first_node.data.detail}
+                        });
+                        this.$refs.tree.store.setCurrentNode(first_node);
+                    }
+                }
+
+                // 展开/收起
+                let _node = first_node ? first_node : node;
                 if (node.expanded !== true) {
                     node.expanded = true;
-                } else if (data.own_achievements_count === 0 || data.own_achievements_count > 0 && this.old_node == node) {
+                } else if (this.old_node == _node) {
                     node.expanded = false;
                 }
 
-                // 记录上一个节点
-                this.old_node = node;
-            },
-            changeNode(data, node) {
                 // 点击节点时切换数据
-                this.$emit('node_change', data, node);
+                if (this.old_node != _node) this.$emit('node_change', _node.data, _node);
+
+                // 记录上一个节点
+                this.old_node = _node;
             },
             get_menus(general) {
                 let that = this;

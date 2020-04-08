@@ -21,7 +21,7 @@
             <span v-if="item.Bind" class="bind" v-text="item.Bind"></span>
             <span v-if="item.Unique" class="unique" v-text="'唯一'"></span>
             <span v-if="item.RequireLevel" class="unique" v-text="'需要等级'+item.RequireLevel"></span>
-            <p v-if="item.Desc" class="desc" v-html="$root.cj_description(item.Desc)"></p>
+            <p v-if="item.Desc" class="desc" v-html="description_filter(item.Desc)"></p>
             <span v-if="item.Level" class="level" v-text="'品质等级'+item.Level"></span>
         </div>
     </div>
@@ -31,12 +31,24 @@
     export default {
         name: "Item",
         props: ['item'],
+        methods: {
+            // 描述过滤
+            description_filter: function (value) {
+                var matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
+                if (matchs && matchs.length > 1) value = matchs[1].trim();
+                if (value) value = value.replace(/\\n/g, "<br>");
+                return value;
+            },
+        },
     };
 </script>
 
 <style lang="less">
     .jx3-item {
-        .item-icon { width: 36px;border-radius: 5px}
+        .item-icon {
+            width: 36px;
+            border-radius: 5px
+        }
 
         .item-detail {
             display: none;
@@ -52,15 +64,31 @@
             text-shadow: none;
             transform: translate(-50%, 0);
 
-            & > * {display: block;margin-bottom: 4px;line-height: 1.2em;}
+            & > * {
+                display: block;
+                .mt(0);
+                .mb(4px);
+                line-height: 1.2em;
+            }
 
-            &:before {content: '';position: absolute;top: -2px;left: -2px;width: calc(~"100% + 4px");height: calc(~"100% + 4px");border: 1px solid rgba(0, 0, 0, .7);}
+            &:before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                width: calc(~"100% + 4px");
+                height: calc(~"100% + 4px");
+                border: 1px solid rgba(0, 0, 0, .7);
+                box-sizing: border-box;
+            }
 
             .level {
                 color: rgb(249, 161, 1)
             }
         }
 
-        &:hover .item-detail {display: block;}
+        &:hover .item-detail {
+            display: block;
+        }
     }
 </style>
