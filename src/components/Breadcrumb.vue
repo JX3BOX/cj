@@ -4,13 +4,12 @@
             <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg"/>
             <span class="u-title">成就百科</span>
         </router-link>
-        <!-- TODO:实装统计数据 -->
         <div class="u-stat">
-            <span><em>常规成就数</em><b>4437</b></span>
-            <span><em>常规资历数</em><b>119285</b></span>
-            <span><em>五甲成就数</em><b>393</b></span>
-            <span><em>五甲资历数</em><b>15120</b></span>
-            <span><em>收录攻略数</em><b>5545</b></span>
+            <span><em>常规成就数</em><b v-text="count.general"></b></span>
+            <span><em>常规资历数</em><b v-text="count.general_point"></b></span>
+            <span><em>五甲成就数</em><b v-text="count.armor"></b></span>
+            <span><em>五甲资历数</em><b v-text="count.armor_point"></b></span>
+            <span><em>收录攻略数</em><b v-text="count.post_count"></b></span>
         </div>
         <!-- 发布按钮TODO:添加路由地址 -->
         <el-button
@@ -22,15 +21,38 @@
     </div>
 </template>
 <script>
+    const {JX3BOX} = require("@jx3box/jx3box-common");
+    const axios = require("axios");
+
     export default {
         name: "Breadcrumb",
         props: [],
         data: function () {
-            return {};
+            return {
+                count: {}
+            };
         },
         computed: {},
-        methods: {},
+        methods: {
+            // 输出成就总数统计
+            get_total_count() {
+                var that = this;
+                axios({
+                    method: "GET",
+                    url: `${JX3BOX.__helperUrl}api/achievements/count`,
+                }).then(function (data) {
+                    data = data.data;
+                    //if (data.code === 200) {
+                    that.count = data.data.count;
+                    //}
+                }, function () {
+                    console.error('接口连接异常')
+                });
+            }
+        },
         mounted: function () {
+            // 输出成就总数统计
+            this.get_total_count()
         }
     };
 </script>
@@ -106,7 +128,8 @@
 
         .u-publish {
             .pa;
-            .rt(10px, 4px);
+            .rt(10px, 8px);
+            padding: 8px 18px;
         }
     }
 

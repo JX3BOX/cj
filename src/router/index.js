@@ -9,12 +9,12 @@ Vue.use(VueRouter);
 
 const routes = [
     {name: 'home', path: '/home', component: Home},
-    {name: 'normal', path: '/:sub/:detail?', component: Normal, props: {general: 1}},
-    {name: 'top_five', path: '/top_five/:sub/:detail?', component: Normal, props: {general: 2}},
-    {name: 'view', path: '/view/:cj_id', component: View},
+    {name: 'normal', path: '/:sub(\\d+)/:detail(\\d+)?', component: Normal, props: {general: 1}},
+    {name: 'top_five', path: '/top_five/:sub(\\d+)/:detail(\\d+)?', component: Normal, props: {general: 2}},
+    {name: 'view', path: '/view/:cj_id(\\d+)', component: View},
     {name: 'publish', path: '/publish', component: Publish},
     {path: '*', redirect: 'home'}
-]
+];
 
 const router = new VueRouter({
     routes

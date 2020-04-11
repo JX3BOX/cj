@@ -27,7 +27,7 @@
 
     export default {
         name: "Sidebar",
-        props: ['general'],
+        props: ['general', 'sub', 'detail'],
         data: function () {
             return {
                 filterText: "",
@@ -36,6 +36,13 @@
             };
         },
         watch: {
+            general: {
+                immediate: true,
+                handler() {
+                    // 异步加载侧边栏数据
+                    if (this.general) this.get_menus(this.general);
+                }
+            },
             filterText(val) {
                 this.$refs.tree.filter(val);
             }
@@ -46,15 +53,18 @@
                 return data.name.indexOf(value) !== -1;
             },
             clickNode(data, node) {
+                var that = this;
                 // Sub菜单下无成就时，默认打开第一个Detail菜单
                 let first_node = null;
                 if (data.own_achievements_count === 0) {
                     first_node = node.childNodes[0];
                     if (first_node) {
-                        this.$router.push({
-                            name: 'normal',
-                            params: {sub: first_node.data.sub, detail: first_node.data.detail}
-                        });
+                        setTimeout(function () {
+                            that.$router.push({
+                                name: 'normal',
+                                params: {sub: first_node.data.sub, detail: first_node.data.detail}
+                            });
+                        }, 100);
                         this.$refs.tree.store.setCurrentNode(first_node);
                     }
                 }
@@ -66,9 +76,6 @@
                 } else if (this.old_node == _node) {
                     node.expanded = false;
                 }
-
-                // 点击节点时切换数据
-                if (this.old_node != _node) this.$emit('node_change', _node.data, _node);
 
                 // 记录上一个节点
                 this.old_node = _node;
@@ -85,6 +92,20 @@
                         var menus = [];
                         for (let i in data.data.menus) menus.push(data.data.menus[i]);
                         that.menus = menus;
+
+                        that.$nextTick(function () {
+                            // 默认展开当前菜单
+                            var sub = that.sub ? that.sub : that.$route.params.sub;
+                            var detail = that.detail ? that.detail : that.$route.params.detail;
+                            var key = sub + (detail ? `-${detail}` : '');
+
+                            var node = that.$refs.tree.store.getNode(key);
+                            if (node) {
+                                node.expanded = true;
+                                if (node.parent) node.parent.expanded = true;
+                                that.$refs.tree.store.setCurrentNode(node);
+                            }
+                        });
                     }
                 }, function () {
                     that.menus = false;
@@ -92,8 +113,6 @@
             }
         },
         mounted: function () {
-            // 异步加载侧边栏数据
-            this.get_menus(this.general);
         }
     };
 </script>
@@ -137,16 +156,13 @@
 
     //父级节点
     .el-tree-node__content {
-        .fz(15px, 40px);
-        .h(40px);
+        .fz(14px, 28px);
+        .h(28px);
         user-select: none;
     }
 
     //子级节点
     .is-leaf + .el-tree-node__label {
-        .fz(14px, 28px);
-        .h(28px);
-
         &:before {
             content: "»";
             color: @color;

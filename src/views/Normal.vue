@@ -1,6 +1,6 @@
 <template>
     <main class="c-main m-cj-index">
-        <Sidebar :general="general" @node_change="node_change_handle"/>
+        <Sidebar :general="general"/>
         <Achievements :achievements="achievements" :fold="true"/>
         <Info/>
     </main>
@@ -43,19 +43,22 @@
                     that.achievements = false;
                 });
             },
-            node_change_handle(data, node) {
-                // 获取成就列表
-                this.get_achievements(data.sub, data.detail);
-            }
         },
-        mounted: function () {
-            // 获取成就列表
-            this.get_achievements(this.$route.params.sub, this.$route.params.detail);
+        mounted: function () {console.log(444123)
         },
         components: {
             Info,
             Sidebar,
             Achievements,
+        },
+        watch: {
+            $route: {
+                immediate: true,
+                handler() {
+                    // 获取成就列表
+                    this.get_achievements(this.$route.params.sub, this.$route.params.detail);
+                }
+            }
         }
     }
 </script>
