@@ -24,9 +24,6 @@
 
 <style lang="less">
     .m-cjs {
-        display: block;
-        margin-right: @aside-right;
-        padding: 10px 15px 0;
-        list-style: none;
+        padding: 0
     }
 </style>

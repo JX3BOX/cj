@@ -70,7 +70,7 @@
     import Item from '@/components/Item.vue';
 
     export default {
-        name: "Achievements",
+        name: "Achievement",
         props: ['achievement', 'fold', 'target', 'jump', 'toggle_load_url'],
         methods: {
             img_error_handle(obj) {
@@ -105,6 +105,8 @@
                 return value;
             },
         },
+        mounted() {
+        },
         components: {
             Item,
         }
@@ -121,6 +123,7 @@
         margin: 10px 0;
         border: 1px solid #EEEEEE;
         border-radius: 5px;
+        list-style: none;
         transition: border .3s linear;
 
         &:hover {

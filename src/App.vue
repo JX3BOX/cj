@@ -1,12 +1,16 @@
 <template>
     <div id="app">
         <Breadcrumb/>
+        <Sidebar :sidebar="$store.state.sidebar"/>
         <router-view/>
+        <Info/>
     </div>
 </template>
 
 <script>
     import Breadcrumb from './components/Breadcrumb.vue';
+    import Sidebar from '@/components/Sidebar.vue';
+    import Info from '@/components/Info.vue';
 
     export default {
         name: "App",
@@ -14,13 +18,14 @@
             return {};
         },
         computed: {},
-        methods: {
-        },
+        methods: {},
         filters: {},
         mounted: function () {
         },
         components: {
-            Breadcrumb
+            Breadcrumb,
+            Sidebar,
+            Info,
         }
     };
 </script>

@@ -12,7 +12,7 @@
                     ref="tree"
             >
                 <router-link class="el-tree-node__label" slot-scope="{ node, data }"
-                             :to="{ name: 'normal', params: {sub: data.sub, detail: data.detail} }">
+                             :to="{ name: sidebar.general == 2 ? 'top_five' : 'normal', params: {sub: data.sub, detail: data.detail} }">
                     <span class="u-name" v-text="data.name"></span>
                     <em class="u-count" v-text="`(${data.achievements_count})`"></em>
                 </router-link>
@@ -27,20 +27,29 @@
 
     export default {
         name: "Sidebar",
-        props: ['general', 'sub', 'detail'],
+        props: ['sidebar'],
         data: function () {
             return {
+                sub: null,
+                detail: null,
                 filterText: "",
                 menus: [],
                 old_node: null,
             };
         },
         watch: {
-            general: {
+            $route: {
+                immediate: true,
+                handler() {
+                    if (this.$route.params.sub) this.sub = this.$route.params.sub;
+                    if (this.$route.params.detail) this.detail = this.$route.params.detail;
+                }
+            },
+            'sidebar.general': {
                 immediate: true,
                 handler() {
                     // 异步加载侧边栏数据
-                    if (this.general) this.get_menus(this.general);
+                    if (this.sidebar.general) this.get_menus(this.sidebar.general);
                 }
             },
             filterText(val) {
@@ -61,7 +70,7 @@
                     if (first_node) {
                         setTimeout(function () {
                             that.$router.push({
-                                name: 'normal',
+                                name: that.sidebar.general == 2 ? 'top_five' : 'normal',
                                 params: {sub: first_node.data.sub, detail: first_node.data.detail}
                             });
                         }, 100);
@@ -95,8 +104,8 @@
 
                         that.$nextTick(function () {
                             // 默认展开当前菜单
-                            var sub = that.sub ? that.sub : that.$route.params.sub;
-                            var detail = that.detail ? that.detail : that.$route.params.detail;
+                            var sub = that.sub;
+                            var detail = that.detail;
                             var key = sub + (detail ? `-${detail}` : '');
 
                             var node = that.$refs.tree.store.getNode(key);
@@ -105,7 +114,7 @@
                                 if (node.parent) node.parent.expanded = true;
                                 that.$refs.tree.store.setCurrentNode(node);
                             }
-                        });
+                        }, 1000);
                     }
                 }, function () {
                     that.menus = false;
@@ -113,6 +122,8 @@
             }
         },
         mounted: function () {
+            this.sub = this.sidebar.sub;
+            this.detail = this.sidebar.detail;
         }
     };
 </script>

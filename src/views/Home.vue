@@ -1,14 +1,8 @@
 <template>
-    <main class="c-main m-cj-index">
-        <Sidebar :general="1"/>
-        <Info/>
-    </main>
+    <main class="c-main m-cj-index">home</main>
 </template>
 
 <script>
-    import Sidebar from '@/components/Sidebar.vue';
-    import Info from '@/components/Info.vue';
-
     const axios = require("axios");
 
     export default {
@@ -25,8 +19,6 @@
         mounted: function () {
         },
         components: {
-            Info,
-            Sidebar
         }
     }
 </script>

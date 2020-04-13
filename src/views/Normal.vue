@@ -1,14 +1,10 @@
 <template>
     <main class="c-main m-cj-index">
-        <Sidebar :general="general"/>
         <Achievements :achievements="achievements" :fold="true"/>
-        <Info/>
     </main>
 </template>
 
 <script>
-    import Sidebar from '@/components/Sidebar.vue';
-    import Info from '@/components/Info.vue';
     import Achievements from '@/components/Achievements.vue';
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
@@ -16,7 +12,6 @@
 
     export default {
         name: 'Normal',
-        props: ['general'],
         data: function () {
             return {
                 achievements: null,
@@ -44,11 +39,9 @@
                 });
             },
         },
-        mounted: function () {console.log(444123)
+        mounted: function () {
         },
         components: {
-            Info,
-            Sidebar,
             Achievements,
         },
         watch: {

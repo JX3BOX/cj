@@ -1,33 +1,30 @@
 <template>
     <main class="c-main m-cj-index">
-        <Sidebar :general="general" :sub="sub" :detail="detail" />
-
+        <Achievement :achievement="achievement"/>
     </main>
 </template>
 
 <script>
-    import Sidebar from '@/components/Sidebar.vue';
+    import Achievement from '@/components/Achievement.vue';
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
     const axios = require("axios");
 
     export default {
-        name: 'View',
+        name: 'Detail',
         props: [],
         data: function () {
             return {
                 achievement: {},
-                general: null,
-                sub: null,
-                detail: null,
             }
         },
         components: {
-            Sidebar,
+            Achievement,
         },
         methods: {
             // 获取成就
             get_achievement: function () {
+                if (!this.$route.params.cj_id) return;
                 axios({
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.$route.params.cj_id}`,
                     headers: {Accept: "application/prs.helper.v2+json"}
@@ -35,11 +32,11 @@
                     data = data.data;
                     if (data.code === 200) {
                         this.achievement = data.data.achievement;
-                        this.general = this.achievement.General;
-                        this.sub = this.achievement.Sub;
-                        this.detail = this.achievement.Detail;
+                        this.$store.state.sidebar.general = this.achievement.General;
+                        this.$store.state.sidebar.sub = this.achievement.Sub;
+                        this.$store.state.sidebar.detail = this.achievement.Detail;
                     }
-                }).catch(() => {
+                }).catch((e) => {
                     this.achievement = false;
                 });
             },
