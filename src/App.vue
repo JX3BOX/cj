@@ -31,8 +31,8 @@
             $route: {
                 immediate: true,
                 handler() {
-                    if (this.$route.params.sub) this.$store.state.sub = this.$route.params.sub;
-                    if (this.$route.params.detail) this.$store.state.detail = this.$route.params.detail;
+                    if (this.$route.params.sub) this.$store.state.sidebar.sub = this.$route.params.sub;
+                    if (this.$route.params.detail) this.$store.state.sidebar.detail = this.$route.params.detail;
                 }
             },
         }

@@ -22,51 +22,49 @@
                         <div v-if="post.user_avatar" class="avatar"><img :src="post.user_avatar"></div>
                         <div class="done" v-text="post.user_nickname"></div>
                         <div class="updated" v-text="'最后编辑于 '+$options.filters.date_format(post.updated)"></div>
-                        <a class="comment" :href="'/cj/'+post.id+'#comments'"
-                           v-text="'前往评论'"></a>
+                        <a class="comment" :href="'/cj/'+post.id+'#comments'" v-text="'前往评论'"></a>
                         <div class="remark">可通过评论通知原贡献者进行更改与署名补充</div>
                     </div>
-                    <!--<div class="c-comments" v-if="view.current_post_comments.length">
-                        <h4 class="title">
-                            <i class="u-icon u-icon-edit-white"></i>
-                            <span>评论</span>
-                        </h4>
-                        <cj-post-comments :comments="view.current_post_comments"></cj-post-comments>
-                    </div>-->
                 </div>
             </div>
-            <!--<div class="cj-module">
-                <div class="head">
-                    <h4 class="title">历史版本</h4>
+
+            <div class="cj-module m-cj-relations">
+                <div class="u-head">
+                    <span class="u-boss" @click="show_relations_primary=!show_relations_primary"
+                          :class="{ on: !show_relations_primary }">BOSS属性参考</span>
+                    <h4 class="u-title">🔗 相关成就<em>&nbsp;同BOSS其它成就</em></h4>
                 </div>
-                <div class="body">
-                    <div class="post-histories">
-                        <table class="histories">
-                            <tr>
-                                <th>版本</th>
-                                <th>更新时间</th>
-                                <th>贡献者</th>
-                                <th>修订说明</th>
-                            </tr>
-                            <tr v-for="(post,key) in view.posts" class="history">
-                                <td><a target="_blank" :href="'/cj/'+post.id"
-                                       v-text="'v'+(view.posts.length-key)"></a></td>
-                                <td v-text="post.updated"></td>
-                                <td>
-                                    <a target="_blank" :href="'/author/'+post.user_id" v-text="post.user_nickname"></a>
-                                </td>
-                                <td v-text="post.remark"></td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="u-body">
+                    <Relations :achievement_id="achievement.ID" :show_primary="show_relations_primary"/>
                 </div>
-            </div>-->
+            </div>
+
+            <div class="cj-module m-cj-revisions">
+                <div class="u-head">
+                    <h4 class="u-title">📄 历史版本</h4>
+                </div>
+                <div class="u-body">
+                    <Revisions :achievement_id="achievement.ID"/>
+                </div>
+            </div>
+
+            <div class="cj-module m-cj-comments">
+                <div class="u-head">
+                    <h4 class="u-title">💖 评论</h4>
+                </div>
+                <div class="u-body">
+                    <Comments :achievement_id="achievement.ID"/>
+                </div>
+            </div>
         </div>
     </main>
 </template>
 
 <script>
     import Achievement from '@/components/Achievement.vue';
+    import Relations from '@/components/Relations.vue';
+    import Revisions from '@/components/Revisions.vue';
+    import Comments from '@/components/Comments.vue';
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
 
@@ -77,10 +75,14 @@
             return {
                 achievement: {},
                 post: null,
+                show_relations_primary: true
             }
         },
         components: {
             Achievement,
+            Relations,
+            Revisions,
+            Comments,
         },
         methods: {
             // 获取成就
@@ -331,6 +333,45 @@
                     & > .comments {
                         padding: 8px 15px;
                     }
+                }
+            }
+        }
+    }
+
+    .m-cj-relations {
+        .u-head {
+            em {
+                .ml(10px);
+                font-size:12px;
+                opacity: .5;
+            }
+        }
+
+        .u-body {
+            padding: 0;
+        }
+
+        .u-boss {
+            .fr;
+            .fz(13px);
+            background-color: #3b6460;
+            color: #fff;
+            font-weight: normal;
+            padding: 2px 5px;
+            .mr(15px);
+            .mt(9px);
+            .r(2px);
+            letter-spacing: 0.5px;
+            .pointer;
+            user-select: none;
+
+            &:before {
+                content: "▼";
+            }
+
+            &.on {
+                &::before {
+                    content: "▲";
                 }
             }
         }
