@@ -8,7 +8,6 @@
     import Achievements from '@/components/Achievements.vue';
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
-    const axios = require("axios");
 
     export default {
         name: 'Normal',
@@ -26,7 +25,7 @@
                 let list_url = `${JX3BOX.__helperUrl}api/achievements/${sub}`;
                 if (detail) list_url = `${list_url}/${detail}`;
 
-                axios({
+                this.$http({
                     method: "GET",
                     url: list_url,
                 }).then(function (data) {

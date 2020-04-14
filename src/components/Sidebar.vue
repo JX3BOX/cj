@@ -23,33 +23,29 @@
 
 <script>
     const {JX3BOX} = require("@jx3box/jx3box-common");
-    const axios = require("axios");
 
     export default {
         name: "Sidebar",
         props: ['sidebar'],
         data: function () {
             return {
-                sub: null,
-                detail: null,
                 filterText: "",
                 menus: [],
                 old_node: null,
             };
         },
         watch: {
-            $route: {
+            'sidebar': {
                 immediate: true,
-                handler() {
-                    if (this.$route.params.sub) this.sub = this.$route.params.sub;
-                    if (this.$route.params.detail) this.detail = this.$route.params.detail;
-                }
-            },
-            'sidebar.general': {
-                immediate: true,
-                handler() {
+                deep: true,
+                handler(new_val, old_val) {
+                    let that = this;
+
+                    // 展开菜单
+                    that.expand_menu();
+
                     // 异步加载侧边栏数据
-                    if (this.sidebar.general) this.get_menus(this.sidebar.general);
+                    if (that.sidebar.general && new_val?.general !== old_val?.general) that.get_menus(this.sidebar.general);
                 }
             },
             filterText(val) {
@@ -91,7 +87,7 @@
             },
             get_menus(general) {
                 let that = this;
-                axios({
+                this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/menus?general=${general}`,
                     headers: {Accept: "application/prs.helper.v2+json"},
@@ -102,28 +98,31 @@
                         for (let i in data.data.menus) menus.push(data.data.menus[i]);
                         that.menus = menus;
 
-                        that.$nextTick(function () {
-                            // 默认展开当前菜单
-                            var sub = that.sub;
-                            var detail = that.detail;
-                            var key = sub + (detail ? `-${detail}` : '');
-
-                            var node = that.$refs.tree.store.getNode(key);
-                            if (node) {
-                                node.expanded = true;
-                                if (node.parent) node.parent.expanded = true;
-                                that.$refs.tree.store.setCurrentNode(node);
-                            }
-                        }, 1000);
+                        // 展开菜单
+                        that.expand_menu();
                     }
                 }, function () {
                     that.menus = false;
                 });
+            },
+            expand_menu() {
+                let that = this;
+                that.$nextTick(function () {
+                    // 默认展开当前菜单
+                    let sub = that.sidebar.sub;
+                    let detail = that.sidebar.detail;
+                    let key = sub + (detail ? `-${detail}` : '');
+
+                    let node = that.$refs.tree.store.getNode(key);
+                    if (node) {
+                        node.expanded = true;
+                        if (node.parent) node.parent.expanded = true;
+                        that.$refs.tree.store.setCurrentNode(node);
+                    }
+                });
             }
         },
         mounted: function () {
-            this.sub = this.sidebar.sub;
-            this.detail = this.sidebar.detail;
         }
     };
 </script>

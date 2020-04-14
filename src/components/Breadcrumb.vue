@@ -22,7 +22,6 @@
 </template>
 <script>
     const {JX3BOX} = require("@jx3box/jx3box-common");
-    const axios = require("axios");
 
     export default {
         name: "Breadcrumb",
@@ -37,7 +36,7 @@
             // 输出成就总数统计
             get_total_count() {
                 var that = this;
-                axios({
+                this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievements/count`,
                 }).then(function (data) {

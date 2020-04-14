@@ -1,6 +1,67 @@
 <template>
-    <main class="c-main m-cj-index">
+    <main id="m-cj-view" class="c-main m-cj-index">
         <Achievement :achievement="achievement"/>
+        <div v-if="post && JSON.stringify(post) === '{}'" class="m-archive-null">
+            暂无攻略，我要<a class="s-link" :href="'/post/?pt=cj&cj_id='">完善攻略</a>
+        </div>
+        <div v-if="post && JSON.stringify(post) !== '{}'" class="m-archive-list">
+            <div class="cj-module m-cj-post">
+                <div class="u-head">
+                    <a class="el-button el-button--primary u-publish s-link" :href="'/post/?pt=cj&cj_id='">
+                        <i class="el-icon-edit"></i>
+                        <span>完善成就攻略</span>
+                    </a>
+                    <h4 class="u-title">
+                        <img class="u-icon" svg-inline src="../assets/img/cj.svg"/>
+                        <span>成就攻略</span>
+                    </h4>
+                </div>
+                <div class="u-body">
+                    <div class="content m-single-primary" v-html="post.content"></div>
+                    <div class="other">
+                        <div v-if="post.user_avatar" class="avatar"><img :src="post.user_avatar"></div>
+                        <div class="done" v-text="post.user_nickname"></div>
+                        <div class="updated" v-text="'最后编辑于 '+$options.filters.date_format(post.updated)"></div>
+                        <a class="comment" :href="'/cj/'+post.id+'#comments'"
+                           v-text="'前往评论'"></a>
+                        <div class="remark">可通过评论通知原贡献者进行更改与署名补充</div>
+                    </div>
+                    <!--<div class="c-comments" v-if="view.current_post_comments.length">
+                        <h4 class="title">
+                            <i class="u-icon u-icon-edit-white"></i>
+                            <span>评论</span>
+                        </h4>
+                        <cj-post-comments :comments="view.current_post_comments"></cj-post-comments>
+                    </div>-->
+                </div>
+            </div>
+            <!--<div class="cj-module">
+                <div class="head">
+                    <h4 class="title">历史版本</h4>
+                </div>
+                <div class="body">
+                    <div class="post-histories">
+                        <table class="histories">
+                            <tr>
+                                <th>版本</th>
+                                <th>更新时间</th>
+                                <th>贡献者</th>
+                                <th>修订说明</th>
+                            </tr>
+                            <tr v-for="(post,key) in view.posts" class="history">
+                                <td><a target="_blank" :href="'/cj/'+post.id"
+                                       v-text="'v'+(view.posts.length-key)"></a></td>
+                                <td v-text="post.updated"></td>
+                                <td>
+                                    <a target="_blank" :href="'/author/'+post.user_id" v-text="post.user_nickname"></a>
+                                </td>
+                                <td v-text="post.remark"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>-->
+        </div>
     </main>
 </template>
 
@@ -8,7 +69,6 @@
     import Achievement from '@/components/Achievement.vue';
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
-    const axios = require("axios");
 
     export default {
         name: 'Detail',
@@ -16,6 +76,7 @@
         data: function () {
             return {
                 achievement: {},
+                post: null,
             }
         },
         components: {
@@ -25,7 +86,7 @@
             // 获取成就
             get_achievement: function () {
                 if (!this.$route.params.cj_id) return;
-                axios({
+                this.$http({
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.$route.params.cj_id}`,
                     headers: {Accept: "application/prs.helper.v2+json"}
                 }).then(data => {
@@ -40,10 +101,283 @@
                     this.achievement = false;
                 });
             },
+            // 获取成就攻略
+            get_achievement_post: function () {
+                if (!this.$route.params.cj_id) return;
+                this.$http({
+                    url: `${JX3BOX.__helperUrl}api/achievement/${this.$route.params.cj_id}/post`,
+                    headers: {Accept: "application/prs.helper.v2+json"}
+                }).then(res => {
+                    this.post = res.data.data.post || {};
+                }).catch(err => {
+                    this.post = null;
+                });
+            }
         },
         mounted: function () {
             // 获取成就
             this.get_achievement();
+            // 获取成就攻略
+            this.get_achievement_post();
         },
     }
 </script>
+
+<style lang="less">
+    h1, h2, h3, h4, h5, h6, hr, p, td, th {
+        margin: 0;
+        padding: 0;
+    }
+
+    //文章列表
+    #m-cj-view {
+        .m-cj-post {
+            margin-top: 5px;
+
+            .u-head {
+                .u-title {
+                    .u-icon {
+                        width: 28px;
+                        height: 28px;
+                        margin-right: 5px;
+                        vertical-align: middle;
+                    }
+
+                    span {
+                        font-size: 18px;
+                        font-weight: bold;
+                        vertical-align: middle;
+                    }
+                }
+
+                .u-publish {
+                    float: right;
+                    padding: 8px 10px;
+                    margin-top: 9px;
+                    margin-right: 15px;
+                    font-size: 12px;
+                    .fr;
+                }
+            }
+
+            .u-body {
+                padding: 15px;
+            }
+
+            .content {
+                word-break: break-all;
+                line-height: 1.6em;
+
+                b, strong {
+                    font-weight: bold;
+                }
+            }
+
+            .other {
+                margin: 20px auto 0;
+                padding-top: 9px;
+                font-size: 12px;
+                color: #888888;
+                overflow: hidden;
+
+                .avatar {
+                    float: left;
+                    border-radius: 100%;
+                    overflow: hidden;
+                    width: 32px;
+                    height: 32px;
+                    margin: -8px 10px 1px 0;
+                    box-shadow: 1px 1px 2px #AAAAAA;
+                }
+
+                .done {
+                    float: left;
+                }
+
+                .updated {
+                    float: left;
+                    margin-left: 5px;
+                }
+
+                .remark,
+                .comment {
+                    float: right;
+                    margin-left: 8px;
+                }
+
+                .remark {
+                    opacity: 0.7;
+                }
+
+                .comment {
+                    display: block;
+                    color: #0366d6;
+                }
+            }
+
+            .c-comments {
+                margin-top: 15px;
+                margin-left: -15px;
+                margin-right: -15px;
+
+                .title {
+                    padding: 6px 12px;
+                    color: #FFFFFF;
+                    background-color: #CCCCCC;
+
+                    .u-icon {
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                .comments {
+                    padding-left: 15px;
+                    list-style: none;
+
+                    .comment {
+                        padding: 10px 0;
+                        border-bottom: 1px solid #EEEEEE;
+                        overflow: hidden;
+                    }
+
+                    .left {
+                        width: 60px;
+                        float: left;
+                    }
+
+                    .right {
+                        margin-left: 60px;
+                    }
+
+                    .avatar {
+                        width: 48px;
+                        height: 48px;
+                    }
+
+                    .content {
+                        margin-top: 5px;
+                        opacity: 0.8;
+                    }
+                }
+
+                & > .comments {
+                    padding: 8px 15px;
+                }
+            }
+        }
+
+        .histories {
+            width: 100%;
+            opacity: 0.8;
+
+            th, td {
+                padding: 8px 10px;
+                font-weight: normal
+            }
+
+            th {
+                border-bottom: 2px solid #DDDDDD;
+            }
+
+            td {
+                border-bottom: 1px solid #DDDDDD;
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+        }
+    }
+
+    @media screen and (max-width: @ipad) {
+        #m-cj-view {
+
+            .m-cj-post {
+                img {
+                    height: auto;
+                }
+
+                .other {
+                    position: relative;
+                    padding-top: 0;
+
+                    .avatar {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        margin: 1px 10px 0 0;
+                    }
+
+                    .updated {
+                        width: 100%;
+                        text-align: right;
+                        margin-left: 0;
+                        margin-bottom: 5px;
+                    }
+
+                    .done {
+                        width: 100%;
+                        margin-bottom: 5px;
+                        text-align: right;
+                    }
+                }
+
+                .c-comments {
+                    .comments {
+                        padding-left: 5px;
+                    }
+
+                    & > .comments {
+                        padding: 8px 15px;
+                    }
+                }
+            }
+        }
+    }
+
+    // cj-module
+    //===============================
+    .cj-module {
+        display: block;
+        margin-bottom: 15px;
+        background-color: #FAFBFC;
+        border: 1px solid #EEEEEE;
+        border-radius: 5px;
+        font-size: 14px;
+        overflow: hidden;
+
+        &.pd {
+            padding: 10px 15px 12px;
+        }
+
+        .u-head {
+            background-color: #F3F3F3;
+            border-bottom: 1px solid #EEEEEE;
+
+            & > h4 {
+                padding: 10px 0 10px 15px;
+                color: #6c645c;
+                font-weight: normal;
+            }
+
+            & > .other {
+                float: right;
+                padding: 12px 0;
+                margin-right: 15px;
+                font-size: 14px;
+                line-height: 1.1;
+            }
+        }
+
+        .u-body {
+            padding: 10px;
+        }
+    }
+
+    @media screen and (max-width: @ipad) {
+        .cj-module {
+            width: 100%;
+        }
+    }
+</style>

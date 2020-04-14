@@ -26,6 +26,15 @@
             Breadcrumb,
             Sidebar,
             Info,
+        },
+        watch:{
+            $route: {
+                immediate: true,
+                handler() {
+                    if (this.$route.params.sub) this.$store.state.sub = this.$route.params.sub;
+                    if (this.$route.params.detail) this.$store.state.detail = this.$route.params.detail;
+                }
+            },
         }
     };
 </script>

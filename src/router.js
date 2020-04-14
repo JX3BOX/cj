@@ -1,11 +1,11 @@
 import VueRouter from "vue-router";
+import store from "./store";
 
-import Home from "../views/Home.vue";
-import Normal from "../views/Normal.vue";
-import Detail from "../views/Detail.vue";
-import Publish from "../views/Publish.vue";
-
-import store from "../store";
+// 组件懒加载
+const Home = () => import("./views/Home.vue");
+const Normal = () => import("./views/Normal.vue");
+const Detail = () => import("./views/Detail.vue");
+const Publish = () => import("./views/Publish.vue");
 
 Vue.use(VueRouter);
 
