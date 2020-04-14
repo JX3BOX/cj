@@ -1,5 +1,5 @@
 <template>
-    <main class="c-main m-cj-index">
+    <main class="c-main m-cj-list">
         1111
         <Info />
     </main>

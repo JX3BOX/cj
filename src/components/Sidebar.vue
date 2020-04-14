@@ -97,8 +97,10 @@ export default {
 .el-input {
     .mb(10px);
 }
-.is-current{
-    .bold;
+.is-current > .el-tree-node__content{
+    .u-name{
+        .bold;
+    }
 }
 
 //节点

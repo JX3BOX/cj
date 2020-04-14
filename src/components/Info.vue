@@ -183,11 +183,15 @@ export default {
         padding: 0;
         margin: 0;
         li {
-            margin-bottom: 10px;
+            padding:5px 10px 5px 2px;
         }
         .fz(13px);
+        em{
+            .mr(5px);
+        }
         b{
             color:#666;
+            font-weight:normal;
         }
     }
 }
