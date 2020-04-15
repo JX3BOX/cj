@@ -20,7 +20,7 @@
         methods: {
             // 获取成就列表
             get_achievements(sub, detail) {
-                var that = this;
+                let that = this;
                 if (!sub) return [];
                 let list_url = `${JX3BOX.__helperUrl}api/achievements/${sub}`;
                 if (detail) list_url = `${list_url}/${detail}`;

@@ -2,6 +2,7 @@
     <div id="app">
         <Breadcrumb/>
         <Sidebar :sidebar="$store.state.sidebar"/>
+        <Search/>
         <router-view/>
         <Info/>
     </div>
@@ -10,6 +11,7 @@
 <script>
     import Breadcrumb from './components/Breadcrumb.vue';
     import Sidebar from '@/components/Sidebar.vue';
+    import Search from '@/components/Search.vue';
     import Info from '@/components/Info.vue';
 
     export default {
@@ -25,6 +27,7 @@
         components: {
             Breadcrumb,
             Sidebar,
+            Search,
             Info,
         },
         watch:{

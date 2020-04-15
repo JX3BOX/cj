@@ -32,7 +32,7 @@ const routes = [
         }
     },
     {name: 'view', path: '/view/:cj_id(\\d+)', component: Detail},
-    {name: 'publish', path: '/publish', component: Publish},
+    {name: 'publish', path: '/publish/:cj_id(\\d+)?', component: Publish},
     {path: '*', redirect: 'home'}
 ];
 

@@ -1,16 +1,18 @@
 <template>
     <main id="m-cj-view" class="c-main m-cj-index">
         <Achievement :achievement="achievement"/>
-        <div v-if="post && JSON.stringify(post) === '{}'" class="m-archive-null">
-            暂无攻略，我要<a class="s-link" :href="'/post/?pt=cj&cj_id='">完善攻略</a>
+        <div v-if="post && JSON.stringify(post) === '{}'" class="m-cj-post-null">
+            <span>暂无攻略，我要</span>
+            <router-link class="s-link" :to="{name:'publish', params: {cj_id: achievement.ID}}">完善攻略</router-link>
         </div>
         <div v-if="post && JSON.stringify(post) !== '{}'" class="m-archive-list">
             <div class="cj-module m-cj-post">
                 <div class="u-head">
-                    <a class="el-button el-button--primary u-publish s-link" :href="'/post/?pt=cj&cj_id='">
+                    <router-link class="el-button el-button--primary u-publish s-link"
+                                 :to="{name:'publish', params: {cj_id: achievement.ID}}">
                         <i class="el-icon-edit"></i>
                         <span>完善成就攻略</span>
-                    </a>
+                    </router-link>
                     <h4 class="u-title">
                         <img class="u-icon" svg-inline src="../assets/img/cj.svg"/>
                         <span>成就攻略</span>
@@ -28,14 +30,14 @@
                 </div>
             </div>
 
-            <div class="cj-module m-cj-relations">
+            <div class="cj-module m-cj-relations" v-if="$_($refs,'relations.relations.length')">
                 <div class="u-head">
                     <span class="u-boss" @click="show_relations_primary=!show_relations_primary"
                           :class="{ on: !show_relations_primary }">BOSS属性参考</span>
                     <h4 class="u-title">🔗 相关成就<em>&nbsp;同BOSS其它成就</em></h4>
                 </div>
                 <div class="u-body">
-                    <Relations :achievement_id="achievement.ID" :show_primary="show_relations_primary"/>
+                    <Relations ref="relations" :achievement_id="achievement.ID" :show_primary="show_relations_primary"/>
                 </div>
             </div>
 
@@ -117,22 +119,30 @@
             }
         },
         mounted: function () {
-            // 获取成就
-            this.get_achievement();
-            // 获取成就攻略
-            this.get_achievement_post();
         },
+        watch: {
+            '$route.params.cj_id': {
+                immediate: true,
+                handler() {
+                    // 获取成就
+                    this.get_achievement();
+                    // 获取成就攻略
+                    this.get_achievement_post();
+                }
+            },
+        }
     }
 </script>
 
 <style lang="less">
-    h1, h2, h3, h4, h5, h6, hr, p, td, th {
-        margin: 0;
-        padding: 0;
-    }
-
     //文章列表
     #m-cj-view {
+        .m-cj-post-null {
+            .u-msg-yellow;
+            //margin:20px;
+            .x;
+        }
+
         .m-cj-post {
             margin-top: 5px;
 
@@ -342,7 +352,7 @@
         .u-head {
             em {
                 .ml(10px);
-                font-size:12px;
+                font-size: 12px;
                 opacity: .5;
             }
         }

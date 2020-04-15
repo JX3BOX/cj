@@ -1,5 +1,5 @@
 <template>
-    <div class="m-block m-relations m-boss" v-if="hasRelations">
+    <div class="m-block m-relations m-boss">
         <div class="m-section">
             <span v-if="relations === null">Loading...</span>
             <span v-if="relations === false">⚠️ 数据加载异常</span>
@@ -123,7 +123,6 @@
                 npcid: 0,
                 dungeon_id: null,
                 npc: {},
-                hasRelations: true
             };
         },
         computed: {},
@@ -134,27 +133,20 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.achievement_id}/relations`,
                     headers: {Accept: "application/prs.helper.v2+json"}
-                }).then(
-                    res => {
-                        if (
-                            res.data.code !== 200 ||
-                            !res.data.data.relations.length
-                        ) {
-                            this.hasRelations = false;
-                            return;
-                        }
-
-                        let result = res.data.data;
-                        that.npcid = result.boss_id;
-                        that.dungeon_id = result.dungeon_id;
-                        that.relations = result.relations;
-
-                        this.getBossInfo(that.npcid);
-                    },
-                    () => {
-                        that.relations = false;
+                }).then(function (data) {
+                    data = data.data;
+                    if (data.code !== 200 || !data.data.relations.length) {
+                        return;
                     }
-                );
+
+                    let result = data.data;
+                    that.npcid = result.boss_id;
+                    that.dungeon_id = result.dungeon_id;
+                    that.relations = result.relations;
+
+                    // 获取boss信息
+                    that.getBossInfo(that.npcid);
+                });
             },
             resolveIconPath(id) {
                 return id
@@ -168,6 +160,7 @@
                 let cjid = id || 0;
                 return `https://wiki.jx3box.com/?id=${cjid}`;
             },
+            // 获取boss信息
             getBossInfo(npcid) {
                 npcid &&
                 this.$http.get(`${JX3BOX.__node}npc/id/${npcid}`).then(res => {

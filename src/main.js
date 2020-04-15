@@ -4,6 +4,7 @@
 // Vue.use(ElementUI);
 Vue.config.productionTip = false;
 Vue.prototype.$http = require("axios");
+Vue.prototype.$_ = require("lodash");
 
 import Header from "../node_modules/@jx3box/jx3box-common/vue/Header.vue";
 
@@ -22,10 +23,9 @@ new Vue({
     render: h => h(App),
 }).$mount("#app");
 
-
+// 注册全局过滤器
 import * as filters from "./filters";
 
-// 注册全局过滤器
 Object.keys(filters).forEach((key) => {
     Vue.filter(key, filters[key]);
 });

@@ -35,7 +35,7 @@
         methods: {
             // 输出成就总数统计
             get_total_count() {
-                var that = this;
+                let that = this;
                 this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievements/count`,

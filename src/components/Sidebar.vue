@@ -58,7 +58,7 @@
                 return data.name.indexOf(value) !== -1;
             },
             clickNode(data, node) {
-                var that = this;
+                let that = this;
                 // Sub菜单下无成就时，默认打开第一个Detail菜单
                 let first_node = null;
                 if (data.own_achievements_count === 0) {
@@ -94,7 +94,7 @@
                 }).then(function (data) {
                     data = data.data;
                     if (data.code === 200) {
-                        var menus = [];
+                        let menus = [];
                         for (let i in data.data.menus) menus.push(data.data.menus[i]);
                         that.menus = menus;
 

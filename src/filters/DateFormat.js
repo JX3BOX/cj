@@ -5,7 +5,7 @@
  * @param {object} opt polished:是否补齐两位,separator:连接分隔符
  */
 export default (timestamp, opt = {polished: true, separator: '-'}) => {
-    var dt = new Date(parseInt(timestamp) * 1000);
+    let dt = new Date(parseInt(timestamp) * 1000);
     let year = dt.getFullYear();
     let month = dt.getMonth() + 1;
     let date = dt.getDate();

@@ -45,7 +45,7 @@
                     data = data.data;
                     if (data.code === 200) {
                         let comments = data.data.comments;
-                        for (var i = 0; i < comments.length; i++) {
+                        for (let i = 0; i < comments.length; i++) {
                             comments[i]['reply_form'] = {
                                 show: false,
                                 content: '',

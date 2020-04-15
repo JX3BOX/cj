@@ -34,7 +34,7 @@
         methods: {
             // 描述过滤
             description_filter: function (value) {
-                var matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
+                let matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
                 if (matchs && matchs.length > 1) value = matchs[1].trim();
                 if (value) value = value.replace(/\\n/g, "<br>");
                 return value;

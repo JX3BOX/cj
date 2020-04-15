@@ -60,7 +60,8 @@ module.exports = {
         }
         preload_styles.push(
             path.resolve(__dirname, './node_modules/csslab/base.less'),
-            path.resolve(__dirname, './src/assets/css/var.less')
+            path.resolve(__dirname, './src/assets/css/var.less'),
+            path.resolve(__dirname, './src/assets/css/widget.less'),
         )
         function addStyleResource (rule) {
             rule.use('style-resource')
