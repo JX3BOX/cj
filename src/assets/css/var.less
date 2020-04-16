@@ -53,25 +53,29 @@ body {
   }
 }
 
-@topbar-height: 36px;
-.c-main-topbar {
+@search-bar-height: 60px;
+.c-search-bar {
   .pf;
   .lt(@aside-left, @header-height+@bread-height);
   .db;
-  height: @topbar-height;
+  height: @search-bar-height;
   width: calc(100% - @aside-left - @aside-right);
   .mr(@aside-right);
   .z(400);
+  background-color: #FDFDFD;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .c-main {
   display: block;
-  .mt(@bread-height + @topbar-height);
+  .mt(@bread-height + @search-bar-height);
   .mr(@aside-right);
   .ml(@aside-left);
   .pr;
-  padding: 10px 15px 0;
+  padding: 5px 10px 0;
   min-height: calc(100vh - @header-height - @bread-height);
+  border-right: 1px solid #eee;
 }
 
 @aside-right: 280px;
@@ -80,7 +84,6 @@ body {
   .rt(0);
   .w(@aside-right);
   background-color: #fff;
-  border-left: 1px solid #eee;
   height: 100%;
 }
 

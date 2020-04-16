@@ -5,6 +5,7 @@ import store from "./store";
 const Home = () => import("./views/Home.vue");
 const Normal = () => import("./views/Normal.vue");
 const Detail = () => import("./views/Detail.vue");
+const Search = () => import("./views/Search.vue");
 const Publish = () => import("./views/Publish.vue");
 
 Vue.use(VueRouter);
@@ -32,6 +33,7 @@ const routes = [
         }
     },
     {name: 'view', path: '/view/:cj_id(\\d+)', component: Detail},
+    {name: 'search', path: '/search/:keyword(.+)?', component: Search},
     {name: 'publish', path: '/publish/:cj_id(\\d+)?', component: Publish},
     {path: '*', redirect: 'home'}
 ];

@@ -118,6 +118,9 @@
                         node.expanded = true;
                         if (node.parent) node.parent.expanded = true;
                         that.$refs.tree.store.setCurrentNode(node);
+                    } else {
+                        let all = that.$refs.tree.store._getAllNodes();
+                        for (let i = 0; i < all.length; i++) all[i].expanded = false;
                     }
                 });
             }

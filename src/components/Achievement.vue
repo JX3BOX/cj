@@ -358,7 +358,7 @@
                 width: calc(~"100% - 30px");
                 margin: 0;
 
-                border-top: 1px solid @color-cl;
+                border-top: 1px solid @color-cyan;
                 transform: translateY(-50%);
                 z-index: 9;
                 .h(1px);

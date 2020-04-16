@@ -30,12 +30,17 @@
             Search,
             Info,
         },
-        watch:{
+        watch: {
             $route: {
                 immediate: true,
                 handler() {
-                    if (this.$route.params.sub) this.$store.state.sidebar.sub = this.$route.params.sub;
-                    if (this.$route.params.detail) this.$store.state.sidebar.detail = this.$route.params.detail;
+                    if (!this.$route.params.sub && !this.$route.params.detail && !this.$route.params.cj_id) {
+                        this.$store.state.sidebar.sub = null;
+                        this.$store.state.sidebar.detail = null;
+                    } else {
+                        if (this.$route.params.sub) this.$store.state.sidebar.sub = this.$route.params.sub;
+                        if (this.$route.params.detail) this.$store.state.sidebar.detail = this.$route.params.detail;
+                    }
                 }
             },
         }
