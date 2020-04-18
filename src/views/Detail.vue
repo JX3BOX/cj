@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="cj-module m-cj-relations" v-if="$_($refs,'relations.relations.length')">
+            <div class="cj-module m-cj-relations" v-if="$_.get($refs,'relations.relations.length')">
                 <div class="u-head">
                     <span class="u-boss" @click="show_relations_primary=!show_relations_primary"
                           :class="{ on: !show_relations_primary }">BOSS属性参考</span>
@@ -97,7 +97,7 @@
                     data = data.data;
                     if (data.code === 200) {
                         this.achievement = data.data.achievement;
-                        this.$store.state.sidebar.general = this.achievement.General;
+                        this.$store.state.sidebar.general = parseInt(this.achievement.General);
                         this.$store.state.sidebar.sub = this.achievement.Sub;
                         this.$store.state.sidebar.detail = this.achievement.Detail;
                     }

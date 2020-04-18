@@ -1,9 +1,11 @@
 <template>
     <aside class="c-sidebar-left c-sidebar">
-        <el-input placeholder="输入关键字进行过滤" v-model="filterText"></el-input>
+        <el-select v-model="sidebar.general">
+            <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
+        </el-select>
         <div class="m-menus">
             <el-tree
-                    class="filter-tree"
+                    class="filter-tree" :class="{other:sidebar.general==3}"
                     :data="menus"
                     node-key="id"
                     :expand-on-click-node="false"
@@ -11,10 +13,9 @@
                     :filter-node-method="filterNode"
                     ref="tree"
             >
-                <router-link class="el-tree-node__label" slot-scope="{ node, data }"
-                             :to="{ name: sidebar.general == 2 ? 'top_five' : 'normal', params: {sub: data.sub, detail: data.detail} }">
+                <router-link class="el-tree-node__label" slot-scope="{ node, data }" :to="menu_url(data)">
                     <span class="u-name" v-text="data.name"></span>
-                    <em class="u-count" v-text="`(${data.achievements_count})`"></em>
+                    <em v-if="data.achievements_count" class="u-count" v-text="`(${data.achievements_count})`"></em>
                 </router-link>
             </el-tree>
         </div>
@@ -29,9 +30,14 @@
         props: ['sidebar'],
         data: function () {
             return {
-                filterText: "",
+                menus_cache: [],
                 menus: [],
                 old_node: null,
+                menu_types: [
+                    {value: 1, label: '常规成就'},
+                    {value: 2, label: '五甲成就'},
+                    {value: 3, label: '其他板块'},
+                ],
             };
         },
         watch: {
@@ -45,12 +51,9 @@
                     that.expand_menu();
 
                     // 异步加载侧边栏数据
-                    if (that.sidebar.general && new_val?.general !== old_val?.general) that.get_menus(this.sidebar.general);
+                    if (that.sidebar.general) that.get_menus(this.sidebar.general);
                 }
             },
-            filterText(val) {
-                this.$refs.tree.filter(val);
-            }
         },
         methods: {
             filterNode(value, data) {
@@ -87,6 +90,21 @@
             },
             get_menus(general) {
                 let that = this;
+
+                if (that.menus_cache[general]) {
+                    that.menus = that.menus_cache[general];
+                    return;
+                }
+
+                if (general == 3) {
+                    that.menus = [
+                        {name: '最新成就', router: 'newest'},
+                        {name: '待攻略成就', router: 'waiting'},
+                        {name: '绝版成就', router: 'out_print'},
+                    ];
+                    return;
+                }
+
                 this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/menus?general=${general}`,
@@ -97,6 +115,9 @@
                         let menus = [];
                         for (let i in data.data.menus) menus.push(data.data.menus[i]);
                         that.menus = menus;
+
+                        // 缓存菜单数据
+                        that.menus_cache[general] = menus;
 
                         // 展开菜单
                         that.expand_menu();
@@ -123,7 +144,18 @@
                         for (let i = 0; i < all.length; i++) all[i].expanded = false;
                     }
                 });
-            }
+            },
+            menu_url(data) {
+                switch (this.sidebar.general) {
+                    case 1:
+                        return {name: 'normal', params: {sub: data.sub, detail: data.detail}};
+                    case 2:
+                        return {name: 'top_five', params: {sub: data.sub, detail: data.detail}};
+                    case 3:
+                        return {name: data.router};
+                }
+                return null;
+            },
         },
         mounted: function () {
         }
@@ -131,6 +163,10 @@
 </script>
 
 <style lang="less">
+    .el-select {
+        .db;
+    }
+
     .el-tree {
         background: none;
     }
@@ -182,4 +218,23 @@
             .mr(5px);
         }
     }
+
+    .filter-tree.other {
+        .el-tree-node__content {
+            height: 48px;
+            line-height: 48px;
+        }
+
+        .el-tree-node__label {
+            padding: 0 15px;
+            border-bottom: 1px solid #EEEEEE;
+        }
+
+        .is-leaf,
+        .el-tree-node__label:before {
+            .none;
+        }
+    }
+
+
 </style>

@@ -74,17 +74,18 @@ body {
   .ml(@aside-left);
   .pr;
   padding: 5px 10px 0;
-  min-height: calc(100vh - @header-height - @bread-height);
+  min-height: calc(100vh - @header-height - @bread-height - @search-bar-height);
   border-right: 1px solid #eee;
 }
 
 @aside-right: 280px;
 .c-sidebar-right {
-  .pa;
-  .rt(0);
+  .pf;
+  right: 0;
+  top: @header-height + @bread-height;
+  bottom: 0;
   .w(@aside-right);
   background-color: #fff;
-  height: 100%;
 }
 
 @light-blue: #409EFF;

@@ -48,4 +48,10 @@
 </script>
 
 <style lang="less">
+    .u-list-empty {
+        .db;
+        .u-msg-yellow;
+        .mt(5px);
+        text-align:center;
+    }
 </style>
