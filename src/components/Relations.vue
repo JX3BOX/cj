@@ -6,17 +6,10 @@
             <span v-if="relations && !relations.length">💧 无相关数据</span>
             <ul class="m-relations-list" v-if="relations && relations.length">
                 <li v-for="(cj, key) in relations" :key="key">
-                    <a
-                            class="u-title"
-                            :href="resolveCjLink(cj.ID)"
-                    >
-                        <img
-                                class="u-icon"
-                                :src="resolveIconPath(cj.IconID)"
-                                @error.once="iconErrorHandler($event)"
-                        />
-                        <span class="u-text">{{cj.Name}}</span>
-                    </a>
+                    <router-link class="u-title" :to="{name:'view',params:{cj_id:cj.ID}}">
+                        <img class="u-icon" :src="resolveIconPath(cj.IconID)" @error.once="iconErrorHandler($event)"/>
+                        <span class="u-text" v-text="cj.Name"></span>
+                    </router-link>
                 </li>
             </ul>
         </div>
@@ -155,10 +148,6 @@
             },
             iconErrorHandler(e) {
                 e.target.src = JX3BOX.__imagePath + "common/nullicon.png"
-            },
-            resolveCjLink(id) {
-                let cjid = id || 0;
-                return `https://wiki.jx3box.com/?id=${cjid}`;
             },
             // 获取boss信息
             getBossInfo(npcid) {

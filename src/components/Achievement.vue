@@ -10,14 +10,15 @@
             </div>
             <div class="cj-body" :class="is_empty(achievement) ? 'cj-empty' : ''">
                 <p class="u-desc">
-                    <a v-html="description_filter(achievement.Desc)" @click="location_handle"
-                       :href="url_filter(achievement.ID)" style="color:#555555;"></a>
+                    <router-link v-html="description_filter(achievement.Desc)" @click="location_handle"
+                       :to="url_filter(achievement.ID)" style="color:#555555;"></router-link>
                 </p>
                 <div class="left">
-                    <a class="cj-icon" :target="target_filter()" @click="location_handle"
-                       :href="url_filter(achievement.ID)">
+                    <router-link class="cj-icon" :target="target_filter()" @click="location_handle"
+                                 :to="url_filter(achievement.ID)">
                         <img class="u-icon" :src="icon_url_filter(achievement.IconID)"
-                             @error.once="img_error_handle(this)"></a>
+                             @error.once="img_error_handle(this)">
+                    </router-link>
                 </div>
                 <div class="right">
                     <item :item="achievement.Item"></item>
@@ -34,26 +35,25 @@
                 <el-row v-if="achievement.SubAchievementList" class="cj-subs" :gutter="30">
                     <el-col v-for="(sub_achievement,key) in achievement.SubAchievementList" :key="key"
                             :xs="12" :sm="8" :md="8" class="cj-sub">
-                            <span class="none"
-                                  :data-sub_url="sub_achievement.sub_url = sub_achievement.Visible==1 ? '/cj/#page=view&cj_id=' + sub_achievement.ID : 'javascript:void(0);'"
-                                  :data-short_desc="sub_achievement.ShortDesc = sub_achievement.ShortDesc ? sub_achievement.ShortDesc : ''"></span>
-                        <a :href="sub_achievement.sub_url" target="_blank" @click="location_handle"
-                           :title="description_filter(sub_achievement.ShortDesc)">
+                        <router-link
+                                :to="sub_achievement.Visible==1?{name:'view',params:{cj_id:sub_achievement.ID}}:null"
+                                target="_blank" @click="location_handle"
+                                :title="description_filter(sub_achievement.ShortDesc)">
                             <img class="u-icon" :src="icon_url_filter(sub_achievement.IconID)">
                             <span v-text="sub_achievement.Name"></span>
-                        </a>
+                        </router-link>
                     </el-col>
                 </el-row>
                 <div v-if="achievement.SeriesAchievementList" class="cj-seriess">
                     <div v-for="(series_achievement,key) in achievement.SeriesAchievementList" class="cj-series"
                          :key="key" :class="series_achievement.ID==achievement.ID?'active':''">
-                        <a :href="'/cj/#page=view&cj_id='+series_achievement.ID" @click="location_handle">
+                        <router-link :to="{name:'view',params:{cj_id:series_achievement.ID}}" @click="location_handle">
                             <img class="u-icon" :src="icon_url_filter(series_achievement.IconID)">
                             <div class="detail">
                                 <h4 v-text="series_achievement.Name"></h4>
                                 <p v-html="description_filter(series_achievement.ShortDesc)"></p>
                             </div>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -67,6 +67,7 @@
 </template>
 
 <script>
+    const {JX3BOX} = require("@jx3box/jx3box-common");
     import Item from '@/components/Item.vue';
 
     export default {
@@ -92,9 +93,9 @@
             // 成就图标过滤
             icon_url_filter(icon_id) {
                 if (isNaN(parseInt(icon_id))) {
-                    return 'https://oss.jx3box.com/image/common/nullicon.png';
+                    return `${JX3BOX.__ossMirror}image/common/nullicon.png`;
                 } else {
-                    return 'https://oss.jx3box.com/icon/' + icon_id + '.png';
+                    return `${JX3BOX.__ossMirror}icon/${icon_id}.png`;
                 }
             },
             // 描述过滤

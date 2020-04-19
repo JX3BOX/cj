@@ -15,7 +15,7 @@
               :data-unique="item.Unique = parseInt(item.MaxExistAmount) === 1"
               :data-require_level="item.RequireLevel = parseInt(item.Require1Type) === 5 ? item.Require1Value : ''"
               :data-level="item.Level = parseInt(item.Level)"></span>
-        <img class="item-icon" :src="'https://oss.jx3box.com/icon/'+item.IconID+'.png'" :alt="item.Name">
+        <img class="item-icon" :src="`${JX3BOX.__ossMirror}icon/${item.IconID}.png`" :alt="item.Name">
         <div class="item-detail">
             <h4 class="title" :style="item.NameColor" v-text="item.Name"></h4>
             <span v-if="item.Bind" class="bind" v-text="item.Bind"></span>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+    const {JX3BOX} = require("@jx3box/jx3box-common");
+
     export default {
         name: "Item",
         props: ['item'],

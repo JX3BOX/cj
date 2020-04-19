@@ -21,7 +21,7 @@
         },
         methods: {
             return_handle() {
-
+                history.back();
             },
             search_handle() {
                 this.$router.push({name: 'search', params: {keyword: this.keyword}});
