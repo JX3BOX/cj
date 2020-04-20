@@ -4,13 +4,18 @@ Vue.use(Vuex);
 
 let store = {
     state: {
+        sidebar: {
+            general: 1,
+            sub: null,
+            detail: null,
+        }
     },
     mutations: {
     },
     getters: {
     },
     actions: {},
-    modules: {}
+    modules: {},
 };
 
 export default new Vuex.Store(store);

@@ -5,6 +5,34 @@ const Setting = require("./setting.json");
 
 module.exports = {
 
+    //❤️ Multiple pages ~
+    // pages:{
+    //     login : {
+    //         title : '登录 - JX3BOX',
+    //         entry:'src/core/login/login.js',
+    //         template : 'public/login/index.html',
+    //         filename:'login/index.html',
+    //     },
+    //     register : {
+    //         title : '注册 - JX3BOX',
+    //         entry:'src/core/register/register.js',
+    //         template : 'public/register/index.html',
+    //         filename:'register/index.html',
+    //     },
+    //     email_verify : {
+    //         title : '邮箱验证 - JX3BOX',
+    //         entry:'src/core/email_verify/email_verify.js',
+    //         template : 'public/email_verify/index.html',
+    //         filename:'email_verify/index.html',
+    //     },
+    //     password_reset : {
+    //         title : '密码重设 - JX3BOX',
+    //         entry:'src/core/password_reset/password_reset.js',
+    //         template : 'public/password_reset/index.html',
+    //         filename:'password_reset/index.html',
+    //     }
+    // },
+
     //❤️ define path for static files ~
     publicPath:
         //FOR Localhost => development
@@ -27,7 +55,7 @@ module.exports = {
 
     chainWebpack: config => {
 
-        //💘 html-webpack-plugin ~
+        // 💘 html-webpack-plugin ~
         config.plugin("html").tap(args => {
             args[0].meta = {                            //------设置SEO信息
                 Keywords: Setting.keys,
@@ -55,11 +83,9 @@ module.exports = {
         //💖 import common less var * mixin ~
         const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
         var preload_styles = []
-        if(process.env.TPL == 'channel'){
-            preload_styles.push(path.resolve(__dirname, './node_modules/@jx3box/jx3box-common/css/common.less'))
-        }
         preload_styles.push(
             path.resolve(__dirname, './node_modules/csslab/base.less'),
+            path.resolve(__dirname, './node_modules/@jx3box/jx3box-common/css/var.less'),
             path.resolve(__dirname, './src/assets/css/var.less')
         )
         function addStyleResource (rule) {

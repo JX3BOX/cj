@@ -1,107 +1,106 @@
 <template>
     <div class="c-breadcrumb">
-        <!-- TODO:修改链接地址 -->
-        <a class="u-channel" href="/">
-            <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg" />
-            <span class="u-title">成就</span>
-        </a>
-        <!-- TODO:实装统计数据 -->
+        <router-link class="u-channel" :to="{ name: 'home' }">
+            <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg"/>
+            <span class="u-title">成就百科</span>
+        </router-link>
         <div class="u-stat">
-            <span><em>常规成就数</em><b>4437</b></span>
-            <span><em>常规资历数</em><b>119285</b></span>
-            <span><em>五甲成就数</em><b>393</b></span>
-            <span><em>五甲资历数</em><b>15120</b></span>
-            <span><em>收录攻略数</em><b>5545</b></span>
+            <span><em>常规成就数</em><b v-text="count.general"></b></span>
+            <span><em>常规资历数</em><b v-text="count.general_point"></b></span>
+            <span><em>五甲成就数</em><b v-text="count.armor"></b></span>
+            <span><em>五甲资历数</em><b v-text="count.armor_point"></b></span>
+            <span><em>收录攻略数</em><b v-text="count.post_count"></b></span>
         </div>
-        <!-- 发布按钮TODO:添加路由地址 -->
+        <!-- TODO:发布按钮添加路由地址 -->
         <el-button
-            class="u-publish"
-            type="primary"
-            icon="el-icon-edit"
-        >发布</el-button>
+                class="u-publish"
+                type="primary"
+                icon="el-icon-edit"
+        >发布
+        </el-button>
     </div>
 </template>
 <script>
-export default {
-    name: "Breadcrumb",
-    props: [],
-    data: function() {
-        return {};
-    },
-    computed: {},
-    methods: {},
-    mounted: function() {}
-};
+    const {JX3BOX} = require("@jx3box/jx3box-common");
+
+    export default {
+        name: "Breadcrumb",
+        props: [],
+        data: function () {
+            return {
+                count: {}
+            };
+        },
+        computed: {},
+        methods: {
+            // 输出成就总数统计
+            get_total_count() {
+                let that = this;
+                this.$http({
+                    method: "GET",
+                    url: `${JX3BOX.__helperUrl}api/achievements/count`,
+                }).then(function (data) {
+                    data = data.data;
+                    //if (data.code === 200) {
+                    that.count = data.data.count;
+                    //}
+                }, function () {
+                    console.error('接口连接异常')
+                });
+            }
+        },
+        mounted: function () {
+            // 输出成就总数统计
+            this.get_total_count()
+        }
+    };
 </script>
 
 <style lang="less">
-.c-breadcrumb {
-    .h(48px);
-    // background-color: @bg-light;
-    background-color: #fff;
-    padding: 10px;
-    box-sizing: border-box;
-    .lh(28px);
-    border-bottom: 1px solid @border-hr;
+    .c-breadcrumb {
 
-    .u-channel {
-        .fl;
-        span {
-            .bold;
-            // .fz(16px);
-            // font-weight: 300;
-            color: @color;
-        }
-        .mr(30px);
-    }
-    .u-channel-logo {
-        .fl;
-        .size(28px);
-        .mr(10px);
-        fill: @bg-black;
-    }
-    .u-stat {
-        // .x;
-        .fz(14px);
+        .u-stat {
+            // .x;
+            .fz(14px);
 
-        em {
-            .mr(10px);
-            // .bold;
-            font-style: normal;
-        }
-        b {
-            font-style: italic;
-            color: @light-blue;
-
-            &:after {
-                content: "|";
-                font-weight: 300;
-                color: #999;
-                .ml(10px);
-                font-family: Georgia, "Times New Roman", Times, serif;
+            em {
+                .mr(10px);
+                // .bold;
+                font-style: normal;
             }
-        }
-        span {
-            .mr(10px);
-            &:last-child b {
+
+            b {
+                font-style: italic;
+                color: @light-blue;
+
                 &:after {
-                    .none;
+                    content: "|";
+                    font-weight: 300;
+                    color: #999;
+                    .ml(10px);
+                    font-family: Georgia, "Times New Roman", Times, serif;
+                }
+            }
+
+            span {
+                .mr(10px);
+
+                &:last-child b {
+                    &:after {
+                        .none;
+                    }
                 }
             }
         }
+
     }
-    .pr;
-    .u-publish {
-        .pa;.rt(10px,4px);
-    }
-}
-@media screen and (max-width:@ipad){
-    .c-breadcrumb{
-        .u-stat{
-            white-space:nowrap;
-            overflow:auto;
+
+    @media screen and (max-width: @ipad) {
+        .c-breadcrumb {
+            .u-stat {
+                white-space: nowrap;
+                overflow: auto;
+            }
         }
-        .u-publish{.none;}
     }
-}
 </style>
