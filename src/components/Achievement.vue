@@ -17,7 +17,7 @@
                     <router-link class="cj-icon" :target="target_filter()" @click="location_handle"
                                  :to="url_filter(achievement.ID)">
                         <img class="u-icon" :src="icon_url_filter(achievement.IconID)"
-                             @error.once="img_error_handle(this)">
+                             @error.once="img_error_handle">
                     </router-link>
                 </div>
                 <div class="right">
@@ -74,8 +74,8 @@
         name: "Achievement",
         props: ['achievement', 'fold', 'target', 'jump', 'toggle_load_url'],
         methods: {
-            img_error_handle(obj) {
-                // obj.style.display = 'none';
+            img_error_handle(e) {
+                e.target.src = `${JX3BOX.__ossMirror}image/common/nullicon.png`;
             },
             is_empty(achievement) {
                 return !(achievement.Prefix || achievement.Postfix || achievement.SubAchievementList || achievement.SeriesAchievementList);
@@ -255,13 +255,15 @@
                         color: #666666;
 
                         span {
+                            vertical-align: middle;
                             transition: opacity 0.2s ease;
                         }
 
                         .u-icon {
                             width: 24px;
-                            margin-right: 5px;
+                            margin-right: 10px;
                             border-radius: 3px;
+                            vertical-align: middle;
                         }
 
                         &:hover span {

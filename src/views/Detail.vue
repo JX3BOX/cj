@@ -386,49 +386,4 @@
             }
         }
     }
-
-    // cj-module
-    //===============================
-    .cj-module {
-        display: block;
-        margin-bottom: 15px;
-        background-color: #FAFBFC;
-        border: 1px solid #EEEEEE;
-        border-radius: 5px;
-        font-size: 14px;
-        overflow: hidden;
-
-        &.pd {
-            padding: 10px 15px 12px;
-        }
-
-        .u-head {
-            background-color: #F3F3F3;
-            border-bottom: 1px solid #EEEEEE;
-
-            & > h4 {
-                padding: 10px 0 10px 15px;
-                color: #6c645c;
-                font-weight: normal;
-            }
-
-            & > .other {
-                float: right;
-                padding: 12px 0;
-                margin-right: 15px;
-                font-size: 14px;
-                line-height: 1.1;
-            }
-        }
-
-        .u-body {
-            padding: 10px;
-        }
-    }
-
-    @media screen and (max-width: @ipad) {
-        .cj-module {
-            width: 100%;
-        }
-    }
 </style>
