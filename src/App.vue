@@ -59,6 +59,16 @@
     }
     .c-main{
         padding-left:10px;
-        padding-right:@aside-right + 10px !important;
+        padding-right:10px;
+    }
+    @media screen and (max-width:@ipad){
+        .c-sidebar-right-msg,.c-github-repo{
+            margin-left:0;
+            margin-right:0;
+        }
+        .m-rank,.m-group{
+            padding-left:5px;
+            padding-right:5px;
+        }
     }
 </style>

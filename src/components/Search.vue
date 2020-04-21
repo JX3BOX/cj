@@ -6,7 +6,7 @@
         <div class="m-search">
             <el-input class="u-search-input" v-model="keyword" @keydown.enter.native="search_handle"
                       placeholder="输入成就名称/成就描述/称号/奖励物品「回车」进行搜索"></el-input>
-            <el-button class="u-search-btn" type="info" @click="search_handle">搜索</el-button>
+            <el-button class="u-search-btn" type="primary" plain @click="search_handle">搜索</el-button>
         </div>
     </div>
 </template>
@@ -63,7 +63,8 @@
             .mb(0);
             .el-input__inner{
                 border-top-right-radius: 0 ;
-            border-bottom-right-radius: 0;
+                border-bottom-right-radius: 0;
+                border-right:none;
             }
         }
 

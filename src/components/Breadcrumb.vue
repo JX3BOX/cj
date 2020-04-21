@@ -1,7 +1,8 @@
 <template>
     <div class="c-breadcrumb">
+        <LeftSideToggle />
         <router-link class="u-channel" :to="{ name: 'home' }">
-            <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg"/>
+            <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg" />
             <span class="u-title">成就百科</span>
         </router-link>
         <div class="u-stat">
@@ -12,95 +13,90 @@
             <span><em>收录攻略数</em><b v-text="count.post_count"></b></span>
         </div>
         <!-- TODO:发布按钮添加路由地址 -->
-        <el-button
-                class="u-publish"
-                type="primary"
-                icon="el-icon-edit"
-        >发布
-        </el-button>
+        <el-button class="u-publish" type="primary" icon="el-icon-edit">发布</el-button>
     </div>
 </template>
 <script>
-    const {JX3BOX} = require("@jx3box/jx3box-common");
+const { JX3BOX } = require("@jx3box/jx3box-common");
 
-    export default {
-        name: "Breadcrumb",
-        props: [],
-        data: function () {
-            return {
-                count: {}
-            };
-        },
-        computed: {},
-        methods: {
-            // 输出成就总数统计
-            get_total_count() {
-                let that = this;
-                this.$http({
-                    method: "GET",
-                    url: `${JX3BOX.__helperUrl}api/achievements/count`,
-                }).then(function (data) {
+export default {
+    name: "Breadcrumb",
+    props: [],
+    data: function() {
+        return {
+            count: {},
+        };
+    },
+    computed: {},
+    methods: {
+        // 输出成就总数统计
+        get_total_count() {
+            let that = this;
+            this.$http({
+                method: "GET",
+                url: `${JX3BOX.__helperUrl}api/achievements/count`,
+            }).then(
+                function(data) {
                     data = data.data;
                     //if (data.code === 200) {
                     that.count = data.data.count;
                     //}
-                }, function () {
-                    console.error('接口连接异常')
-                });
-            }
+                },
+                function() {
+                    console.error("接口连接异常");
+                }
+            );
         },
-        mounted: function () {
-            // 输出成就总数统计
-            this.get_total_count()
-        }
-    };
+    },
+    mounted: function() {
+        // 输出成就总数统计
+        this.get_total_count();
+    },
+};
 </script>
 
 <style lang="less">
-    .c-breadcrumb {
+.c-breadcrumb {
+    .u-stat {
+        white-space: nowrap;
+        overflow: auto;
 
-        .u-stat {
-            // .x;
-            .fz(14px);
+        // .x;
+        .fz(14px);
 
-            em {
-                .mr(10px);
-                // .bold;
-                font-style: normal;
+        em {
+            .mr(10px);
+            // .bold;
+            font-style: normal;
+        }
+
+        b {
+            font-style: italic;
+            color: @primary;
+
+            &:after {
+                content: "|";
+                font-weight: 300;
+                color: #999;
+                .ml(10px);
+                font-family: Georgia, "Times New Roman", Times, serif;
             }
+        }
 
-            b {
-                font-style: italic;
-                color: @light-blue;
+        span {
+            .mr(10px);
 
+            &:last-child b {
                 &:after {
-                    content: "|";
-                    font-weight: 300;
-                    color: #999;
-                    .ml(10px);
-                    font-family: Georgia, "Times New Roman", Times, serif;
-                }
-            }
-
-            span {
-                .mr(10px);
-
-                &:last-child b {
-                    &:after {
-                        .none;
-                    }
+                    .none;
                 }
             }
         }
-
     }
-
-    @media screen and (max-width: @ipad) {
-        .c-breadcrumb {
-            .u-stat {
-                white-space: nowrap;
-                overflow: auto;
-            }
-        }
+}
+@media screen and (max-width:@ipad){
+    .u-stat{
+        .fz(13px);
     }
+}
 </style>
