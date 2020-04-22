@@ -15,7 +15,7 @@
               :data-unique="item.Unique = parseInt(item.MaxExistAmount) === 1"
               :data-require_level="item.RequireLevel = parseInt(item.Require1Type) === 5 ? item.Require1Value : ''"
               :data-level="item.Level = parseInt(item.Level)"></span>
-        <img class="item-icon" :src="`${JX3BOX.__ossMirror}icon/${item.IconID}.png`" :alt="item.Name">
+        <img class="item-icon" :src="icon_url_filter(item.IconID)" :alt="item.Name">
         <div class="item-detail">
             <h4 class="title" :style="item.NameColor" v-text="item.Name"></h4>
             <span v-if="item.Bind" class="bind" v-text="item.Bind"></span>
@@ -34,6 +34,14 @@
         name: "Item",
         props: ['item'],
         methods: {
+            // 图标过滤
+            icon_url_filter(icon_id) {
+                if (isNaN(parseInt(icon_id))) {
+                    return `${JX3BOX.__ossMirror}image/common/nullicon.png`;
+                } else {
+                    return `${JX3BOX.__ossMirror}icon/${icon_id}.png`;
+                }
+            },
             // 描述过滤
             description_filter: function (value) {
                 let matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);

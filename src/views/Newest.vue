@@ -27,13 +27,14 @@
                 this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievements/newest`,
+                    headers: {Accept: "application/prs.helper.v2+json"},
                     params: {page: page}
                 }).then(function (data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    that.achievements = data.data.achievements;
-                    that.achievements_count = data.data.total;
-                    //}
+                    if (data.code === 200) {
+                        that.achievements = data.data.achievements;
+                        that.achievements_count = data.data.total;
+                    }
                 }, function () {
                     that.achievements = false;
                 });

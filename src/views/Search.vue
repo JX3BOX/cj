@@ -34,12 +34,13 @@
                     this.$http({
                         method: 'GET',
                         url: `${JX3BOX.__helperUrl}api/achievement/search`,
-                        params: data
+                        headers: {Accept: "application/prs.helper.v2+json"},
+                        params: data,
                     }).then(function (data) {
                         data = data.data;
-                        //if (data.code === 200) {
-                        resolve(data.data);
-                        //}
+                        if (data.code === 200) {
+                            resolve(data.data);
+                        }
                     }, function () {
                         resolve(false);
                     });
