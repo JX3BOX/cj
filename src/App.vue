@@ -1,18 +1,23 @@
 <template>
     <div id="app">
         <Header />
-        <Breadcrumb/>
-        <Sidebar :sidebar="$store.state.sidebar"/>
-        <main class="c-main">
+        <Breadcrumb>
+            <CJBreadcrumb/>
+        </Breadcrumb>
+        <LeftSidebar>
+            <Sidebar :sidebar="$store.state.sidebar"/>
+        </LeftSidebar>
+        <Main>
             <Search/>
             <router-view/>
             <Info/>
-        </main>
+            <Footer/>
+        </Main>
     </div>
 </template>
 
 <script>
-    import Breadcrumb from './components/Breadcrumb.vue';
+    import CJBreadcrumb from './components/CJBreadcrumb.vue';
     import Sidebar from '@/components/Sidebar.vue';
     import Search from '@/components/Search.vue';
     import Info from '@/components/Info.vue';
@@ -28,7 +33,7 @@
         mounted: function () {
         },
         components: {
-            Breadcrumb,
+            CJBreadcrumb,
             Sidebar,
             Search,
             Info,

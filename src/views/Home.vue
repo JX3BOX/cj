@@ -92,6 +92,7 @@
             return {
                 newest_achievements: null,
                 newest_posts: null,
+                JX3BOX : JX3BOX
             }
         },
         computed: {},

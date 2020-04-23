@@ -1,6 +1,5 @@
 <template>
-    <div class="c-breadcrumb">
-        <LeftSideToggle />
+    <div class="m-breadcrumb">
         <router-link class="u-channel" :to="{ name: 'home' }">
             <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg" />
             <span class="u-title">成就百科</span>
@@ -13,14 +12,16 @@
             <span><em>收录攻略数</em><b v-text="count.post_count"></b></span>
         </div>
         <!-- TODO:发布按钮添加路由地址 -->
-        <el-button class="u-publish" type="primary" icon="el-icon-edit">发布</el-button>
+        <el-button class="u-publish" type="primary" icon="el-icon-edit"
+            >发布</el-button
+        >
     </div>
 </template>
 <script>
 const { JX3BOX } = require("@jx3box/jx3box-common");
 
 export default {
-    name: "Breadcrumb",
+    name: "CJBreadcrumb",
     props: [],
     data: function() {
         return {
@@ -56,7 +57,7 @@ export default {
 </script>
 
 <style lang="less">
-.c-breadcrumb {
+.m-breadcrumb {
     .u-stat {
         white-space: nowrap;
         overflow: auto;
@@ -94,8 +95,8 @@ export default {
         }
     }
 }
-@media screen and (max-width:@ipad){
-    .u-stat{
+@media screen and (max-width: @ipad) {
+    .m-breadcrumb .u-stat {
         .fz(13px);
     }
 }

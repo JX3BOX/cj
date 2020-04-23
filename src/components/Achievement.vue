@@ -73,6 +73,11 @@
     export default {
         name: "Achievement",
         props: ['achievement', 'fold', 'target', 'jump', 'toggle_load_url'],
+        data:function (){
+            return {
+                JX3BOX,
+            }
+        },
         methods: {
             img_error_handle(e) {
                 e.target.src = `${JX3BOX.__ossMirror}image/common/nullicon.png`;

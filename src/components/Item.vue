@@ -33,6 +33,11 @@
     export default {
         name: "Item",
         props: ['item'],
+        data : function (){
+            return {
+                JX3BOX,
+            }
+        },
         methods: {
             // 描述过滤
             description_filter: function (value) {
