@@ -77,12 +77,13 @@ export default {
             that.$http({
                 method: "GET",
                 url: `${JX3BOX.__helperUrl}api/achievement/users/ranking`,
+                headers: {Accept: "application/prs.helper.v2+json"},
             }).then(
                 function(data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    that.ranks = data.data.ranking;
-                    //}
+                    if (data.code === 200) {
+                        that.ranks = data.data.ranking;
+                    }
                 },
                 function() {
                     that.ranks = false;

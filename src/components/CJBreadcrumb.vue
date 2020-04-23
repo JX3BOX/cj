@@ -36,12 +36,13 @@ export default {
             this.$http({
                 method: "GET",
                 url: `${JX3BOX.__helperUrl}api/achievements/count`,
+                headers: {Accept: "application/prs.helper.v2+json"},
             }).then(
                 function(data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    that.count = data.data.count;
-                    //}
+                    if (data.code === 200) {
+                        that.count = data.data.count;
+                    }
                 },
                 function() {
                     console.error("接口连接异常");

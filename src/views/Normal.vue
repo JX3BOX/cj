@@ -28,11 +28,12 @@
                 this.$http({
                     method: "GET",
                     url: list_url,
+                    headers: {Accept: "application/prs.helper.v2+json"},
                 }).then(function (data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    that.achievements = data.data.achievements;
-                    //}
+                    if (data.code === 200) {
+                        that.achievements = data.data.achievements;
+                    }
                 }, function () {
                     that.achievements = false;
                 });

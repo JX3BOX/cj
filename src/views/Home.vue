@@ -114,12 +114,13 @@
                 this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievements/newest`,
+                    headers: {Accept: "application/prs.helper.v2+json"},
                     params: {page: page}
                 }).then(function (data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    that.newest_achievements = data.data.achievements;
-                    //}
+                    if (data.code === 200) {
+                        that.newest_achievements = data.data.achievements;
+                    }
                 }, function () {
                     that.newest_achievements = false;
                 });
@@ -130,11 +131,12 @@
                 that.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/posts/newest`,
+                    headers: {Accept: "application/prs.helper.v2+json"},
                 }).then(function (data) {
                     data = data.data;
-                    //if (data.code === 200) {
-                    that.newest_posts = data.data.newest;
-                    //}
+                    if (data.code === 200) {
+                        that.newest_posts = data.data.newest;
+                    }
                 }, function () {
                     that.newest_posts = false;
                 });
