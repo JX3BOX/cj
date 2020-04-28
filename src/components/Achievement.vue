@@ -36,7 +36,7 @@
                     <el-col v-for="(sub_achievement,key) in achievement.SubAchievementList" :key="key"
                             :xs="12" :sm="8" :md="8" class="cj-sub">
                         <router-link
-                                :to="sub_achievement.Visible==1?{name:'view',params:{cj_id:sub_achievement.ID}}:null"
+                                :to="sub_achievement.Visible==1?{name:'view',params:{cj_id:sub_achievement.ID}}:{}"
                                 target="_blank" @click="location_handle"
                                 :title="description_filter(sub_achievement.ShortDesc)">
                             <img class="u-icon" :src="icon_url_filter(sub_achievement.IconID)">
@@ -90,7 +90,7 @@
             },
             url_filter: function (cj_id) {
                 return this.jump === true || typeof this.jump === 'undefined' ?
-                    {name: 'view', params: {cj_id: cj_id}} : null;
+                    {name: 'view', params: {cj_id: cj_id}} : {};
             },
             target_filter: function () {
                 return this.target || typeof this.target !== 'undefined' ? this.target : '';

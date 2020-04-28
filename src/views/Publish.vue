@@ -1,5 +1,5 @@
 <template>
-    <div class="c-main m-cj-index">publish</div>
+    <div class="m-cj-index">publish</div>
 </template>
 
 <script>

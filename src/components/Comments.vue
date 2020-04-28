@@ -19,7 +19,7 @@
 <script>
     import Comment from "@/components/Comment.vue";
 
-    const {JX3BOX} = require("@jx3box/jx3box-common");
+    const {JX3BOX, User} = require("@jx3box/jx3box-common");
     const qs = require('qs');
     export default {
         name: "Comments",
@@ -29,7 +29,7 @@
                 comments: null,
                 reply_form: {
                     content: '',
-                    user_nickname: '匿名'
+                    user_nickname: User.getInfo().name
                 }
             };
         },
@@ -49,7 +49,7 @@
                             comments[i]['reply_form'] = {
                                 show: false,
                                 content: '',
-                                user_nickname: '匿名',
+                                user_nickname: User.getInfo().name,
                             }
                         }
                         that.comments = comments_filter(comments, 0);
@@ -77,7 +77,7 @@
                         comment: {
                             achievement_id: this.achievement_id,
                             parent_id: parent_id,
-                            user_nickname: form.user_nickname || '匿名',
+                            user_nickname: form.user_nickname || User.getInfo().name,
                             content: form.content,
                         }
                     })
@@ -96,7 +96,7 @@
                 });
             }
         },
-        mounted: function () {
+        mounted: function () {console.log(4444,User.getToken());
             let that = this;
         },
         components: {

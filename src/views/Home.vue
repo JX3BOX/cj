@@ -61,7 +61,7 @@
                 <h4>最近攻略</h4>
             </div>
             <div class="u-body">
-                <el-row class="cj-post-list" :gutter="30">
+                <el-row class="cj-post-list">
                     <el-col :md="12" class="cj-post" v-for="(post,key) in newest_posts" :key="key" :data-cj-id="post.cj_id">
                         <div class="left">
                             <img v-if="post.cj_icon_id" class="post-icon" @error.once="img_error_handle"
@@ -153,6 +153,7 @@
 <style lang="less">
     .m-cj-home {
         .cj-qlinks {
+            padding: 0;
             list-style: none;
 
             .qlink {

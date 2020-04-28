@@ -1,5 +1,5 @@
 <template>
-    <div class="c-main m-cj-index">
+    <div class="m-cj-index">
         <span class="u-list-empty" v-if="!$_.get(achievements,'length')">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true"/>
     </div>

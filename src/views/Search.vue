@@ -1,5 +1,5 @@
 <template>
-    <div class="c-main m-cj-index">
+    <div class="m-cj-index">
         <Achievements :achievements="achievements" :fold="true"/>
         <el-pagination background :total="achievements_count" hide-on-single-page
                        layout="prev, pager, next" :current-page="page" :page-size="length"
