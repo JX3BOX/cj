@@ -61,12 +61,12 @@
         props: [],
         data: function () {
             return {
-                active_rank_type: 11,
+                active_rank_type: '11',
                 rank_types: [
-                    {sub: 11, name: '秘境'},
-                    {sub: 7, name: '任务'},
-                    {sub: 5, name: '技艺'},
-                    {sub: 9, name: '战斗'},
+                    {sub: '11', name: '秘境'},
+                    {sub: '7', name: '任务'},
+                    {sub: '5', name: '技艺'},
+                    {sub: '9', name: '战斗'},
                 ],
                 ranks: null,
                 groups: null,
@@ -130,7 +130,6 @@
             },
         },
         mounted: function () {
-            this.get_users_ranks();
             this.get_achievement_groups();
         },
         watch: {
