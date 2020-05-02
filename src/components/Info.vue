@@ -9,20 +9,21 @@
                 <img class="u-icon" svg-inline src="../assets/img/rank.svg"/>
                 <span class="u-text">贡献榜</span>
             </h2>
-            <ul class="u-list">
-                <li v-for="(rank, key) in ranks" :key="key">
-                    <a class="u-contributor" href="">
-                        <i class="u-avatar">
-                            <img
-                                    :src="rank.user_avatar"
-                                    :alt="rank.user_nickname"
-                            />
-                        </i>
-                        <span class="u-name" v-text="rank.user_nickname"></span>
-                        <em class="u-count">+ {{ rank.total_score }}</em>
-                    </a>
-                </li>
-            </ul>
+            <el-tabs v-model="active_rank_type">
+                <el-tab-pane v-for="(type,key) in rank_types" :key="key" :label="type.name" :name="type.sub">
+                    <ul class="u-list">
+                        <li v-for="(rank, k) in ranks" :key="k">
+                            <a class="u-contributor" href="">
+                                <i class="u-avatar">
+                                    <img :src="rank.user_avatar" :alt="rank.user_nickname"/>
+                                </i>
+                                <span class="u-name" v-text="rank.user_nickname"></span>
+                                <em class="u-count">+ {{ rank.total_score }}</em>
+                            </a>
+                        </li>
+                    </ul>
+                </el-tab-pane>
+            </el-tabs>
         </div>
 
         <div class="m-group">
@@ -60,12 +61,20 @@
         props: [],
         data: function () {
             return {
+                active_rank_type: 11,
+                rank_types: [
+                    {sub: 11, name: '秘境'},
+                    {sub: 7, name: '任务'},
+                    {sub: 5, name: '技艺'},
+                    {sub: 9, name: '战斗'},
+                ],
                 ranks: null,
                 groups: null,
             };
         },
         computed: {},
         methods: {
+
             copy_success(e) {
                 this.show_copy_result(e, '复制成功');
             },
@@ -85,11 +94,11 @@
                     }, 1000);
                 }, 500);
             },
-            get_users_ranks() {
+            get_users_ranks(sub) {
                 let that = this;
                 that.$http({
                     method: "GET",
-                    url: `${JX3BOX.__helperUrl}api/achievement/users/ranking`,
+                    url: `${JX3BOX.__helperUrl}api/achievement/users/ranking` + (sub ? `?sub=${sub}` : ''),
                     headers: {Accept: "application/prs.helper.v2+json"},
                 }).then(
                     function (data) {
@@ -124,7 +133,14 @@
             this.get_users_ranks();
             this.get_achievement_groups();
         },
-        components: {},
+        watch: {
+            active_rank_type: {
+                immediate: true,
+                handler() {
+                    this.get_users_ranks(this.active_rank_type);
+                }
+            }
+        },
     };
 </script>
 
@@ -195,6 +211,7 @@
             .fz(12px, @h);
             color: @primary;
             .fr;
+            .mr(2px);
         }
     }
 
