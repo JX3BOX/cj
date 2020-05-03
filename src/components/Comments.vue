@@ -6,7 +6,7 @@
         <Comment :comments="comments" :achievement_id="achievement_id"/>
         <div class="m-reply-form">
             <h4 class="u-title">📰 回复</h4>
-            <textarea class="u-reply-content" v-model="reply_form.content"></textarea>
+            <textarea class="u-reply-content" style="resize:vertical" v-model="reply_form.content"></textarea>
             <div class="u-author">
                 <span>作者 : </span>
                 <input v-model="reply_form.user_nickname" type="text">
