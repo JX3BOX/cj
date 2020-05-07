@@ -1,5 +1,5 @@
 <template>
-    <aside class="c-sidebar-left c-sidebar">
+    <div class="m-cj-aside-left">
         <el-select v-model="sidebar.general">
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
@@ -19,7 +19,7 @@
                 </router-link>
             </el-tree>
         </div>
-    </aside>
+    </div>
 </template>
 
 <script>

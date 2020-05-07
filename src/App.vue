@@ -1,16 +1,19 @@
 <template>
     <div id="app">
-        <Header />
-        <Breadcrumb>
+        <Header></Header>
+        <Breadcrumb name="成就百科" slug="cj" root="/cj" publishEnable="true">
+            <img slot="logo" svg-inline src="./assets/img/cj.svg" />
             <CJBreadcrumb/>
         </Breadcrumb>
         <LeftSidebar>
             <Sidebar :sidebar="$store.state.sidebar"/>
         </LeftSidebar>
-        <Main>
+        <Main :withoutRight="false">
             <Search/>
             <router-view/>
-            <Info/>
+            <RightSidebar>
+                <Info/>
+            </RightSidebar>
             <Footer/>
         </Main>
     </div>
