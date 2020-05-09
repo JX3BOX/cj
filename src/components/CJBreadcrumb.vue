@@ -1,9 +1,5 @@
 <template>
     <div class="m-breadcrumb">
-        <router-link class="u-channel" :to="{ name: 'home' }">
-            <img class="u-channel-logo" svg-inline src="../assets/img/cj.svg" />
-            <span class="u-title">成就百科</span>
-        </router-link>
         <div class="u-stat">
             <span><em>常规成就数</em><b v-text="count.general"></b></span>
             <span><em>常规资历数</em><b v-text="count.general_point"></b></span>
@@ -11,10 +7,6 @@
             <span><em>五甲资历数</em><b v-text="count.armor_point"></b></span>
             <span><em>收录攻略数</em><b v-text="count.post_count"></b></span>
         </div>
-        <!-- TODO:发布按钮添加路由地址 -->
-        <el-button class="u-publish" type="primary" icon="el-icon-edit"
-            >发布</el-button
-        >
     </div>
 </template>
 <script>

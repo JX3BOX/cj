@@ -5,34 +5,6 @@ const Setting = require("./setting.json");
 
 module.exports = {
 
-    //❤️ Multiple pages ~
-    // pages:{
-    //     login : {
-    //         title : '登录 - JX3BOX',
-    //         entry:'src/core/login/login.js',
-    //         template : 'public/login/index.html',
-    //         filename:'login/index.html',
-    //     },
-    //     register : {
-    //         title : '注册 - JX3BOX',
-    //         entry:'src/core/register/register.js',
-    //         template : 'public/register/index.html',
-    //         filename:'register/index.html',
-    //     },
-    //     email_verify : {
-    //         title : '邮箱验证 - JX3BOX',
-    //         entry:'src/core/email_verify/email_verify.js',
-    //         template : 'public/email_verify/index.html',
-    //         filename:'email_verify/index.html',
-    //     },
-    //     password_reset : {
-    //         title : '密码重设 - JX3BOX',
-    //         entry:'src/core/password_reset/password_reset.js',
-    //         template : 'public/password_reset/index.html',
-    //         filename:'password_reset/index.html',
-    //     }
-    // },
-
     //❤️ define path for static files ~
     publicPath:
         //FOR Localhost => development

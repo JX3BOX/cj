@@ -9,7 +9,7 @@ Vue.prototype.$_ = require("lodash");
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard);
 
-import JX3BOX_UI from '@jx3box/jx3box-common/vue'
+import JX3BOX_UI from '@jx3box/jx3box-common-ui'
 Vue.use(JX3BOX_UI);
 
 import router from "./router";
