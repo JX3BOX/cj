@@ -115,7 +115,8 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievements/newest`,
                     headers: {Accept: "application/prs.helper.v2+json"},
-                    params: {page: page}
+                    params: {page: page},
+                    withCredentials: true
                 }).then(function (data) {
                     data = data.data;
                     if (data.code === 200) {
@@ -132,6 +133,7 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/posts/newest`,
                     headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(function (data) {
                     data = data.data;
                     if (data.code === 200) {

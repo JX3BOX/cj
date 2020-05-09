@@ -92,7 +92,8 @@
                 if (!this.$route.params.cj_id) return;
                 this.$http({
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.$route.params.cj_id}`,
-                    headers: {Accept: "application/prs.helper.v2+json"}
+                    headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(data => {
                     data = data.data;
                     if (data.code === 200) {
@@ -110,7 +111,8 @@
                 if (!this.$route.params.cj_id) return;
                 this.$http({
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.$route.params.cj_id}/post`,
-                    headers: {Accept: "application/prs.helper.v2+json"}
+                    headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(res => {
                     this.post = res.data.data.post || {};
                 }).catch(err => {

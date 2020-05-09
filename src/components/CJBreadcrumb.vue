@@ -37,6 +37,7 @@ export default {
                 method: "GET",
                 url: `${JX3BOX.__helperUrl}api/achievements/count`,
                 headers: {Accept: "application/prs.helper.v2+json"},
+                withCredentials: true
             }).then(
                 function(data) {
                     data = data.data;

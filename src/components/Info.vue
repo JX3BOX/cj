@@ -100,6 +100,7 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/users/ranking` + (sub ? `?sub=${sub}` : ''),
                     headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(
                     function (data) {
                         data = data.data;
@@ -119,6 +120,7 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/groups`,
                     headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(function (data) {
                     data = data.data;
                     if (data.code === 200) {

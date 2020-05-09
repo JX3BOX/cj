@@ -125,7 +125,8 @@
                 this.$http({
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.achievement_id}/relations`,
-                    headers: {Accept: "application/prs.helper.v2+json"}
+                    headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(function (data) {
                     data = data.data;
                     if (data.code !== 200 || !data.data.relations.length) {

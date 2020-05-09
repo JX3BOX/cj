@@ -44,6 +44,7 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.achievement_id}/versions`,
                     headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(function (data) {
                     data = data.data;
                     if (data.code === 200) that.versions = data.data.versions;
