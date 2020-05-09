@@ -1,5 +1,5 @@
 <template>
-    <RightSidebar>
+    <div class="m-cj-aside-right">
         <RightSideMsg>
             <em>官方反馈交流Q群</em> : <strong>614370825</strong>
         </RightSideMsg>
@@ -50,7 +50,7 @@
         </div>
 
         <Github_REPO REPO="cj"/>
-    </RightSidebar>
+    </div>
 </template>
 
 <script>
