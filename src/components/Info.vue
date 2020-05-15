@@ -15,7 +15,7 @@
                         <li v-for="(rank, k) in ranks" :key="k">
                             <a class="u-contributor" href="">
                                 <i class="u-avatar">
-                                    <img :src="rank.user_avatar" :alt="rank.user_nickname"/>
+                                    <img :src="rank.user_avatar | resolveAvatarPath" :alt="rank.user_nickname"/>
                                 </i>
                                 <span class="u-name" v-text="rank.user_nickname"></span>
                                 <em class="u-count">+ {{ rank.total_score }}</em>
@@ -142,6 +142,11 @@
                 }
             }
         },
+        filters : {
+            resolveAvatarPath : function (val){
+                return val.replace(JX3BOX.__ossRoot,JX3BOX.__ossMirror)
+            }
+        }
     };
 </script>
 
