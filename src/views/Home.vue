@@ -72,7 +72,7 @@
                         <div class="right">
                             <span class="post-author" target="_blank">
                                 <span v-text="post.user_nickname"></span>
-                                <img :src="post.user_avatar" :alt="post.user_nickname">
+                                <img :src="post.user_avatar | resolveAvatarPath" :alt="post.user_nickname">
                             </span>
                         </div>
                     </el-col>
@@ -98,12 +98,12 @@
         computed: {},
         methods: {
             img_error_handle(e) {
-                e.target.src = `${JX3BOX.__ossMirror}image/common/nullicon.png`;
+                e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
             },
             // 成就图标过滤
             icon_url_filter(icon_id) {
                 if (isNaN(parseInt(icon_id))) {
-                    return `${JX3BOX.__ossMirror}image/common/nullicon.png`;
+                    return `${JX3BOX.__imgPath}image/common/nullicon.png`;
                 } else {
                     return `${JX3BOX.__iconPath}icon/${icon_id}.png`;
                 }
@@ -148,7 +148,12 @@
             this.get_achievements();
             this.get_achievement_posts();
         },
-        components: {}
+        components: {},
+        filters : {
+            resolveAvatarPath : function (val){
+                return val.replace(JX3BOX.__ossRoot,JX3BOX.__ossMirror)
+            }
+        }
     }
 </script>
 
