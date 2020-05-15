@@ -36,6 +36,7 @@
                         url: `${JX3BOX.__helperUrl}api/achievement/search`,
                         headers: {Accept: "application/prs.helper.v2+json"},
                         params: data,
+                        withCredentials: true
                     }).then(function (data) {
                         data = data.data;
                         if (data.code === 200) {

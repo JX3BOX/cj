@@ -6,7 +6,7 @@
         <Comment :comments="comments" :achievement_id="achievement_id"/>
         <div class="m-reply-form">
             <h4 class="u-title">📰 回复</h4>
-            <textarea class="u-reply-content" v-model="reply_form.content"></textarea>
+            <textarea class="u-reply-content" style="resize:vertical" v-model="reply_form.content"></textarea>
             <div class="u-author">
                 <span>作者 : </span>
                 <input v-model="reply_form.user_nickname" type="text">
@@ -41,6 +41,7 @@
                     method: "GET",
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.achievement_id}/comments`,
                     headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
                 }).then(function (data) {
                     data = data.data;
                     if (data.code === 200) {
@@ -80,7 +81,8 @@
                             user_nickname: form.user_nickname || User.getInfo().name,
                             content: form.content,
                         }
-                    })
+                    }),
+                    withCredentials: true
                 }).then(data => {
                     data = data.data;
                     if (data.code === 200) {
