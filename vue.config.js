@@ -10,6 +10,9 @@ module.exports = {
         //FOR Localhost => development
         (process.env.NODE_ENV === 'development' && '/') ||
 
+        //BY github
+        (process.env.STATIC_PATH === "github" && `${JX3BOX.__staticPath["github"]}${pkg.name}@gh-pages/`) || 
+
         //BY jsdelivr
         (process.env.STATIC_PATH === "jsdelivr" && `${JX3BOX.__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) || 
 

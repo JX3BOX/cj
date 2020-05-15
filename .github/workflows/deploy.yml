@@ -15,6 +15,15 @@ jobs:
         npm install
         npm run build
 
+    - name: Github Pages
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: dist
+        CLEAN: false
+        CLEAN_EXCLUDE: '["css", "js"]'
+
     - name: OSS
       uses: manyuanrong/setup-ossutil@v1.0
       with:
@@ -22,12 +31,4 @@ jobs:
         access-key-id: ${{secrets.AccessKey_ID}}
         access-key-secret: ${{secrets.Access_Key_Secret}}
     - run: ossutil cp -rf dist oss://jx3box-www/cj
- 
-    - name: Github Pages
-      uses: JamesIves/github-pages-deploy-action@master
-      env:
-        ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: dist
-        CLEAN: true
-        CLEAN_EXCLUDE: '["css", "js"]'
+    - run: ossutil cp -rf dist oss://jx3box/static/cj

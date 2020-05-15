@@ -80,7 +80,7 @@
             </el-collapse>
         </div>
 
-        <Github_REPO REPO="cj" />
+        <Github_REPO REPO="cj" coder="5"/>
     </div>
 </template>
 
