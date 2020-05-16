@@ -101,6 +101,8 @@
                         {name: '最新成就', router: 'newest'},
                         {name: '待攻略成就', router: 'waiting'},
                         {name: '绝版成就', router: 'out_print'},
+                        {name: '奇遇成就', router: 'adventure'},
+                        {name: '珍奇成就', router: 'rare'},
                     ];
                     return;
                 }
@@ -180,6 +182,10 @@
         & > .el-tree-node__content {
             .bold;
         }
+    }
+
+    .m-cj-aside-left {
+        .h(100%);
     }
 
     //节点

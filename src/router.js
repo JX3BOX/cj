@@ -11,6 +11,8 @@ const Publish = () => import("./views/Publish.vue");
 const Newest = () => import("./views/Newest.vue");
 const Waiting = () => import("./views/Waiting.vue");
 const OutPrint = () => import("./views/OutPrint.vue");
+const Adventure = () => import("./views/Adventure.vue");
+const Rare = () => import("./views/Rare.vue");
 
 Vue.use(VueRouter);
 
@@ -60,6 +62,20 @@ const routes = [
     // 绝版成就
     {
         name: 'out_print', path: '/out_print', component: OutPrint, beforeEnter: (to, from, next) => {
+            store.state.sidebar.general = 3;
+            next();
+        }
+    },
+    // 奇遇成就
+    {
+        name: 'adventure', path: '/adventure', component: Adventure, beforeEnter: (to, from, next) => {
+            store.state.sidebar.general = 3;
+            next();
+        }
+    },
+    // 珍奇成就
+    {
+        name: 'rare', path: '/rare', component: Rare, beforeEnter: (to, from, next) => {
             store.state.sidebar.general = 3;
             next();
         }

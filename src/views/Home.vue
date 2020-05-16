@@ -1,27 +1,17 @@
 <template>
     <div class="m-cj-index m-cj-home">
 
-        <h5>首页计划模块：</h5>
-        <ol>
-            <li>最新成就</li>
-            <li>7天热门统计数据</li>
-            <li>奇遇成就</li>
-            <li>副本成就?</li>
-            <li>阅读成就?</li>
-            <li>最近攻略</li>
-        </ol>
-
-        <div class="cj-module pd" style="margin-top:5px;background-color:#F9F9F9;border:1px solid #DDDDDD;">
-            <p style="text-indent:2em;color:#666666;">
-                欢迎各路成就巨佬或者有爱小伙伴前来完善攻略，建议大家更换一下自己喜爱的头像，本站成就百科刚上线不久，如果遇到什么问题或有什么意见可以及时向我们反馈，JX3BOX成就扣扣群：
-                <a href="https://jq.qq.com/?_wv=1027&k=5S50j08"
-                   style="text-decoration:underline">614370825</a>
-            </p>
-        </div>
+        <!--<li>最新成就</li>-->
+        <!--<li>7天热门统计数据</li>-->
+        <!--<li>奇遇成就</li>-->
+        <!--<li>副本成就?</li>
+        <li>阅读成就?</li>-->
+        <!--<li>最近攻略</li>-->
 
         <div class="cj-module">
             <div class="u-head">
-                <a class="other" href="https://www.jx3box.com/feedback/">反馈建议</a>
+                <a class="other" target="_blank"
+                   href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=o8LHzsrN48nbkMHM243AzM4">反馈建议</a>
                 <h4>便捷入口</h4>
             </div>
             <div class="u-body">
@@ -30,11 +20,19 @@
                         <a style="background-color:#FE7979;" target="_blank" href="https://www.jx3box.com/tool/9126/">游戏内看百科</a>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{name:'waiting'}">待攻略成就</router-link></li>
+                        <router-link :to="{name:'waiting'}">待攻略成就</router-link>
+                    </li>
                     <li class="qlink">
                         <a target="_blank" href="https://www.jx3box.com/tool/8104/">隐藏成就</a></li>
                     <li class="qlink">
-                        <router-link :to="{name:'out_print'}">绝版成就</router-link></li>
+                        <router-link :to="{name:'out_print'}">绝版成就</router-link>
+                    </li>
+                    <li class="qlink">
+                        <router-link :to="{name:'adventure'}">奇遇成就</router-link>
+                    </li>
+                    <li class="qlink">
+                        <router-link :to="{name:'rare'}">珍奇成就</router-link>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -62,18 +60,30 @@
             </div>
             <div class="u-body">
                 <el-row class="cj-post-list">
-                    <el-col :md="12" class="cj-post" v-for="(post,key) in newest_posts" :key="key" :data-cj-id="post.cj_id">
-                        <div class="left">
-                            <img v-if="post.cj_icon_id" class="post-icon" @error.once="img_error_handle"
-                                 :src="icon_url_filter(post.cj_icon_id)">
-                            <router-link class="post-title" :to="{name:'view',params:{cj_id:post.cj_id}}"
-                                         v-text="post.title"></router-link>
+                    <el-col class="cj-post" v-for="(post,key) in newest_posts" :key="key">
+                        <div class="m-head">
+                            <div class="m-user">
+                                <div class="u-author">
+                                    <img class="u-icon" :src="post.user_avatar | resolveAvatarPath"
+                                         :alt="post.user_nickname">
+                                    <span class="u-name" v-text="post.user_nickname"></span>
+                                </div>
+                                <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
+                            </div>
+                            <div class="m-achievement">
+                                <div class="u-achievement">
+                                    <img class="u-icon" @error.once="img_error_handle"
+                                         :src="icon_url_filter(post.cj_icon_id)">
+                                    <router-link class="u-name" :to="{name:'view',params:{cj_id:post.cj_id}}"
+                                                 v-text="post.title"></router-link>
+                                </div>
+                                <div class="u-level" v-text="'综合难度：'+render_stars(post.level)"></div>
+                                <div class="u-remark" v-if="post.remark" v-text="'📑 '+post.remark"></div>
+                            </div>
                         </div>
-                        <div class="right">
-                            <span class="post-author" target="_blank">
-                                <span v-text="post.user_nickname"></span>
-                                <img :src="post.user_avatar | resolveAvatarPath" :alt="post.user_nickname">
-                            </span>
+                        <div class="m-body">
+                            <router-link class="u-excerpt" :to="{name:'view',params:{cj_id:post.cj_id}}"
+                                         v-text="ellipsis(post.excerpt)"></router-link>
                         </div>
                     </el-col>
                 </el-row>
@@ -92,13 +102,16 @@
             return {
                 newest_achievements: null,
                 newest_posts: null,
-                JX3BOX : JX3BOX
+                JX3BOX: JX3BOX
             }
         },
         computed: {},
         methods: {
             img_error_handle(e) {
                 e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
+            },
+            render_stars: function (val) {
+                return "⭐️".repeat(val ? val : 1);
             },
             // 成就图标过滤
             icon_url_filter(icon_id) {
@@ -143,15 +156,22 @@
                     that.newest_posts = false;
                 });
             },
+            ellipsis(value) {
+                value = value ? value.trim() : '';
+                if (value.length > 100) {
+                    return value.slice(0, 100) + '...'
+                }
+                return value;
+            }
         },
         mounted: function () {
             this.get_achievements();
             this.get_achievement_posts();
         },
         components: {},
-        filters : {
-            resolveAvatarPath : function (val){
-                return val.replace(JX3BOX.__ossRoot,JX3BOX.__ossMirror)
+        filters: {
+            resolveAvatarPath: function (val) {
+                return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror)
             }
         }
     }
@@ -160,6 +180,7 @@
 <style lang="less">
     .m-cj-home {
         .cj-qlinks {
+            margin: 0;
             padding: 0;
             list-style: none;
 
@@ -227,52 +248,53 @@
             overflow: hidden;
 
             .cj-post {
-                padding: 2px 10px;
+                padding: 15px 10px;
+                border-bottom: 1px solid #CCCCCC;
+                font-size: 12px;
                 overflow: hidden;
 
-                .left, .right {
-                    * {
-                        vertical-align: middle;
-                    }
+                &:last-child {
+                    border-bottom: none;
                 }
 
-                .left {
-                    float: left;
-                }
-
-                .right {
-                    float: right;
-                    text-align: right;
-                }
-
-                .post-icon {
-                    width: 20px;
-                    margin-right: 5px;
+                .u-icon {
+                    .dbi;
+                    .w(20px);
                     border-radius: 3px;
+                    vertical-align: middle;
                 }
 
-                .post-title {
-                    color: #666666;
-
-                    &:hover {
-                        color: @color-link;
-                        box-shadow: 0 1px 0 @color-link;
-                    }
+                .u-name {
+                    .dbi;
+                    .ml(8px);
+                    vertical-align: middle;
                 }
 
-                .post-author {
-                    color: #666666;
+                .m-achievement {
+                    .mt(5px);
+                }
 
-                    &:hover {
-                        color: @color-link;
-                    }
+                .u-author, .u-updated, .u-achievement, .u-level, .u-remark {
+                    display: inline-block;
+                    .mr(25px);
+                    vertical-align: middle;
+                }
 
-                    img {
-                        width: 20px;
-                        height: 20px;
-                        margin-left: 5px;
-                        object-fit: cover
-                    }
+                .u-updated {
+                    .fr;
+                    .mr(0);
+                    opacity: .75;
+                }
+
+                .u-remark {
+                    margin: 5px 0;
+                }
+
+                .u-excerpt {
+                    .db;
+                    .mt(6px);
+                    color: #000000;
+                    opacity: .75;
                 }
             }
         }
