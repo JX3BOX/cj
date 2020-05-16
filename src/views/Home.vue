@@ -244,6 +244,7 @@
         }
 
         .cj-post-list {
+            margin: -10px 0;
             list-style: none;
             overflow: hidden;
 
