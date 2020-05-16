@@ -2,6 +2,10 @@
     <div class="m-cj-index">
         <span class="u-list-empty" v-if="!$_.get(achievements,'length')">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true"/>
+        <el-pagination background :total="achievements_count" hide-on-single-page
+                       layout="prev, pager, next" :current-page="page" :page-size="length"
+                       prev-html="&laquo;" next-html="&raquo;"
+                       @current-change="page_change_handle"></el-pagination>
     </div>
 </template>
 
@@ -17,6 +21,7 @@
                 achievements: null,
                 achievements_count: 0,
                 page: 1,
+                length: 15,
             }
         },
         computed: {},
@@ -38,6 +43,13 @@
                     }
                 }, function () {
                     that.achievements = false;
+                });
+            },
+            page_change_handle(page) {
+                this.$router.push({
+                    name: 'rare',
+                    params: {keyword: this.$route.params.keyword},
+                    query: {page: page}
                 });
             },
         },
