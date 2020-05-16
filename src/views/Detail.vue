@@ -3,16 +3,16 @@
         <Achievement :achievement="achievement"/>
         <div v-if="post && JSON.stringify(post) === '{}'" class="m-cj-post-null">
             <span>暂无攻略，我要</span>
-            <router-link class="s-link" :to="{name:'publish', params: {cj_id: achievement.ID}}">完善攻略</router-link>
+            <a class="s-link" :href="publish_url(`cj/${achievement.ID}`)">完善攻略</a>
         </div>
         <div v-if="post && JSON.stringify(post) !== '{}'" class="m-archive-list">
             <div class="cj-module m-cj-post">
                 <div class="u-head">
-                    <router-link class="el-button el-button--primary u-publish s-link"
-                                 :to="{name:'publish', params: {cj_id: achievement.ID}}">
+                    <a class="el-button el-button--primary u-publish s-link"
+                       :href="publish_url(`cj/${achievement.ID}`)">
                         <i class="el-icon-edit"></i>
                         <span>完善成就攻略</span>
-                    </router-link>
+                    </a>
                     <h4 class="u-title">
                         <img class="u-icon" svg-inline src="../assets/img/cj.svg"/>
                         <span>成就攻略</span>
@@ -87,6 +87,9 @@
             Comments,
         },
         methods: {
+            publish_url: function (val) {
+                return JX3BOX.__Links.dashboard.publish + "#/" + val;
+            },
             // 获取成就
             get_achievement: function () {
                 if (!this.$route.params.cj_id) return;

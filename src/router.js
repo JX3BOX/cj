@@ -7,7 +7,6 @@ const Home = () => import("./views/Home.vue");
 const Normal = () => import("./views/Normal.vue");
 const Detail = () => import("./views/Detail.vue");
 const Search = () => import("./views/Search.vue");
-const Publish = () => import("./views/Publish.vue");
 const Newest = () => import("./views/Newest.vue");
 const Waiting = () => import("./views/Waiting.vue");
 const OutPrint = () => import("./views/OutPrint.vue");
@@ -43,8 +42,6 @@ const routes = [
     {name: 'view', path: '/view/:cj_id(\\d+)', component: Detail},
     // 搜索
     {name: 'search', path: '/search/:keyword(.+)?', component: Search},
-    // 发布页
-    {name: 'publish', path: '/publish/:cj_id(\\d+)?', component: Publish},
     // 最新成就
     {
         name: 'newest', path: '/newest', component: Newest, beforeEnter: (to, from, next) => {
