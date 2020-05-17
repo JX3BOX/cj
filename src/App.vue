@@ -52,6 +52,10 @@
                         if (this.$route.params.sub) this.$store.state.sidebar.sub = this.$route.params.sub;
                         if (this.$route.params.detail) this.$store.state.sidebar.detail = this.$route.params.detail;
                     }
+
+                    if(this.$store.state.sidebar.general == 3 && this.$route.name){
+                        this.$set(this.$store.state.sidebar,'other',this.$route.name)
+                    }
                 }
             },
         }

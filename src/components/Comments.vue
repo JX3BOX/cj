@@ -1,8 +1,10 @@
 <template>
     <div class="m-comments">
-        <span v-if="comments === null">Loading...</span>
-        <span v-if="comments === false">⚠️ 数据加载异常</span>
-        <span v-if="comments && !comments.length">💧 暂无评论</span>
+        <div style="padding:5px 0;text-align:center">
+            <span v-if="comments === null">Loading...</span>
+            <span v-if="comments === false">⚠️ 数据加载异常</span>
+            <span v-if="comments && !comments.length">💧 暂无评论</span>
+        </div>
         <Comment :comments="comments" :achievement_id="achievement_id"/>
         <div class="m-reply-form">
             <h4 class="u-title">📰 回复</h4>
@@ -98,7 +100,7 @@
                 });
             }
         },
-        mounted: function () {console.log(4444,User.getToken());
+        mounted: function () {
             let that = this;
         },
         components: {
@@ -117,8 +119,9 @@
 
     function comments_filter(comments, parent) {
         let outputs = [];
-        $.each(comments, function (index, item) {
-            if (!item) return true;
+        for (let index in comments) {
+            let item = comments[index];
+            if (!item) continue;
             if (item.parent_id === parent) {
                 // 置空当前元素
                 comments[index] = null;
@@ -127,7 +130,7 @@
                 item.children = children ? children : [];
                 outputs.push(item);
             }
-        });
+        }
         return outputs;
     }
 </script>

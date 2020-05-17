@@ -1,8 +1,10 @@
 <template>
     <div class="m-revisions">
-        <span v-if="versions === null">Loading...</span>
-        <span v-if="versions === false">⚠️ 数据加载异常</span>
-        <span v-if="versions && !versions.length">💧 暂无数据</span>
+        <div style="padding:5px 0;text-align:center">
+            <span v-if="versions === null">Loading...</span>
+            <span v-if="versions === false">⚠️ 数据加载异常</span>
+            <span v-if="versions && !versions.length">💧 暂无数据</span>
+        </div>
         <table v-if="versions && versions.length" id="histories">
             <tr>
                 <th>版本</th>

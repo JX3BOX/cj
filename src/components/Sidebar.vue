@@ -98,11 +98,11 @@
 
                 if (general == 3) {
                     that.menus = [
-                        {name: '最新成就', router: 'newest'},
-                        {name: '待攻略成就', router: 'waiting'},
-                        {name: '绝版成就', router: 'out_print'},
-                        {name: '奇遇成就', router: 'adventure'},
-                        {name: '珍奇成就', router: 'rare'},
+                        {name: '最新成就', id: 'newest', router: 'newest'},
+                        {name: '待攻略成就', id: 'waiting', router: 'waiting'},
+                        {name: '绝版成就', id: 'out_print', router: 'out_print'},
+                        {name: '奇遇成就', id: 'adventure', router: 'adventure'},
+                        {name: '珍奇成就', id: 'rare', router: 'rare'},
                     ];
                     return;
                 }
@@ -133,19 +133,26 @@
                 let that = this;
                 that.$nextTick(function () {
                     // 默认展开当前菜单
-                    let sub = that.sidebar.sub;
-                    let detail = that.sidebar.detail;
-                    let key = sub + (detail ? `-${detail}` : '');
-
-                    let node = that.$refs.tree.store.getNode(key);
-                    if (node) {
-                        node.expanded = true;
-                        if (node.parent) node.parent.expanded = true;
-                        that.$refs.tree.store.setCurrentNode(node);
+                    let key = '';
+                    if (that.sidebar.general != 3) {
+                        let sub = that.sidebar.sub;
+                        let detail = that.sidebar.detail;
+                        key = sub + (detail ? `-${detail}` : '');
                     } else {
-                        let all = that.$refs.tree.store._getAllNodes();
-                        for (let i = 0; i < all.length; i++) all[i].expanded = false;
+                        key = that.sidebar.other;
                     }
+
+                    if (key) {
+                        let node = that.$refs.tree.store.getNode(key);
+                        if (node) {
+                            node.expanded = true;
+                            if (node.parent) node.parent.expanded = true;
+                            that.$refs.tree.store.setCurrentNode(node);
+                            return;
+                        }
+                    }
+                    let all = that.$refs.tree.store._getAllNodes();
+                    for (let i = 0; i < all.length; i++) all[i].expanded = false;
                 });
             },
             menu_url(data) {
