@@ -35,9 +35,9 @@
                 <el-collapse-item v-for="(server,key) in groups" :title="key" :key="key" :name="key">
                     <ul class="u-groups">
                         <li v-for="(group,k) in server" :key="k">
-                            <el-tag class="u-platform" v-if="group.platform=='QQ'" size="mini"
+                            <el-tag class="u-platform" v-if="group.platform=='QQ群'" size="mini"
                                     v-text="group.platform"></el-tag>
-                            <el-tag class="u-platform" v-if="group.platform=='YY'" size="mini" type="info"
+                            <el-tag class="u-platform" v-if="group.platform=='YY群'" size="mini" type="info"
                                     v-text="group.platform"></el-tag>
                             <el-button class="u-number" size="mini" v-text="group.number"
                                        v-clipboard:copy="group.number"
