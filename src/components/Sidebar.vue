@@ -151,8 +151,8 @@
                             return;
                         }
                     }
-                    let all = that.$refs.tree.store._getAllNodes();
-                    for (let i = 0; i < all.length; i++) all[i].expanded = false;
+                    // let all = that.$refs.tree.store._getAllNodes();
+                    // for (let i = 0; i < all.length; i++) all[i].expanded = false;
                 });
             },
             menu_url(data) {
