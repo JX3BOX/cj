@@ -142,15 +142,20 @@
                 }
             }
         },
-        filters : {
-            resolveAvatarPath : function (val){
-                return val.replace(JX3BOX.__ossRoot,JX3BOX.__ossMirror)
+        filters: {
+            resolveAvatarPath: function (val) {
+                return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror)
             }
         }
     };
 </script>
 
 <style lang="less">
+    .c-sidebar-right {
+        bottom: 0;
+        height: auto;
+    }
+
     .c-sidebar-right-msg {
         margin-top: 10px;
     }
