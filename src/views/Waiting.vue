@@ -1,5 +1,6 @@
 <template>
     <div class="m-cj-index">
+        <el-alert v-if="old" title="所有成就都已经有了各自的攻略，以下是一些比较老旧的成就攻略" type="success"></el-alert>
         <span class="u-list-empty" v-if="!$_.get(achievements,'length')">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true"/>
         <el-pagination background :total="achievements_count" hide-on-single-page
@@ -20,6 +21,7 @@
             return {
                 achievements: null,
                 achievements_count: 0,
+                old: false,
                 page: 1,
                 length: 15,
             }
@@ -40,6 +42,7 @@
                     if (data.code === 200) {
                         that.achievements = data.data.achievements;
                         that.achievements_count = data.data.total;
+                        that.old = data.data.old;
                     }
                 }, function () {
                     that.achievements = false;
