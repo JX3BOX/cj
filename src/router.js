@@ -39,7 +39,7 @@ const routes = [
         }
     },
     // 单页
-    {name: 'view', path: '/view/:cj_id(\\d+)', component: Detail},
+    {name: 'view', path: '/view/:cj_id(\\d+)/:post_id(\\d+)?', component: Detail},
     // 搜索
     {name: 'search', path: '/search/:keyword(.+)?', component: Search},
     // 最新成就

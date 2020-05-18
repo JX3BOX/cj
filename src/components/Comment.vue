@@ -23,7 +23,7 @@
                         <span>作者 : </span>
                         <input v-model="comment.reply_form.user_nickname" type="text">
                     </div>
-                    <button class="u-submit" @click="create_comment(comment.reply_form, comment.id)">✔️ 提交</button>
+                    <button class="u-submit el-button--primary" @click="create_comment(comment.reply_form, comment.id)">✔️ 提交</button>
                 </div>
             </div>
             <Comment v-if="comment.children.length" :comments="comment.children" :achievement_id="achievement_id"/>

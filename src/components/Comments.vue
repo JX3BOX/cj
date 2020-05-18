@@ -6,14 +6,14 @@
             <span v-if="comments && !comments.length">💧 暂无评论</span>
         </div>
         <Comment :comments="comments" :achievement_id="achievement_id"/>
-        <div class="m-reply-form">
+        <div id="m-reply-form" class="m-reply-form">
             <h4 class="u-title">📰 回复</h4>
             <textarea class="u-reply-content" style="resize:vertical" v-model="reply_form.content"></textarea>
             <div class="u-author">
                 <span>作者 : </span>
                 <input v-model="reply_form.user_nickname" type="text">
             </div>
-            <button class="u-submit" @click="create_comment(reply_form)">✔️ 提交</button>
+            <button class="u-submit el-button--primary" @click="create_comment(reply_form)">📝️ 提交</button>
         </div>
     </div>
 </template>
@@ -234,8 +234,6 @@
                 padding: 5px 10px;
                 outline: none;
                 border: none;
-                color: #FFFFFF;
-                background-color: #2d5650;
                 cursor: pointer;
             }
         }

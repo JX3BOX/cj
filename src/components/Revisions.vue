@@ -14,11 +14,8 @@
             </tr>
             <tr class="history" v-for="(ver, key) in versions" :key="key">
                 <td>
-                    <a
-                            target="_blank"
-                            href="javascript:void(0)"
-                            v-text="'v' + (versions.length - key)"
-                    ></a>
+                    <router-link :to="{name:'view',params:{cj_id: ver.achievement_id, post_id: ver.id}}"
+                                 v-text="'v' + (versions.length - key)"></router-link>
                 </td>
                 <td>{{ ver.updated | date_format }}</td>
                 <td v-text="ver.user_nickname"></td>

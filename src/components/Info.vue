@@ -1,7 +1,7 @@
 <template>
     <div class="m-cj-aside-right">
         <RightSideMsg>
-            <em>官方反馈交流Q群</em> : <strong>614370825</strong>
+            <em>官方反馈交流Q群</em> : <strong><a href="https://jq.qq.com/?_wv=1027&k=5S50j08">614370825</a></strong>
         </RightSideMsg>
 
         <div class="m-rank">
@@ -17,7 +17,8 @@
                                 <i class="u-avatar">
                                     <img :src="rank.user_avatar | resolveAvatarPath" :alt="rank.user_nickname"/>
                                 </i>
-                                <span class="u-name" v-text="rank.user_nickname"></span>
+                                <a class="u-name" :href="author_url(rank.user_id)" target="_blank"
+                                   v-text="rank.user_nickname"></a>
                                 <em class="u-count">+ {{ rank.total_score }}</em>
                             </a>
                         </li>
@@ -35,10 +36,10 @@
                 <el-collapse-item v-for="(server,key) in groups" :title="key" :key="key" :name="key">
                     <ul class="u-groups">
                         <li v-for="(group,k) in server" :key="k">
-                            <el-tag class="u-platform" v-if="group.platform=='QQ群'" size="mini"
-                                    v-text="group.platform"></el-tag>
-                            <el-tag class="u-platform" v-if="group.platform=='YY群'" size="mini" type="info"
-                                    v-text="group.platform"></el-tag>
+                            <el-tag class="u-platform" v-if="group.platform=='QQ'" size="mini"
+                                    v-text="`${group.platform}群`"></el-tag>
+                            <el-tag class="u-platform" v-if="group.platform=='YY'" size="mini" type="info"
+                                    v-text="`${group.platform}群`"></el-tag>
                             <el-button class="u-number" size="mini" v-text="group.number"
                                        v-clipboard:copy="group.number"
                                        v-clipboard:success="copy_success"
@@ -74,25 +75,14 @@
         },
         computed: {},
         methods: {
-
-            copy_success(e) {
-                this.show_copy_result(e, '复制成功');
+            author_url(user_id) {
+                return `${JX3BOX.__Links.author}${user_id}`;
             },
-            copy_error(e) {
-                this.show_copy_result(e, '浏览器不支持');
+            copy_success() {
+                this.$notify({title: '复制成功', type: 'success'});
             },
-            show_copy_result(e, message) {
-                let span = document.createElement('span');
-                span.className = 'u-result';
-                span.innerHTML = message;
-                e.trigger.after(span);
-                setTimeout(function () {
-                    // 开始透明
-                    span.classList.add("opacity");
-                    setTimeout(function () {
-                        span.remove();
-                    }, 1000);
-                }, 500);
+            copy_error() {
+                this.$notify({title: '浏览器不支持', type: 'error'});
             },
             get_users_ranks(sub) {
                 let that = this;
@@ -279,7 +269,7 @@
                 overflow: hidden;
 
                 .u-platform {
-                    width: 32px;
+                    width: 45px;
                     margin-right: 5px;
                     text-align: center;
                 }

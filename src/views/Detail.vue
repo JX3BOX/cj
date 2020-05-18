@@ -24,7 +24,7 @@
                         <div v-if="post.user_avatar" class="avatar"><img :src="post.user_avatar"></div>
                         <div class="done" v-text="post.user_nickname"></div>
                         <div class="updated" v-text="'最后编辑于 '+$options.filters.date_format(post.updated)"></div>
-                        <a class="comment" :href="'/cj/'+post.id+'#comments'" v-text="'前往评论'"></a>
+                        <a class="comment" href="javascript:void(0)" @click="go_to_comment" v-text="'前往评论'"></a>
                         <div class="remark">可通过评论通知原贡献者进行更改与署名补充</div>
                     </div>
                 </div>
@@ -87,6 +87,10 @@
             Comments,
         },
         methods: {
+            go_to_comment() {
+                let target = document.querySelector('#m-reply-form');
+                target.scrollIntoView(true);
+            },
             publish_url: function (val) {
                 return JX3BOX.__Links.dashboard.publish + "#/" + val;
             },
@@ -109,11 +113,24 @@
                     this.achievement = false;
                 });
             },
-            // 获取成就攻略
-            get_achievement_post: function () {
+            // 获取成就最新攻略
+            get_achievement_newest_post() {
                 if (!this.$route.params.cj_id) return;
                 this.$http({
                     url: `${JX3BOX.__helperUrl}api/achievement/${this.$route.params.cj_id}/post`,
+                    headers: {Accept: "application/prs.helper.v2+json"},
+                    withCredentials: true
+                }).then(res => {
+                    this.post = res.data.data.post || {};
+                }).catch(err => {
+                    this.post = null;
+                });
+            },
+            // 获取成就攻略
+            get_achievement_post(){
+                if (!this.$route.params.post_id) return;
+                this.$http({
+                    url: `${JX3BOX.__helperUrl}api/achievement/post/${this.$route.params.post_id}`,
                     headers: {Accept: "application/prs.helper.v2+json"},
                     withCredentials: true
                 }).then(res => {
@@ -131,10 +148,17 @@
                 handler() {
                     // 获取成就
                     this.get_achievement();
+                    // 获取成就最新攻略
+                    this.get_achievement_newest_post();
+                }
+            },
+            '$route.params.post_id': {
+                immediate: true,
+                handler() {
                     // 获取成就攻略
                     this.get_achievement_post();
                 }
-            },
+            }
         }
     }
 </script>
