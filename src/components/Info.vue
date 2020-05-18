@@ -31,6 +31,7 @@
             <h2 class="m-title">
                 <img class="u-icon" svg-inline src="../assets/img/puzzle.svg"/>
                 <span class="u-text">各区服成就群</span>
+                <a class="u-show-message" target="_blank" href="https://www.jx3box.com/tool/13659/">申请展示</a>
             </h2>
             <el-collapse accordion>
                 <el-collapse-item v-for="(server,key) in groups" :title="key" :key="key" :name="key">
@@ -218,6 +219,14 @@
 
     .m-group {
         padding: 15px;
+
+        .u-show-message {
+            .fr;
+            font-size: 14px;
+            font-weight: normal;
+            color: @color-link;
+            cursor: pointer;
+        }
 
         .m-title {
             border-bottom: none;
