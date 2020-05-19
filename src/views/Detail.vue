@@ -19,7 +19,9 @@
                     </h4>
                 </div>
                 <div class="u-body">
-                    <div class="content m-single-primary" v-html="post.content"></div>
+                    <div class="content m-single-primary">
+                        <Article :content="post.content"/>
+                    </div>
                     <div class="other">
                         <div v-if="post.user_avatar" class="avatar"><img :src="post.user_avatar"></div>
                         <div class="done" v-text="post.user_nickname"></div>
