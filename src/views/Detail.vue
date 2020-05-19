@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="cj-module m-cj-relations" v-show="$_.get($refs,'relations.relations.length')">
+            <div class="cj-module m-cj-relations">
                 <div class="u-head">
                     <span class="u-boss" @click="show_relations_primary=!show_relations_primary"
                           :class="{ on: !show_relations_primary }">BOSS属性参考</span>
