@@ -62,6 +62,14 @@
                 </div>
             </div>
         </div>
+        <ins
+            class="adsbygoogle"
+            style="display:block;max-width:100%;overflow:hidden;margin:10px;"
+            data-ad-client="ca-pub-4388499329141185"
+            data-ad-slot="1787190081"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+        ></ins>
     </div>
 </template>
 
