@@ -32,14 +32,15 @@
                 </div>
             </div>
 
-            <div class="cj-module m-cj-relations">
+            <div class="cj-module m-cj-relations" v-show="show_relations">
                 <div class="u-head">
                     <span class="u-boss" @click="show_relations_primary=!show_relations_primary"
                           :class="{ on: !show_relations_primary }">BOSS属性参考</span>
                     <h4 class="u-title">🔗 相关成就<em>&nbsp;同BOSS其它成就</em></h4>
                 </div>
                 <div class="u-body">
-                    <Relations ref="relations" :achievement_id="achievement.ID" :show_primary="show_relations_primary"/>
+                    <Relations ref="relations" :achievement_id="achievement.ID" :show_primary="show_relations_primary"
+                               @relations_got="relations_got"/>
                 </div>
             </div>
 
@@ -79,6 +80,7 @@
             return {
                 achievement: {},
                 post: null,
+                show_relations: false,
                 show_relations_primary: true
             }
         },
@@ -89,6 +91,9 @@
             Comments,
         },
         methods: {
+            relations_got(relations) {
+                this.show_relations = this.$_.get(relations, 'length', 0) > 0;
+            },
             go_to_comment() {
                 let target = document.querySelector('#m-reply-form');
                 target.scrollIntoView(true);
@@ -129,7 +134,7 @@
                 });
             },
             // 获取成就攻略
-            get_achievement_post(){
+            get_achievement_post() {
                 if (!this.$route.params.post_id) return;
                 this.$http({
                     url: `${JX3BOX.__helperUrl}api/achievement/post/${this.$route.params.post_id}`,
