@@ -1,9 +1,11 @@
 <template>
     <div class="m-block m-relations m-boss">
         <div class="m-section">
-            <span v-if="relations === null">Loading...</span>
-            <span v-if="relations === false">⚠️ 数据加载异常</span>
-            <span v-if="relations && !relations.length">💧 无相关数据</span>
+            <div style="padding:5px 0;text-align:center">
+                <span v-if="relations === null">Loading...</span>
+                <span v-if="relations === false">⚠️ 数据加载异常</span>
+                <span v-if="relations && !relations.length">💧 无相关数据</span>
+            </div>
             <ul class="m-relations-list" v-if="relations && relations.length">
                 <li v-for="(cj, key) in relations" :key="key">
                     <router-link class="u-title" :to="{name:'view',params:{cj_id:cj.ID}}">
@@ -137,6 +139,7 @@
                     that.npcid = result.boss_id;
                     that.dungeon_id = result.dungeon_id;
                     that.relations = result.relations;
+                    that.$emit('relations_got', that.relations);
 
                     // 获取boss信息
                     that.getBossInfo(that.npcid);
