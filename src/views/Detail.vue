@@ -420,12 +420,13 @@
             user-select: none;
 
             &:before {
-                content: "▼";
+                content: "▶";
+                .mr(2px);
             }
 
             &.on {
                 &::before {
-                    content: "▲";
+                    content: "▼";
                 }
             }
         }
