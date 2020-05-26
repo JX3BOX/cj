@@ -53,6 +53,7 @@ export default {
 <style lang="less">
 .m-breadcrumb {
     .u-stat {
+        .fl;
         white-space: nowrap;
         overflow: auto;
 
@@ -92,6 +93,7 @@ export default {
 @media screen and (max-width: @ipad) {
     .m-breadcrumb .u-stat {
         .fz(13px);
+        float:none;
     }
 }
 </style>
