@@ -164,7 +164,7 @@
                     // 获取成就
                     this.get_achievement();
                     // 获取成就最新攻略
-                    this.get_achievement_newest_post();
+                    if(!this.$route.params.post_id) this.get_achievement_newest_post();
                 }
             },
             '$route.params.post_id': {
