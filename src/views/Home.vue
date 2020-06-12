@@ -108,7 +108,7 @@
         computed: {},
         methods: {
             img_error_handle(e) {
-                e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
+                e.target.src = `${JX3BOX.__ossMirror}image/common/nullicon.png`;
             },
             render_stars: function (val) {
                 return "⭐️".repeat(val ? val : 1);
@@ -116,9 +116,9 @@
             // 成就图标过滤
             icon_url_filter(icon_id) {
                 if (isNaN(parseInt(icon_id))) {
-                    return `${JX3BOX.__imgPath}image/common/nullicon.png`;
+                    return `${JX3BOX.__ossMirror}image/common/nullicon.png`;
                 } else {
-                    return `${JX3BOX.__iconPath}icon/${icon_id}.png`;
+                    return `${JX3BOX.__ossMirror}icon/${icon_id}.png`;
                 }
             },
             // 获取成就列表

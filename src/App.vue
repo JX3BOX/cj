@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb name="成就百科" slug="cj" root="/cj" publishEnable="true">
+        <Breadcrumb name="成就百科" slug="cj" root="/cj" :publishEnable="true" :feedbackEnable="true">
             <img slot="logo" svg-inline src="./assets/img/cj.svg" />
             <CJBreadcrumb/>
         </Breadcrumb>

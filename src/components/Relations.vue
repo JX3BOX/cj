@@ -147,11 +147,11 @@
             },
             resolveIconPath(id) {
                 return id
-                    ? JX3BOX.__iconPath + 'icon/' + id + ".png"
-                    : JX3BOX.__imgPath + "image/common/nullicon.png";
+                    ? JX3BOX.__ossMirror + 'icon/' + id + ".png"
+                    : JX3BOX.__ossMirror + "image/common/nullicon.png";
             },
             iconErrorHandler(e) {
-                e.target.src = JX3BOX.__imgPath + "image/common/nullicon.png"
+                e.target.src = JX3BOX.__ossMirror + "image/common/nullicon.png"
             },
             // 获取boss信息
             getBossInfo(npcid) {
