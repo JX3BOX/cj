@@ -51,7 +51,7 @@
             </el-collapse>
         </div>
 
-        <Github_REPO REPO="cj" coder="5"/>
+        <!-- <Github_REPO REPO="cj" coder="5"/> -->
     </div>
 </template>
 
