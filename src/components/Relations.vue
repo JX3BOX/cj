@@ -8,8 +8,15 @@
             </div>
             <ul class="m-relations-list" v-if="relations && relations.length">
                 <li v-for="(cj, key) in relations" :key="key">
-                    <router-link class="u-title" :to="{name:'view',params:{cj_id:cj.ID}}">
-                        <img class="u-icon" :src="resolveIconPath(cj.IconID)" @error.once="iconErrorHandler($event)"/>
+                    <router-link
+                        class="u-title"
+                        :to="{ name: 'view', params: { cj_id: cj.ID } }"
+                    >
+                        <img
+                            class="u-icon"
+                            :src="resolveIconPath(cj.IconID)"
+                            @error.once="iconErrorHandler($event)"
+                        />
                         <span class="u-text" v-text="cj.Name"></span>
                     </router-link>
                 </li>
@@ -21,14 +28,20 @@
                 <li class="u-name">{{ npc.Name }}</li>
                 <li class="u-desc">称谓<em>Title</em>{{ npc.Title }}</li>
                 <li class="u-desc">等级<em>Level:</em>{{ npc.Level }}</li>
-                <li class="u-desc">强度<em>Intensity</em>{{ npc.Intensity }}</li>
+                <li class="u-desc">
+                    强度<em>Intensity</em>{{ npc.Intensity }}
+                </li>
                 <li class="u-desc">地图<em>MapName</em>{{ npc.MapName }}</li>
-                <li class="u-desc">备注<em>_Notation</em>{{ npc._Notation }}</li>
+                <li class="u-desc">
+                    备注<em>_Notation</em>{{ npc._Notation }}
+                </li>
 
                 <li class="u-desc">血量<em>MaxLife</em>{{ npc.MaxLife }}</li>
                 <li class="u-desc">蓝量<em>MaxMana</em>{{ npc.MaxMana }}</li>
                 <li class="u-desc">跑速<em>RunSpeed</em>{{ npc.RunSpeed }}</li>
-                <li class="u-desc">移速<em>WalkSpeed</em>{{ npc.WalkSpeed }}</li>
+                <li class="u-desc">
+                    移速<em>WalkSpeed</em>{{ npc.WalkSpeed }}
+                </li>
                 <li class="u-desc" title="攻击补偿距离/64">
                     体积<em>TouchRange</em>{{ npc.TouchRange }}
                 </li>
@@ -38,37 +51,47 @@
                 <li class="u-desc">识破<em>Sense</em>{{ npc.Sense }}</li>
                 <li class="u-desc">闪避<em>Dodge</em>{{ npc.Dodge }}</li>
                 <li class="u-desc">
-                    外功防御<em>PhysicsShieldBase</em>{{ npc.PhysicsShieldBase }}
+                    外功防御<em>PhysicsShieldBase</em
+                    >{{ npc.PhysicsShieldBase }}
                 </li>
                 <li class="u-desc">
-                    混元防御<em>NeutralMagicDefence</em>{{ npc.NeutralMagicDefence }}
+                    混元防御<em>NeutralMagicDefence</em
+                    >{{ npc.NeutralMagicDefence }}
                 </li>
                 <li class="u-desc">
-                    阳性防御<em>SolarMagicDefence</em>{{ npc.SolarMagicDefence }}
+                    阳性防御<em>SolarMagicDefence</em
+                    >{{ npc.SolarMagicDefence }}
                 </li>
                 <li class="u-desc">
-                    阴性防御<em>LunarMagicDefence</em>{{ npc.LunarMagicDefence }}
+                    阴性防御<em>LunarMagicDefence</em
+                    >{{ npc.LunarMagicDefence }}
                 </li>
                 <li class="u-desc">
-                    毒性防御<em>PoisonMagicDefence</em>{{ npc.PoisonMagicDefence }}
+                    毒性防御<em>PoisonMagicDefence</em
+                    >{{ npc.PoisonMagicDefence }}
                 </li>
             </ul>
 
             <ul class="m-bossinfo">
                 <li class="u-desc">
-                    外功会心<em>PhysicsCriticalStrike</em>{{ npc.PhysicsCriticalStrike }}
+                    外功会心<em>PhysicsCriticalStrike</em
+                    >{{ npc.PhysicsCriticalStrike }}
                 </li>
                 <li class="u-desc">
-                    混元会心<em>NeutralCriticalStrike</em>{{ npc.NeutralCriticalStrike }}
+                    混元会心<em>NeutralCriticalStrike</em
+                    >{{ npc.NeutralCriticalStrike }}
                 </li>
                 <li class="u-desc">
-                    阳性会心<em>SolarCriticalStrike</em>{{ npc.SolarCriticalStrike }}
+                    阳性会心<em>SolarCriticalStrike</em
+                    >{{ npc.SolarCriticalStrike }}
                 </li>
                 <li class="u-desc">
-                    阴性会心<em>LunarCriticalStrike</em>{{ npc.LunarCriticalStrike }}
+                    阴性会心<em>LunarCriticalStrike</em
+                    >{{ npc.LunarCriticalStrike }}
                 </li>
                 <li class="u-desc">
-                    毒性会心<em>PoisonCriticalStrike</em>{{ npc.PoisonCriticalStrike }}
+                    毒性会心<em>PoisonCriticalStrike</em
+                    >{{ npc.PoisonCriticalStrike }}
                 </li>
             </ul>
 
@@ -107,135 +130,77 @@
 </template>
 
 <script>
-    const {JX3BOX} = require("@jx3box/jx3box-common");
+const { JX3BOX } = require("@jx3box/jx3box-common");
 
-    export default {
-        name: "Relation",
-        props: ["achievement_id", "show_primary"],
-        data: function () {
-            return {
-                relations: {},
-                npcid: 0,
-                dungeon_id: null,
-                npc: {},
-            };
-        },
-        computed: {},
-        methods: {
-            getRelationList() {
-                let that = this;
-                this.$http({
-                    method: "GET",
-                    url: `${JX3BOX.__helperUrl}api/achievement/${this.achievement_id}/relations`,
-                    headers: {Accept: "application/prs.helper.v2+json"},
-                    withCredentials: true
-                }).then(function (data) {
-                    data = data.data;
-                    if (data.code !== 200 || !data.data.relations.length) {
-                        return;
-                    }
-
-                    let result = data.data;
-                    that.npcid = result.boss_id;
-                    that.dungeon_id = result.dungeon_id;
-                    that.relations = result.relations;
-                    that.$emit('relations_got', that.relations);
-
-                    // 获取boss信息
-                    that.getBossInfo(that.npcid);
-                });
-            },
-            resolveIconPath(id) {
-                return id
-                    ? JX3BOX.__ossMirror + 'icon/' + id + ".png"
-                    : JX3BOX.__ossMirror + "image/common/nullicon.png";
-            },
-            iconErrorHandler(e) {
-                e.target.src = JX3BOX.__ossMirror + "image/common/nullicon.png"
-            },
-            // 获取boss信息
-            getBossInfo(npcid) {
-                npcid &&
-                this.$http.get(`${JX3BOX.__node}npc/id/${npcid}`).then(res => {
-                    this.npc = (res.data.length && res.data[0]) || {};
-                });
-            }
-        },
-        mounted: function () {
-            if (typeof this.show_primary === 'undefined') this.show_primary = true;
-        },
-        watch: {
-            achievement_id: {
-                immediate: true,
-                handler() {
-                    //数据加载
-                    if (this.achievement_id) this.getRelationList();
+export default {
+    name: "Relation",
+    props: ["achievement_id", "show_primary"],
+    data: function() {
+        return {
+            relations: {},
+            npcid: 0,
+            dungeon_id: null,
+            npc: {},
+        };
+    },
+    computed: {},
+    methods: {
+        getRelationList() {
+            let that = this;
+            this.$http({
+                method: "GET",
+                url: `${JX3BOX.__helperUrl}api/achievement/${this.achievement_id}/relations`,
+                headers: { Accept: "application/prs.helper.v2+json" },
+                withCredentials: true,
+            }).then(function(data) {
+                data = data.data;
+                if (data.code !== 200 || !data.data.relations.length) {
+                    return;
                 }
-            }
-        }
-    };
+
+                let result = data.data;
+                that.npcid = result.boss_id;
+                that.dungeon_id = result.dungeon_id;
+                that.relations = result.relations;
+                that.$emit("relations_got", that.relations);
+
+                // 获取boss信息
+                that.getBossInfo(that.npcid);
+            });
+        },
+        resolveIconPath(id) {
+            return id
+                ? JX3BOX.__ossMirror + "icon/" + id + ".png"
+                : JX3BOX.__ossMirror + "image/common/nullicon.png";
+        },
+        iconErrorHandler(e) {
+            e.target.src = JX3BOX.__ossMirror + "image/common/nullicon.png";
+        },
+        // 获取boss信息
+        getBossInfo(npcid) {
+            npcid &&
+                this.$http
+                    .get(`${JX3BOX.__node}npc/id/${npcid}`)
+                    .then((res) => {
+                        this.npc = (res.data.length && res.data[0]) || {};
+                    });
+        },
+    },
+    mounted: function() {
+        if (typeof this.show_primary === "undefined") this.show_primary = true;
+    },
+    watch: {
+        achievement_id: {
+            immediate: true,
+            handler() {
+                //数据加载
+                if (this.achievement_id) this.getRelationList();
+            },
+        },
+    },
+};
 </script>
 
 <style lang="less">
-    .m-relations {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-
-    .m-relations-list {
-        margin: 0;
-        padding: 0;
-
-        .u-icon {
-            display: inline-block;
-            .w(16px);
-            .h(16px);
-            .y(top);
-            // background-color: #000;
-            margin-right: 6px;
-            border-radius: 2px;
-        }
-
-        li {
-            display: inline-block;
-            margin: 5px;
-            border-radius: 3px;
-            background-color: #eeeeee;
-            line-height: 1em;
-
-            &:hover {
-                a {
-                    color: #fff;
-                }
-
-                background-color: #548379;
-            }
-        }
-
-        a {
-            padding: 8px 10px;
-            display: inline-block;
-            color: #2d5650;
-            .fz(14px, 16px);
-        }
-    }
-
-    .m-bossinfo {
-        .dbi;
-        list-style: none;
-        margin: 0;
-        padding: 15px;
-        vertical-align: top;
-
-        li {
-            .db;
-            .fz(13px, 2);
-
-            em {
-                padding: 0 5px;
-                color: #999;
-            }
-        }
-    }
+    @import '../assets/css/relation.less';
 </style>

@@ -28,8 +28,8 @@ export default {
             this.$http({
                 method: "GET",
                 url: `${JX3BOX.__helperUrl}api/achievements/count`,
-                headers: {Accept: "application/prs.helper.v2+json"},
-                withCredentials: true
+                headers: { Accept: "application/prs.helper.v2+json" },
+                withCredentials: true,
             }).then(
                 function(data) {
                     data = data.data;
@@ -51,49 +51,5 @@ export default {
 </script>
 
 <style lang="less">
-.m-breadcrumb {
-    .u-stat {
-        .fl;
-        white-space: nowrap;
-        overflow: auto;
-
-        // .x;
-        .fz(14px);
-
-        em {
-            .mr(10px);
-            // .bold;
-            font-style: normal;
-        }
-
-        b {
-            font-style: italic;
-            color: @primary;
-
-            &:after {
-                content: "|";
-                font-weight: 300;
-                color: #999;
-                .ml(10px);
-                font-family: Georgia, "Times New Roman", Times, serif;
-            }
-        }
-
-        span {
-            .mr(10px);
-
-            &:last-child b {
-                &:after {
-                    .none;
-                }
-            }
-        }
-    }
-}
-@media screen and (max-width: @ipad) {
-    .m-breadcrumb .u-stat {
-        .fz(13px);
-        float:none;
-    }
-}
+    @import '../assets/css/bread.less';
 </style>

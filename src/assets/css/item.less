@@ -1,0 +1,47 @@
+.jx3-item {
+    .item-icon {
+        width: 36px;
+        border-radius: 5px
+    }
+
+    .item-detail {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        width: 280px;
+        margin-top: 5px;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, .7);
+        font-size: 14px;
+        color: #FFFFFF;
+        text-shadow: none;
+        transform: translate(-50%, 0);
+
+        & > * {
+            display: block;
+            .mt(0);
+            .mb(4px);
+            line-height: 1.2em;
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: calc(~"100% + 4px");
+            height: calc(~"100% + 4px");
+            border: 1px solid rgba(0, 0, 0, .7);
+            box-sizing: border-box;
+        }
+
+        .level {
+            color: rgb(249, 161, 1)
+        }
+    }
+
+    &:hover .item-detail {
+        display: block;
+    }
+}
