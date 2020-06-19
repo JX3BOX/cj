@@ -126,7 +126,7 @@ export default {
     computed: {},
     methods: {
         author_url(user_id) {
-            return `${JX3BOX.__Links.author}${user_id}`;
+            return `${JX3BOX.__Links.author}?uid=${user_id}`;
         },
         copy_success() {
             this.$notify({ title: "复制成功", type: "success" });
