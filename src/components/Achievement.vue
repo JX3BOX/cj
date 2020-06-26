@@ -198,7 +198,7 @@ export default {
             if (isNaN(parseInt(icon_id))) {
                 return `${JX3BOX.__ossMirror}image/common/nullicon.png`;
             } else {
-                return `${JX3BOX.__ossMirror}icon/${icon_id}.png`;
+                return `${JX3BOX.__iconPath}icon/${icon_id}.png`;
             }
         },
         // 描述过滤

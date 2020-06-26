@@ -170,7 +170,7 @@ export default {
         },
         resolveIconPath(id) {
             return id
-                ? JX3BOX.__ossMirror + "icon/" + id + ".png"
+                ? JX3BOX.__iconPath + "icon/" + id + ".png"
                 : JX3BOX.__ossMirror + "image/common/nullicon.png";
         },
         iconErrorHandler(e) {
