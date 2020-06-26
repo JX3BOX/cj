@@ -12,7 +12,7 @@
                 <a
                     class="other"
                     target="_blank"
-                    href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=o8LHzsrN48nbkMHM243AzM4"
+                    :href="feedback"
                     >反馈建议 &raquo;</a
                 >
                 <h4>便捷入口</h4>
@@ -180,6 +180,7 @@ export default {
             newest_achievements: null,
             newest_posts: null,
             JX3BOX: JX3BOX,
+            feedback : JX3BOX.feedback
         };
     },
     computed: {},
