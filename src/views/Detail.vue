@@ -78,6 +78,7 @@
     import Relations from '@/components/Relations.vue';
     import Revisions from '@/components/Revisions.vue';
     import Comments from '@/components/Comments.vue';
+    // import {postStat} from '@/api.js'
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
 
@@ -160,16 +161,17 @@
         watch: {
             '$route.params.cj_id': {
                 immediate: true,
-                handler() {
+                handler(newval) {
                     // 获取成就
                     this.get_achievement();
                     // 获取成就最新攻略
                     if(!this.$route.params.post_id) this.get_achievement_newest_post();
+                    // postStat(this.$route.params.cj_id)
                 }
             },
             '$route.params.post_id': {
                 immediate: true,
-                handler() {
+                handler(newval) {
                     // 获取成就攻略
                     this.get_achievement_post();
                 }
