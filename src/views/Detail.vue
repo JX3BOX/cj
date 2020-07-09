@@ -22,6 +22,7 @@
                     <div class="content m-single-primary">
                         <Article :content="post.content"/>
                     </div>
+                    
                     <div class="other">
                         <div v-if="post.user_avatar" class="avatar"><img :src="post.user_avatar"></div>
                         <div class="done" v-text="post.user_nickname"></div>
@@ -74,6 +75,7 @@
 </template>
 
 <script>
+import Article from '@jx3box/jx3box-editor/src/Article.vue'
     import Achievement from '@/components/Achievement.vue';
     import Relations from '@/components/Relations.vue';
     import Revisions from '@/components/Revisions.vue';
@@ -98,6 +100,7 @@
             Relations,
             Revisions,
             Comments,
+            Article
         },
         methods: {
             relations_got(relations) {
