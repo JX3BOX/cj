@@ -76,9 +76,9 @@ export default {
         // 图标过滤
         icon_url_filter(icon_id) {
             if (isNaN(parseInt(icon_id))) {
-                return `${JX3BOX.__ossMirror}image/common/nullicon.png`;
+                return `${JX3BOX.__ossRoot}image/common/nullicon.png`;
             } else {
-                return `${JX3BOX.__iconPath}icon/${icon_id}.png`;
+                return `${JX3BOX.__ossRoot}icon/${icon_id}.png`;
             }
         },
         // 描述过滤
