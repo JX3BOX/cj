@@ -23,13 +23,14 @@
                         <i class="el-icon-edit"></i>
                         <span>完善成就攻略</span>
                     </a>
+                    <QRcode class="u-qr" />
                     <h4 class="u-title">
                         <img
                             class="u-icon"
                             svg-inline
                             src="../assets/img/cj.svg"
                         />
-                        <span>成就攻略</span>
+                        <span class="u-txt">成就攻略</span>
                     </h4>
                 </div>
                 <div class="u-body">
@@ -121,7 +122,7 @@ import Achievement from "@/components/Achievement.vue";
 import Relations from "@/components/Relations.vue";
 import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
-import { postStat } from "@/api.js";
+import { postStat } from "@/service/stat.js";
 
 const { JX3BOX } = require("@jx3box/jx3box-common");
 

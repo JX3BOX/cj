@@ -18,7 +18,7 @@
                     fill:#555
                 }
 
-                span {
+                .u-txt {
                     font-size: 18px;
                     font-weight: 300;
                     vertical-align: middle;
@@ -32,6 +32,17 @@
                 margin-right: 15px;
                 font-size: 12px;
                 .fr;
+            }
+
+            .u-qr{
+                .fr;
+                .mr(20px);
+                .mt(14px);
+                // .fz(12px);
+                // .u-icon{
+                //     .size(14px);
+                //     .y(-3px);
+                // }
             }
         }
 
@@ -248,5 +259,11 @@
                 content: "▼";
             }
         }
+    }
+}
+
+@media screen and (max-width:@ip5){
+    #m-cj-view .m-cj-post .u-head .u-qr{
+        .none;
     }
 }
