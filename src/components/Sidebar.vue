@@ -38,7 +38,7 @@
 
 <script>
 const { JX3BOX } = require("@jx3box/jx3box-common");
-import Bus from '@jx3box/jx3box-common-ui/service/bus'
+import Bus from "@jx3box/jx3box-common-ui/service/bus";
 
 export default {
     name: "Sidebar",
@@ -110,10 +110,11 @@ export default {
             this.old_node = _node;
 
             // 移动端收起边栏
-            if(node.isLeaf){
-                Bus.$emit('toggleLeftSide',false);
+            if (window.innerWidth < 1024) {
+                if (node.isLeaf) {
+                    Bus.$emit("toggleLeftSide", false);
+                }
             }
-
         },
         get_menus(general) {
             let that = this;
