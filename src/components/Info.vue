@@ -1,5 +1,5 @@
 <template>
-    <div class="m-cj-aside-right">
+    <div class="m-cj-aside-right" :class="{isHome : isHome}">
         <RightSideMsg>
             <em>官方反馈交流Q群</em> :
             <strong
@@ -121,6 +121,7 @@ export default {
             ],
             ranks: null,
             groups: null,
+            isHome : true
         };
     },
     computed: {},
@@ -175,9 +176,13 @@ export default {
                 }
             );
         },
+        checkIsHome : function (){
+            this.isHome =  this.$route.name == 'home' || !this.$route.name
+        }
     },
     mounted: function() {
         this.get_achievement_groups();
+        this.checkIsHome()
     },
     watch: {
         active_rank_type: {
@@ -186,6 +191,9 @@ export default {
                 this.get_users_ranks(this.active_rank_type);
             },
         },
+        '$route.name' : function (newpath){
+            this.checkIsHome()
+        }
     },
     filters: {
         resolveAvatarPath: function(val) {

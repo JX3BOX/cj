@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" >
         <Header></Header>
         <Breadcrumb
             name="成就百科"
@@ -34,12 +34,14 @@ import Info from "@/components/Info.vue";
 export default {
     name: "App",
     data: function() {
-        return {};
+        return {
+        };
     },
     computed: {},
     methods: {},
     filters: {},
-    mounted: function() {},
+    mounted: function() {
+    },
     components: {
         CJBreadcrumb,
         Sidebar,
