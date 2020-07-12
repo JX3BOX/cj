@@ -153,14 +153,14 @@
                             </div>
                         </div>
                         <div class="m-body">
-                            <router-link
+                            <span
                                 class="u-excerpt"
                                 :to="{
                                     name: 'view',
                                     params: { cj_id: post.cj_id },
                                 }"
                                 v-html="ellipsis(post.excerpt)"
-                            ></router-link>
+                            ></span>
                         </div>
                     </el-col>
                 </el-row>
