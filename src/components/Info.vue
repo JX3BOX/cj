@@ -23,7 +23,7 @@
                 >
                     <ul class="u-list">
                         <li v-for="(rank, k) in ranks" :key="k">
-                            <a class="u-contributor" href="">
+                            <a class="u-contributor" :href="author_url(rank.user_id)">
                                 <i class="u-avatar">
                                     <img
                                         :src="
@@ -32,12 +32,7 @@
                                         :alt="rank.user_nickname"
                                     />
                                 </i>
-                                <a
-                                    class="u-name"
-                                    :href="author_url(rank.user_id)"
-                                    target="_blank"
-                                    v-text="rank.user_nickname"
-                                ></a>
+                                <span class="u-name" v-text="rank.user_nickname"></span>
                                 <em class="u-count"
                                     >+ {{ rank.total_score }}</em
                                 >
