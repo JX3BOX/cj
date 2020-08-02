@@ -8,7 +8,7 @@
                       v-text="achievement.post?('修订时间：'+$options.filters.date_format(achievement.post.updated)):''"></span>
                 <span class="u-attr" v-text="achievement.post?('综合难度：'+$options.filters.star(achievement.post.level)):''"></span>
             </div>
-            <div class="cj-body" :class="is_empty(achievement) ? 'cj-empty' : ''">
+            <div class="cj-body">
                 <div class="m-left">
                     <router-link class="u-attr u-icon" :target="target_filter()" @click="location_handle"
                                  :to="url_filter(achievement.ID)">
@@ -117,11 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div
-                    v-if="!is_empty(achievement)"
-                    class="u-expand"
-                    @click="fold = !fold"
-            >
+            <div class="u-expand" :class="{'disable':is_empty(achievement)}" @click="fold = !fold">
                 <hr/>
                 <i class="u-icon el-icon-caret-top"></i>
                 <i class="u-icon el-icon-caret-bottom"></i>

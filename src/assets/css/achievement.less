@@ -63,10 +63,6 @@
     color: #555555;
     text-shadow: 0 0 1px #cccccc;
 
-    &.cj-empty {
-      margin: 20px 0 40px;
-    }
-
     @cj-body-right: 120px;
 
     .m-left {
@@ -260,6 +256,19 @@
     cursor: pointer;
     transition: background-color 0.3s linear;
     z-index: 5;
+
+    &.disable {
+      opacity: .3;
+      cursor: default;
+
+      .u-icon {
+        .none!important;
+      }
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
 
     hr {
       position: absolute;
