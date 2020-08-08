@@ -141,9 +141,7 @@
                                 </div>
                                 <div
                                     class="u-level"
-                                    v-text="
-                                        '综合难度：' + render_stars(post.level)
-                                    "
+                                    v-text="'综合难度：' + $options.filters.star(post.level)"
                                 ></div>
                                 <div
                                     class="u-remark"
@@ -187,9 +185,6 @@ export default {
     methods: {
         img_error_handle(e) {
             e.target.src = `${JX3BOX.__ossRoot}image/common/nullicon.png`;
-        },
-        render_stars: function(val) {
-            return "⭐️".repeat(val ? val : 1);
         },
         // 成就图标过滤
         icon_url_filter(icon_id) {
