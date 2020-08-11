@@ -6,13 +6,11 @@
 
         <div class="cj-module no-border">
             <div class="u-head">
-                <a
-                        class="other"
-                        target="_blank"
-                        :href="feedback"
-                >反馈建议 &raquo;</a
-                >
-                <h4>便捷入口</h4>
+                <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a>
+                <h4>
+                    <i class="el-icon-location-information"></i>
+                    <span> 便捷入口</span>
+                </h4>
             </div>
             <div class="u-body">
                 <ul class="cj-qlinks">
@@ -58,7 +56,10 @@
 
         <div class="cj-module no-border">
             <div class="u-head">
-                <h4>热门成就</h4>
+                <h4>
+                    <i class="el-icon-notebook-1"></i>
+                    <span> 热门成就</span>
+                </h4>
             </div>
             <div class="u-body">
                 <el-carousel height="60px" direction="vertical" indicator-position="none">
@@ -83,11 +84,11 @@
 
         <div class="cj-module no-border">
             <div class="u-head">
-                <router-link class="other" :to="{ name: 'newest' }"
-                >查看更多 &raquo;
-                </router-link
-                >
-                <h4>最新成就</h4>
+                <router-link class="other" :to="{ name: 'newest' }">查看更多 &raquo;</router-link>
+                <h4>
+                    <i class="el-icon-notebook-2"></i>
+                    <span> 最新成就</span>
+                </h4>
             </div>
             <div class="u-body">
                 <el-carousel height="60px" direction="vertical" :interval="3500" indicator-position="none">
@@ -112,7 +113,10 @@
 
         <div class="cj-module no-border">
             <div class="u-head">
-                <h4>最近攻略</h4>
+                <h4>
+                    <i class="el-icon-collection"></i>
+                    <span> 最近攻略</span>
+                </h4>
             </div>
             <div class="u-body">
                 <el-row class="cj-post-list">
