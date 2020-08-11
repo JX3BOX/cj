@@ -1,13 +1,10 @@
 <template>
     <div class="m-cj-index m-cj-home">
-        <!--<li>最新成就</li>-->
         <!--<li>7天热门统计数据</li>-->
-        <!--<li>奇遇成就</li>-->
         <!--<li>副本成就?</li>
         <li>阅读成就?</li>-->
-        <!--<li>最近攻略</li>-->
 
-        <div class="cj-module">
+        <div class="cj-module no-border">
             <div class="u-head">
                 <a
                         class="other"
@@ -20,76 +17,71 @@
             <div class="u-body">
                 <ul class="cj-qlinks">
                     <li class="qlink">
-                        <a
-                                style="background-color:#FE7979;"
-                                target="_blank"
-                                href="https://www.jx3box.com/tool/9126/"
-                        >游戏内看百科</a
-                        >
+                        <a style="background-color:#FE7979;" target="_blank" href="https://www.jx3box.com/tool/9126/">
+                            <i class="el-icon-trophy"></i>
+                            <span> 游戏内看百科</span>
+                        </a>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{ name: 'waiting' }"
-                        >待攻略成就
-                        </router-link
-                        >
+                        <router-link :to="{ name: 'waiting' }">
+                            <i class="el-icon-edit-outline"></i>
+                            <span> 待攻略成就</span>
+                        </router-link>
                     </li>
                     <li class="qlink">
-                        <a
-                                target="_blank"
-                                href="https://www.jx3box.com/tool/8104/"
-                        >隐藏成就</a
-                        >
+                        <a target="_blank" href="https://www.jx3box.com/tool/8104/">
+                            <i class="el-icon-medal"></i>
+                            <span> 隐藏成就</span>
+                        </a>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{ name: 'out_print' }"
-                        >绝版成就
-                        </router-link
-                        >
+                        <router-link :to="{ name: 'out_print' }">
+                            <i class="el-icon-coin"></i>
+                            <span> 绝版成就</span>
+                        </router-link>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{ name: 'adventure' }"
-                        >奇遇成就
-                        </router-link
-                        >
+                        <router-link :to="{ name: 'adventure' }">
+                            <i class="el-icon-ice-drink"></i>
+                            <span> 奇遇成就</span>
+                        </router-link>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{ name: 'rare' }"
-                        >珍奇成就
-                        </router-link
-                        >
+                        <router-link :to="{ name: 'rare' }">
+                            <i class="el-icon-milk-tea"></i>
+                            <span> 珍奇成就</span>
+                        </router-link>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="cj-module">
+        <div class="cj-module no-border">
             <div class="u-head">
                 <h4>热门成就</h4>
             </div>
             <div class="u-body">
-                <template>
-                    <el-carousel height="60px" direction="vertical" :autoplay="ture" indicator-position="none">
-                        <el-carousel-item v-for="(items,key) in hot_achievements" :key="key" class="m-hot">
-                            <el-row :gutter="20">
-                                <el-col :xs="12" :md="8" v-for="(item,k) in items" :key="k">
-                                    <div class="u-item" :class="`u-item-${k}`">
-                                        <div class="u-icon">
-                                            <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
-                                        </div>
-                                        <div class="m-hot-content">
-                                            <span class="u-title" v-text="item.Name"></span>
-                                            <span class="u-desc" v-text="item.Desc"></span>
-                                        </div>
+                <el-carousel height="60px" direction="vertical" indicator-position="none">
+                    <el-carousel-item v-for="(items,key) in hot_achievements" :key="key" class="m-carousel m-hot">
+                        <el-row :gutter="20">
+                            <el-col :xs="12" :md="8" v-for="(item,k) in items" :key="k">
+                                <div class="u-item" :class="`u-item-${k}`">
+                                    <div class="u-icon">
+                                        <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
-                                </el-col>
-                            </el-row>
-                        </el-carousel-item>
-                    </el-carousel>
-                </template>
+                                    <div class="m-carousel-content">
+                                        <span class="u-title" v-text="item.Name"></span>
+                                        <span class="u-desc" v-text="item.Desc"></span>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-carousel-item>
+                </el-carousel>
             </div>
         </div>
 
-        <div class="cj-module">
+        <div class="cj-module no-border">
             <div class="u-head">
                 <router-link class="other" :to="{ name: 'newest' }"
                 >查看更多 &raquo;
@@ -98,29 +90,27 @@
                 <h4>最新成就</h4>
             </div>
             <div class="u-body">
-                <el-row class="cj-newest-list">
-                    <el-col
-                            :xs="12"
-                            :md="8"
-                            class="newest"
-                            v-for="(newest, key) in newest_achievements"
-                            :key="key"
-                    >
-                        <router-link
-                                :to="{ name: 'view', params: { cj_id: newest.ID } }"
-                        >
-                            <img
-                                    @error.once="img_error_handle"
-                                    :src="icon_url_filter(newest.IconID)"
-                            />
-                            <span v-text="newest.Name"></span>
-                        </router-link>
-                    </el-col>
-                </el-row>
+                <el-carousel height="60px" direction="vertical" :interval="3500" indicator-position="none">
+                    <el-carousel-item v-for="(items,key) in newest_achievements" :key="key" class="m-carousel">
+                        <el-row :gutter="20">
+                            <el-col :xs="12" :md="8" v-for="(item,k) in items" :key="k">
+                                <div class="u-item" :class="`u-item-${k}`">
+                                    <div class="u-icon">
+                                        <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
+                                    </div>
+                                    <div class="m-carousel-content">
+                                        <span class="u-title" v-text="item.Name"></span>
+                                        <span class="u-desc" v-text="item.Desc"></span>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </el-carousel-item>
+                </el-carousel>
             </div>
         </div>
 
-        <div class="cj-module">
+        <div class="cj-module no-border">
             <div class="u-head">
                 <h4>最近攻略</h4>
             </div>
@@ -239,13 +229,13 @@
                     params: {page: page},
                     withCredentials: true,
                 }).then(
-                    function (data) {
+                    (data) => {
                         data = data.data;
                         if (data.code === 200) {
-                            that.newest_achievements = data.data.achievements;
+                            this.newest_achievements = this.chuck(data.data.achievements);
                         }
                     },
-                    function () {
+                    () => {
                         that.newest_achievements = false;
                     }
                 );
@@ -277,6 +267,13 @@
                 }
                 return value;
             },
+            chuck(arr, number = 3) {
+                let output = [];
+                for (let i = 0; i < arr.length; i += number) {
+                    output.push(arr.slice(i, i + number))
+                }
+                return output;
+            },
         },
         mounted: function () {
             getRank().then((data) => {
@@ -299,12 +296,7 @@
             get_achievements({ids: [7923, 7980, 7924, 7951, 7952, 7917, 7968, 7921]}).then((data) => {
                 data = data.data;
                 if (data.code === 200) {
-                    let achievements = data.data.achievements;
-                    let hot_achievements = [];
-                    for (let i = 0; i < achievements.length; i += 3) {
-                        hot_achievements.push(achievements.slice(i, i + 3))
-                    }
-                    this.hot_achievements = hot_achievements;
+                    this.hot_achievements = this.chuck(data.data.achievements);
                 }
             });
             this.get_achievements();
