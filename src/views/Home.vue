@@ -67,7 +67,7 @@
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item,k) in items" :key="k">
                                 <router-link class="u-item" :class="`u-item-${k}`"
-                                             :to="{name:'view', params: {item_id: item.ID}}">
+                                             :to="{name:'view', params: {cj_id: item.ID}}">
                                     <div class="u-icon">
                                         <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
@@ -111,7 +111,7 @@
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item,k) in items" :key="k">
                                 <router-link class="u-item" :class="`u-item-${k}`"
-                                             :to="{name:'view', params: {item_id: item.ID}}">
+                                             :to="{name:'view', params: {cj_id: item.ID}}">
                                     <div class="u-icon">
                                         <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
