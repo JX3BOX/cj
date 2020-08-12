@@ -299,9 +299,6 @@
                 }
                 return output;
             },
-            hot_format(percentage) {
-                return '';
-            }
         },
         mounted: function () {
             // 获取热门成就
