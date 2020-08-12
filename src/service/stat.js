@@ -24,8 +24,8 @@ function postStat(id) {
         },
     });
 }
-//const rank = __next + 'api/summary/visit/rank'
-const rank = "/api/summary/visit/rank";
+const rank = __next + 'api/summary/visit/rank'
+// const rank = "/api/summary/visit/rank";
 function getRank() {
     return axios.get(rank,{
         params : {
