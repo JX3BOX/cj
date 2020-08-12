@@ -319,7 +319,7 @@
                     }
                 }
 
-                get_achievements({ids: achievement_ids}).then((data) => {
+                get_achievements({ids: achievement_ids, limit: 15}).then((data) => {
                     data = data.data;
                     if (data.code === 200) {
                         let cjs = data.data.achievements;
