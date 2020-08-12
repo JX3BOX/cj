@@ -66,7 +66,8 @@
                     <el-carousel-item v-for="(items,key) in hot_achievements" :key="key" class="m-carousel m-hot">
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item,k) in items" :key="k">
-                                <div class="u-item" :class="`u-item-${k}`">
+                                <router-link class="u-item" :class="`u-item-${k}`"
+                                             :to="{name:'view', params: {item_id: item.ID}}">
                                     <div class="u-icon">
                                         <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
@@ -88,7 +89,7 @@
                                             <span v-text="`三十天 - ${item.rank['30days']}`"></span>
                                         </span>
                                     </div>
-                                </div>
+                                </router-link>
                             </el-col>
                         </el-row>
                     </el-carousel-item>
@@ -109,7 +110,8 @@
                     <el-carousel-item v-for="(items,key) in newest_achievements" :key="key" class="m-carousel">
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item,k) in items" :key="k">
-                                <div class="u-item" :class="`u-item-${k}`">
+                                <router-link class="u-item" :class="`u-item-${k}`"
+                                             :to="{name:'view', params: {item_id: item.ID}}">
                                     <div class="u-icon">
                                         <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
@@ -123,7 +125,7 @@
                                             <span v-text="` ${item.Desc}`"></span>
                                         </span>
                                     </div>
-                                </div>
+                                </router-link>
                             </el-col>
                         </el-row>
                     </el-carousel-item>
