@@ -111,8 +111,9 @@
 
     .m-carousel-content {
       margin-left: 65px;
+      margin-right: 10px;
 
-      span {
+      & > span {
         display: block;
       }
 
@@ -120,10 +121,27 @@
         font-size: 14px;
       }
 
-      .u-desc {
+      .u-desc, .u-rank {
         margin-top: 2px;
         font-size: 12px;
-        opacity: .75;
+      }
+
+      .u-desc {
+        opacity: .6;
+      }
+
+      .u-rank {
+        color: slateblue;
+        white-space: nowrap;
+
+        i {
+          margin-right: 3px;
+        }
+
+        span{
+          display: inline-block;
+          margin-right: 10px;
+        }
       }
     }
 
@@ -167,6 +185,12 @@
 
 @media screen and (max-width: @ipad) {
   .m-cj-home {
+    .cj-qlinks {
+      .qlink {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    }
     .cj-post-list {
       .cj-post {
         width: 100%;

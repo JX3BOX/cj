@@ -62,17 +62,31 @@
                 </h4>
             </div>
             <div class="u-body">
-                <el-carousel height="60px" direction="vertical" indicator-position="none">
+                <el-carousel height="68px" direction="vertical" indicator-position="none">
                     <el-carousel-item v-for="(items,key) in hot_achievements" :key="key" class="m-carousel m-hot">
                         <el-row :gutter="20">
-                            <el-col :xs="12" :md="8" v-for="(item,k) in items" :key="k">
+                            <el-col :md="8" v-for="(item,k) in items" :key="k">
                                 <div class="u-item" :class="`u-item-${k}`">
                                     <div class="u-icon">
                                         <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
                                     <div class="m-carousel-content">
-                                        <span class="u-title" v-text="item.Name"></span>
-                                        <span class="u-desc" v-text="item.Desc"></span>
+                                        <span class="u-title">
+                                            <i class="el-icon-medal"></i>
+                                            <span v-text="` ${item.Name}`"></span>
+                                        </span>
+                                        <span class="u-desc">
+                                            <i class="el-icon-mic"></i>
+                                            <span v-text="` ${item.Desc}`"></span>
+                                        </span>
+                                        <span class="u-rank" v-if="item.rank">
+                                            <i class="el-icon-watermelon"></i>
+                                            <span v-text="`昨日 - ${item.rank['yesterday']}`"></span>
+                                            <i class="el-icon-grape"></i>
+                                            <span v-text="`七天 - ${item.rank['7days']}`"></span>
+                                            <i class="el-icon-pear"></i>
+                                            <span v-text="`三十天 - ${item.rank['30days']}`"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </el-col>
@@ -94,14 +108,20 @@
                 <el-carousel height="60px" direction="vertical" :interval="3500" indicator-position="none">
                     <el-carousel-item v-for="(items,key) in newest_achievements" :key="key" class="m-carousel">
                         <el-row :gutter="20">
-                            <el-col :xs="12" :md="8" v-for="(item,k) in items" :key="k">
+                            <el-col :md="8" v-for="(item,k) in items" :key="k">
                                 <div class="u-item" :class="`u-item-${k}`">
                                     <div class="u-icon">
                                         <img @error.once="img_error_handle" :src="icon_url_filter(item.IconID)"/>
                                     </div>
                                     <div class="m-carousel-content">
-                                        <span class="u-title" v-text="item.Name"></span>
-                                        <span class="u-desc" v-text="item.Desc"></span>
+                                        <span class="u-title">
+                                            <i class="el-icon-medal"></i>
+                                            <span v-text="` ${item.Name}`"></span>
+                                        </span>
+                                        <span class="u-desc">
+                                            <i class="el-icon-mic"></i>
+                                            <span v-text="` ${item.Desc}`"></span>
+                                        </span>
                                     </div>
                                 </div>
                             </el-col>
@@ -236,6 +256,7 @@
                     (data) => {
                         data = data.data;
                         if (data.code === 200) {
+                            // 按照长度分批
                             this.newest_achievements = this.chuck(data.data.achievements);
                         }
                     },
@@ -278,31 +299,40 @@
                 }
                 return output;
             },
+            hot_format(percentage) {
+                return '';
+            }
         },
         mounted: function () {
+            // 获取热门成就
             getRank().then((data) => {
                 data = data.data;
 
-                let achievements = [],
+                let ranks = [],
                     achievement_ids = [];
                 for (let i in data) {
                     let name = this.$_.get(data, `${i}.name`, '-');
                     let achievement_id = this.$_.get(name.split('-'), 1, '');
                     if (achievement_id) {
                         achievement_ids.push(achievement_id);
-                        achievements[achievement_id] = this.$_.get(data, `${i}.value`, {});
+                        ranks[achievement_id] = this.$_.get(data, `${i}.value`, {});
                     }
                 }
 
-                get_achievements({ids: achievement_ids});
-                console.log(444, achievements);
+                get_achievements({ids: achievement_ids}).then((data) => {
+                    data = data.data;
+                    if (data.code === 200) {
+                        let cjs = data.data.achievements;
+                        for (let i in cjs) {
+                            let rank = ranks[cjs[i].ID];
+                            cjs[i].rank = rank;
+                        }
+                        // 按照长度分批
+                        this.hot_achievements = this.chuck(cjs);
+                    }
+                });
             });
-            get_achievements({ids: [7923, 7980, 7924, 7951, 7952, 7917, 7968, 7921]}).then((data) => {
-                data = data.data;
-                if (data.code === 200) {
-                    this.hot_achievements = this.chuck(data.data.achievements);
-                }
-            });
+
             this.get_achievements();
             this.get_achievement_posts();
         },

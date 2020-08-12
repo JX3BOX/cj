@@ -24,14 +24,15 @@ function postStat(id) {
         },
     });
 }
-const rank = __next + 'api/summary/visit/rank'
-// const rank = "/api/summary/visit/rank";
+//const rank = __next + 'api/summary/visit/rank'
+const rank = "/api/summary/visit/rank";
 function getRank() {
     return axios.get(rank,{
         params : {
             postType : 'cj',
             postAction : 'views',
-            pageSize : 10
+            sort : '7days',
+            pageSize : 15
         }
     });
 }
