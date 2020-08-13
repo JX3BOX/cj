@@ -317,17 +317,28 @@
                         ranks[achievement_id] = this.$_.get(data, `${i}.value`, {});
                     }
                 }
+                achievement_ids = achievement_ids.slice(1, 15);
 
-                get_achievements({ids: achievement_ids, limit: 15}).then((data) => {
+                get_achievements({ids: achievement_ids, limit: achievement_ids.length}).then((data) => {
                     data = data.data;
                     if (data.code === 200) {
-                        let cjs = data.data.achievements;
-                        for (let i in cjs) {
-                            let rank = ranks[cjs[i].ID];
-                            cjs[i].rank = rank;
+                        data = data.data.achievements;
+
+                        // 使用ID作为键值
+                        let achievements = {};
+                        for (let i in data) achievements[data[i].ID] = data[i];
+
+                        // 数据填充保持原有排序
+                        let output = [];
+                        for (let i in achievement_ids) {
+                            let id = achievement_ids[i];
+                            let achievement = achievements[id];
+                            achievement.rank = ranks[id];
+                            output.push(achievement);
                         }
+
                         // 按照长度分批
-                        this.hot_achievements = this.chuck(cjs);
+                        this.hot_achievements = this.chuck(output);
                     }
                 });
             });
