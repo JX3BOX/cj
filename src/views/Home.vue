@@ -333,8 +333,12 @@
                         for (let i in achievement_ids) {
                             let id = achievement_ids[i];
                             let achievement = achievements[id];
-                            achievement.rank = ranks[id];
-                            output.push(achievement);
+                            if (achievement) {
+                                achievement.rank = ranks[id];
+                                output.push(achievement);
+                            } else {
+                                console.log(`找不到成就${id}`);
+                            }
                         }
 
                         // 按照长度分批
