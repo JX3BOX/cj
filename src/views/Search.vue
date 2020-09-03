@@ -45,13 +45,13 @@ export default {
                     params: data,
                     withCredentials: true,
                 }).then(
-                    function(data) {
+                    (data) => {
                         data = data.data;
                         if (data.code === 200) {
                             resolve(data.data);
                         }
                     },
-                    function() {
+                    () => {
                         resolve(false);
                     }
                 );

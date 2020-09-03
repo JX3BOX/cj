@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 let store = {
     state: {
+        scroll_tops: {},
         sidebar: {
             general: 1,
             sub: null,

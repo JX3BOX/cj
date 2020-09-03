@@ -7,7 +7,6 @@
             :fold="fold"
             :target="target"
             :jump="jump"
-            :toggle_load_url="toggle_load_url"
         />
     </ul>
 </template>
@@ -17,9 +16,18 @@ import Achievement from "@/components/Achievement.vue";
 
 export default {
     name: "Achievements",
-    props: ["achievements", "fold", "target", "jump", "toggle_load_url"],
+    props: ["achievements", "fold", "target", "jump"],
     components: {
         Achievement,
     },
+    watch:{
+        achievements(){
+            if (this.$route && typeof this.$store.state.scroll_tops[this.$route.name] !== 'undefined') {
+                setTimeout(() => {
+                    window.scrollTo(0, this.$store.state.scroll_tops[this.$route.name]);
+                }, 200);
+            }
+        }
+    }
 };
 </script>

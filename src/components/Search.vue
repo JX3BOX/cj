@@ -39,6 +39,7 @@ export default {
             history.back();
         },
         search_handle() {
+            delete this.$store.state.scroll_tops['search'];
             this.$router.push({
                 name: "search",
                 params: { keyword: this.keyword },
