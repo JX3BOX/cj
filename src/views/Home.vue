@@ -78,7 +78,7 @@
                                         </span>
                                         <span class="u-desc">
                                             <i class="el-icon-mic"></i>
-                                            <span v-text="` ${item.Desc}`"></span>
+                                            <span v-html="` ${item.Desc}`"></span>
                                         </span>
                                         <span class="u-rank" v-if="item.rank">
                                             <i class="el-icon-watermelon"></i>
@@ -122,7 +122,7 @@
                                         </span>
                                         <span class="u-desc">
                                             <i class="el-icon-mic"></i>
-                                            <span v-text="` ${item.Desc}`"></span>
+                                            <span v-html="` ${item.Desc}`"></span>
                                         </span>
                                     </div>
                                 </router-link>

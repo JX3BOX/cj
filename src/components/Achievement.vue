@@ -13,8 +13,7 @@
                     <a class="u-attr u-icon" :target="target_filter()" @click="url_filter(achievement.ID)">
                         <img class="u-icon" :src="icon_url_filter(achievement.IconID)" @error.once="img_error_handle"/>
                     </a>
-                    <a class="u-attr u-desc" v-html="description_filter(achievement.Desc)"
-                       @click="url_filter(achievement.ID)"></a>
+                    <a class="u-attr u-desc" v-html="achievement.Desc" @click="url_filter(achievement.ID)"></a>
                 </div>
                 <div class="m-right">
                     <div class="u-attr">
@@ -35,7 +34,7 @@
                     >
                         <router-link
                             :to="sub_achievement.Visible == 1 ? {name: 'view',params: { cj_id: sub_achievement.ID }} : {}"
-                            target="_blank" :title="description_filter(sub_achievement.ShortDesc)">
+                            target="_blank">
                             <img class="u-icon" :src="icon_url_filter(sub_achievement.IconID)"/>
                             <span v-text="sub_achievement.Name"></span>
                         </router-link>

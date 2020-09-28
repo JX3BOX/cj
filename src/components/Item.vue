@@ -47,11 +47,7 @@
                 class="unique"
                 v-text="'需要等级' + item.RequireLevel"
             ></span>
-            <p
-                v-if="item.Desc"
-                class="desc"
-                v-html="description_filter(item.Desc)"
-            ></p>
+            <p v-if="item.Desc" class="desc" v-html="item.Desc"></p>
             <span
                 v-if="item.Level"
                 class="level"
@@ -80,13 +76,6 @@ export default {
             } else {
                 return `${JX3BOX.__iconPath}icon/${icon_id}.png`;
             }
-        },
-        // 描述过滤
-        description_filter: function(value) {
-            let matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
-            if (matchs && matchs.length > 1) value = matchs[1].trim();
-            if (value) value = value.replace(/\\n/g, "<br>");
-            return value;
         },
     },
 };
