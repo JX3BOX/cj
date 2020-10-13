@@ -62,7 +62,7 @@
                 </h4>
             </div>
             <div class="u-body">
-                <el-carousel height="68px" direction="vertical" indicator-position="none">
+                <el-carousel height="70px" direction="vertical" indicator-position="none">
                     <el-carousel-item v-for="(items,key) in hot_achievements" :key="key" class="m-carousel m-hot">
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item,k) in items" :key="k">
