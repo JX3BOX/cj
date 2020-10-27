@@ -10,4 +10,4 @@ const $next = axios.create({
     baseURL: process.env.NODE_ENV === "production" ? __next : "/",
 });
 
-export { $http, $next };
+export { $http, $next,axios };

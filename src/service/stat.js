@@ -1,4 +1,4 @@
-import { $next } from "./axios";
+import { $next,axios } from "./axios";
 
 function getStat(id) {
     return $next
