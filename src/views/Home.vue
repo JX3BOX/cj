@@ -72,7 +72,7 @@
             </div>
             <div class="u-body m-cj-slider">
                 <el-carousel
-                    height="70px"
+                    height="66px"
                     direction="vertical"
                     indicator-position="none"
                 >
