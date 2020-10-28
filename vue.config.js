@@ -88,10 +88,5 @@ module.exports = {
         }
         types.forEach(type => addStyleResource(config.module.rule('less').oneOf(type)));
 
-    },
-
-    devServer: {
-        //... 原配置
-        disableHostCheck: true,//新增项，填入devServer下
     }
 };
