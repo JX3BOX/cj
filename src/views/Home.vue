@@ -151,7 +151,7 @@
             </div>
             <div class="u-body">
                 <el-carousel
-                    height="60px"
+                    height="66px"
                     direction="vertical"
                     :interval="3500"
                     indicator-position="none"
@@ -164,7 +164,7 @@
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item, k) in items" :key="k">
                                 <router-link
-                                    class="u-item"
+                                    class="u-item u-item-new"
                                     :class="`u-item-${k}`"
                                     :to="{
                                         name: 'view',
