@@ -326,7 +326,7 @@
 
                         // 使用ID作为键值
                         let achievements = {};
-                        for (let i in data) achievements[data[i].ID] = data[i];
+                        for (let i in data) if(data[i]) achievements[data[i].ID] = data[i];
 
                         // 数据填充保持原有排序
                         let output = [];
