@@ -6,12 +6,12 @@
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "inspect": "vue inspect > output.js",
-        "update": "npm --registry https://registry.npmjs.org install @jx3box/jx3box-common-ui@latest @jx3box/jx3box-common@latest"
+        "update": "npm --registry https://registry.npmjs.org install @jx3box/jx3box-common-ui@latest @jx3box/jx3box-common@latest @jx3box/jx3box-editor@latest"
     },
     "dependencies": {
-        "@jx3box/jx3box-common": "^5.1.6",
-        "@jx3box/jx3box-common-ui": "^2.4.6",
-        "@jx3box/jx3box-editor": "^0.1.7",
+        "@jx3box/jx3box-common": "^5.4.2",
+        "@jx3box/jx3box-common-ui": "^2.7.4",
+        "@jx3box/jx3box-editor": "^0.2.8",
         "axios": "^0.19.2",
         "core-js": "^3.4.3",
         "csslab": "^4.0.3",
@@ -28,6 +28,7 @@
         "vuex": "^3.1.2"
     },
     "devDependencies": {
+        "@babel/compat-data": "^7.12.5",
         "@vue/cli-plugin-babel": "^4.0.0",
         "@vue/cli-plugin-eslint": "^4.0.0",
         "@vue/cli-plugin-router": "^4.0.0",

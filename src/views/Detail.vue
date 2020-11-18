@@ -5,7 +5,7 @@
             v-if="post && JSON.stringify(post) === '{}'"
             class="m-cj-post-null"
         >
-            <span>暂无攻略，我要</span>
+            <span><i class="el-icon-s-opportunity"></i> 暂无攻略，我要</span>
             <a class="s-link" :href="publish_url(`cj/${achievement.ID}`)"
                 >完善攻略</a
             >
