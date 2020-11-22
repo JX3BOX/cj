@@ -157,10 +157,11 @@
                                         "
                                             :alt="post.user_nickname"
                                     />
-                                    <span
-                                            class="u-name"
-                                            v-text="post.user_nickname"
-                                    ></span>
+                                    <a
+                                        :href="post.user_id | author_url"
+                                        class="u-name"
+                                        v-text="post.user_nickname"
+                                    ></a>
                                 </div>
                                 <div
                                         class="u-updated"

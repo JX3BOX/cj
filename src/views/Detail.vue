@@ -42,7 +42,9 @@
                         <div v-if="post.user_avatar" class="avatar">
                             <img :src="post.user_avatar" />
                         </div>
-                        <div class="done" v-text="post.user_nickname"></div>
+                        <div class="done">
+                            <a :href="post.user_id | author_url" v-text="post.user_nickname"></a>
+                        </div>
                         <div class="star" v-text="'综合难度：' + $options.filters.star(post.level)"></div>
                         <div class="updated" v-text="'最后编辑于 ' + $options.filters.date_format(post.updated)"></div>
                         <a
