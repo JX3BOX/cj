@@ -14,7 +14,9 @@
                 v-model="keyword"
                 @keydown.enter.native="search_handle"
                 placeholder="输入成就名称/成就描述/称号/奖励物品「回车」进行搜索"
-            ></el-input>
+            >
+            <span slot="prepend">关键词</span>
+            </el-input>
             <el-button
                 class="u-search-btn"
                 type="primary"
