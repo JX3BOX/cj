@@ -4,21 +4,23 @@
             <div class="cj-head">
                 <a class="u-title" :target="target_filter()" @click="url_filter(achievement.ID)"
                    v-text="achievement.Name"></a>
-                <span class="u-attr"
-                      v-text="achievement.post?('修订时间：'+$options.filters.date_format(achievement.post.updated)):''"></span>
-                <span class="u-attr" v-text="achievement.post?('综合难度：'+$options.filters.star(achievement.post.level)):''"></span>
+                <div class="m-other">
+                    <span class="u-attr"
+                          v-text="achievement.post?('修订时间：'+$options.filters.date_format(achievement.post.updated)):''"></span>
+                    <span class="u-attr"
+                          v-text="achievement.post?('综合难度：'+$options.filters.star(achievement.post.level)):''"></span>
+                    <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-id="achievement.ID"/>
+                </div>
             </div>
             <div class="cj-body">
                 <div class="m-left">
                     <a class="u-attr u-icon" :target="target_filter()" @click="url_filter(achievement.ID)">
-                        <img class="u-icon" :src="icon_url_filter(achievement.IconID)" @error.once="img_error_handle"/>
+                        <img :src="icon_url_filter(achievement.IconID)" @error.once="img_error_handle"/>
                     </a>
                     <a class="u-attr u-desc" v-html="achievement.Desc" @click="url_filter(achievement.ID)"></a>
                 </div>
                 <div class="m-right">
-                    <div class="u-attr">
-                        <item :item="achievement.Item"></item>
-                    </div>
+                    <item-simple class="u-attr u-item-simple" :item="achievement.Item" only-icon="true" :icon-size="'36px'"  />
                     <div class="u-attr u-point" v-text="achievement.Point ? achievement.Point : 0"></div>
                 </div>
             </div>
@@ -65,12 +67,13 @@
 </template>
 
 <script>
+    import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
     const {JX3BOX} = require("@jx3box/jx3box-common");
-    import Item from "@/components/Item.vue";
+    import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple.vue";
 
     export default {
         name: "Achievement",
-        props: ["achievement", "fold", "target", "jump"],
+        props: ["achievement", "fold", "target", "jump", "showFavorite"],
         data: function () {
             return {
                 JX3BOX,
@@ -113,10 +116,9 @@
                 return value;
             },
         },
-        mounted() {
-        },
         components: {
-            Item,
+            'item-simple': ItemSimple,
+            Fav,
         },
     };
 </script>

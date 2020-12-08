@@ -1,6 +1,6 @@
 <template>
     <div id="m-cj-view" class="m-cj-index">
-        <Achievement :achievement="achievement" />
+        <Achievement :achievement="achievement" show-favorite="true" />
         <div
             v-if="post && JSON.stringify(post) === '{}'"
             class="m-cj-post-null"
