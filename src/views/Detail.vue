@@ -6,7 +6,7 @@
             class="m-cj-post-null"
         >
             <span><i class="el-icon-s-opportunity"></i> 暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`cj/${achievement.ID}`)"
+            <a class="s-link" :href="publish_url(`achievement/${achievement.ID}`)"
                 >完善攻略</a
             >
         </div>
@@ -18,7 +18,7 @@
                 <div class="u-head">
                     <a
                         class="el-button el-button--primary u-publish s-link"
-                        :href="publish_url(`cj/${achievement.ID}`)"
+                        :href="publish_url(`achievement/${achievement.ID}`)"
                     >
                         <i class="el-icon-edit"></i>
                         <span>完善成就攻略</span>

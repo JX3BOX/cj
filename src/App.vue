@@ -3,7 +3,7 @@
         <Header></Header>
         <Breadcrumb
             name="成就百科"
-            slug="cj"
+            slug="achievement"
             root="/cj"
             :publishEnable="true"
             :feedbackEnable="true"
