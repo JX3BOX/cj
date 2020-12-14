@@ -158,7 +158,7 @@ export default {
     },
     mounted: function() {
         // 获取成就群
-        get_groups('achievement', {group_by: 'server'}).then(
+        get_groups('achievement', {order_by: 'server', group_by: 'server'}).then(
             (data) => {
                 data = data.data;
                 if (data.code === 200) {
