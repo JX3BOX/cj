@@ -1,14 +1,12 @@
 import {$http} from "./axios";
 import {__helperUrl} from "@jx3box/jx3box-common/js/jx3box.json";
 
-const API = __helperUrl + "api";
-
-function get_achievements(params) {
-    return $http.get(`${API}/achievements`, {
+function get_groups(type, params) {
+    return $http.get(`${__helperUrl}api/groups/${type}`, {
         headers: {Accept: "application/prs.helper.v2+json"},
         params: params,
     });
 }
 
-export {get_achievements};
+export {get_groups};
 

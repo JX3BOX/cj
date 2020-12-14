@@ -96,6 +96,7 @@
 
 <script>
 const { JX3BOX } = require("@jx3box/jx3box-common");
+import { get_groups } from '../service/group';
 
 export default {
     name: "Info",
@@ -151,32 +152,23 @@ export default {
                 }
             );
         },
-        // 获取成就群
-        get_achievement_groups() {
-            let that = this;
-            that.$http({
-                method: "GET",
-                url: `${JX3BOX.__helperUrl}api/achievement/groups`,
-                headers: { Accept: "application/prs.helper.v2+json" },
-                withCredentials: true,
-            }).then(
-                function(data) {
-                    data = data.data;
-                    if (data.code === 200) {
-                        that.groups = data.data.groups;
-                    }
-                },
-                function() {
-                    that.groups = false;
-                }
-            );
-        },
         checkIsHome : function (){
             this.isHome =  this.$route.name == 'home' || !this.$route.name
         }
     },
     mounted: function() {
-        this.get_achievement_groups();
+        // 获取成就群
+        get_groups('achievement', {group_by: 'server'}).then(
+            (data) => {
+                data = data.data;
+                if (data.code === 200) {
+                    this.groups = data.data.groups;
+                }
+            },
+            () => {
+                this.groups = false;
+            }
+        )
         this.checkIsHome()
     },
     watch: {
