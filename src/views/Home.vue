@@ -388,7 +388,7 @@ export default {
                     ranks[achievement_id] = this.$_.get(data, `${i}.value`, {});
                 }
             }
-            achievement_ids = achievement_ids.slice(1, 15);
+            achievement_ids = achievement_ids.slice(0, 15);
 
             get_achievements({
                 ids: achievement_ids,
