@@ -225,9 +225,11 @@
         hot_achievements: null,
         newest_achievements: null,
         newest_posts: null,
-        JX3BOX: JX3BOX,
         feedback: JX3BOX.feedback,
       };
+    },
+    components: {
+      WikiPanel,
     },
     methods: {
       icon_url,
@@ -295,9 +297,6 @@
             this.newest_posts = false;
           }
       );
-    },
-    components: {
-      WikiPanel,
     },
   };
 </script>
