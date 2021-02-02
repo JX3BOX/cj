@@ -9,7 +9,7 @@
             :feedbackEnable="true"
         >
             <img slot="logo" svg-inline src="./assets/img/cj.svg" />
-            <CJBreadcrumb />
+            <AchievementCount />
         </Breadcrumb>
         <LeftSidebar>
             <Sidebar :sidebar="$store.state.sidebar" />
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import CJBreadcrumb from "./components/CJBreadcrumb.vue";
+import AchievementCount from "./components/AchievementCount.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Search from "@/components/Search.vue";
 import Info from "@/components/Info.vue";
@@ -43,7 +43,7 @@ export default {
     mounted: function() {
     },
     components: {
-        CJBreadcrumb,
+        AchievementCount,
         Sidebar,
         Search,
         Info,
