@@ -1,5 +1,5 @@
 <template>
-    <div class="m-cj-index">
+    <div class="m-search-view">
         <Achievements :achievements="achievements" :fold="true" />
         <el-pagination
             background

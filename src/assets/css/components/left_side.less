@@ -1,0 +1,77 @@
+.m-left-side {
+  .h(100%);
+
+  .el-select {
+    .db;
+  }
+
+  .el-tree {
+    background: none;
+  }
+
+  .el-input {
+    .mb(10px);
+  }
+
+  .is-current {
+    & > .el-tree-node__content {
+      .bold;
+    }
+  }
+
+
+  //节点
+  .m-menus {
+    height: calc(~"100% - 50px");
+    overflow-y: auto;
+  }
+
+  .el-tree-node__label {
+    display: block;
+    width: 100%;
+
+    .u-name {
+      color: @color-link;
+    }
+
+    .u-count {
+      .fz(13px);
+      color: #888888;
+      .ml(5px);
+      font-style: normal;
+    }
+  }
+
+  //父级节点
+  .el-tree-node__content {
+    .fz(14px, 28px);
+    .h(28px);
+    user-select: none;
+  }
+
+  //子级节点
+  .is-leaf + .el-tree-node__label {
+    &:before {
+      content: "»";
+      color: @color;
+      .mr(5px);
+    }
+  }
+
+  .filter-tree.other {
+    .el-tree-node__content {
+      height: 48px;
+      line-height: 48px;
+    }
+
+    .el-tree-node__label {
+      padding: 0 15px;
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .is-leaf,
+    .el-tree-node__label:before {
+      .none;
+    }
+  }
+}

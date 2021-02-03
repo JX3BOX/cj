@@ -1,5 +1,5 @@
 <template>
-    <div class="m-cj-index">
+    <div class="m-normal-view">
         <Achievements :achievements="achievements" :fold="true"/>
     </div>
 </template>

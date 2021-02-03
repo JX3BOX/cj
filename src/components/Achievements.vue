@@ -1,6 +1,6 @@
 <template>
-    <ul class="m-cjs">
-        <Achievement
+    <ul class="m-achievement-singles">
+        <AchievementSingle
             v-for="(achievement, key) in achievements"
             :key="key"
             :achievement="achievement"
@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import Achievement from "@/components/Achievement.vue";
+import AchievementSingle from "@/components/AchievementSingle.vue";
 
 export default {
     name: "Achievements",
     props: ["achievements", "fold", "target", "jump"],
     components: {
-        Achievement,
+      AchievementSingle,
     },
     watch:{
         achievements(){

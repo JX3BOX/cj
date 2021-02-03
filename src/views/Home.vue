@@ -80,10 +80,11 @@
                     <router-link
                         class="u-item"
                         :class="`u-item-${k}`"
-                        :to="{name: 'view', params: { cj_id: item.ID }}"
+                        :to="{name: 'view', params: { source_id: item.ID }}"
                     >
                       <div class="u-icon">
-                        <img @error.once="img_error_handle" :src="icon_url(item.IconID)"/>
+                        <img :src="icon_url(item.IconID)"
+                             @error.once="() => {$event.target.src = icon_url()}" />
                       </div>
                       <div class="m-carousel-content">
                         <span class="u-title">
@@ -138,30 +139,20 @@
                 <router-link
                     class="u-item u-item-new"
                     :class="`u-item-${k}`"
-                    :to="{
-                                        name: 'view',
-                                        params: { cj_id: item.ID },
-                                    }"
+                    :to="{name: 'view', params: { source_id: item.ID }}"
                 >
                   <div class="u-icon">
-                    <img
-                        @error.once="img_error_handle"
-                        :src="icon_url(item.IconID)"
-                    />
+                    <img :src="icon_url(item.IconID)"/>
                   </div>
                   <div class="m-carousel-content">
-                                        <span class="u-title">
-                                            <i class="el-icon-medal"></i>
-                                            <span
-                                                v-text="` ${item.Name}`"
-                                            ></span>
-                                        </span>
+                    <span class="u-title">
+                      <i class="el-icon-medal"></i>
+                      <span v-text="` ${item.Name}`"></span>
+                    </span>
                     <span class="u-desc">
-                                            <i class="el-icon-mic"></i>
-                                            <span
-                                                v-html="` ${item.Desc}`"
-                                            ></span>
-                                        </span>
+                      <i class="el-icon-mic"></i>
+                      <span v-html="` ${item.Desc}`"></span>
+                    </span>
                   </div>
                 </router-link>
               </el-col>
@@ -183,14 +174,15 @@
               <div class="m-user">
                 <div class="u-author">
                   <img class="u-icon" :src="post.user_avatar" :alt="post.user_nickname"/>
-                  <a :href="author_url(post.user_id)" class="u-name" v-text="post.user_nickname"></a>
+                  <a :href="post.user_id ? author_url(post.user_id) : null" class="u-name" v-text="post.user_nickname"></a>
                 </div>
-                <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
+                <div class="u-updated" v-text="ts2str(post.updated)"></div>
               </div>
               <div class="m-achievement">
                 <div class="u-achievement">
-                  <img class="u-icon" @error.once="img_error_handle" :src="icon_url(post.source_icon_id)"/>
-                  <router-link class="u-name" :to="{name: 'view', params: { cj_id: post.cj_id }}"
+                  <img class="u-icon" :src="icon_url(post.source_icon_id)"
+                       @error.once="$event.target.src = icon_url('')"/>
+                  <router-link class="u-name" :to="{name: 'view', params: { source_id: post.source_id }}"
                                v-text="post.title"></router-link>
                 </div>
                 <div class="u-level" v-text="'综合难度：' + $options.filters.star(post.level)"></div>
@@ -198,7 +190,7 @@
               </div>
             </div>
             <div class="m-body">
-              <div class="u-excerpt" :to="{ name: 'view', params: { cj_id: post.cj_id } }"
+              <div class="u-excerpt" :to="{ name: 'view', params: { source_id: post.source_id } }"
                    v-html="ellipsis(post.excerpt)"></div>
             </div>
           </el-col>
@@ -209,98 +201,95 @@
 </template>
 
 <script>
-  const {JX3BOX} = require("@jx3box/jx3box-common");
-  import {getStatRank} from "@jx3box/jx3box-common/js/stat";
-  import {WikiPost} from "@jx3box/jx3box-common/js/helper";
-  import {authorLink} from "@jx3box/jx3box-common/js/utils";
-  import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
-  import {get_achievements} from "../service/achievement.js";
-  import icon_url from "../filters/IconUrl";
+const {JX3BOX} = require("@jx3box/jx3box-common");
+import {getStatRank} from "@jx3box/jx3box-common/js/stat";
+import {WikiPost} from "@jx3box/jx3box-common/js/helper";
+import {authorLink, ts2str, iconLink} from "@jx3box/jx3box-common/js/utils";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
+import {get_achievements} from "@/service/achievement";
 
-  export default {
-    name: "Home",
-    data() {
-      return {
-        views: {},
-        hot_achievements: null,
-        newest_achievements: null,
-        newest_posts: null,
-        feedback: JX3BOX.feedback,
-      };
+export default {
+  name: "Home",
+  data() {
+    return {
+      views: {},
+      hot_achievements: null,
+      newest_achievements: null,
+      newest_posts: null,
+      feedback: JX3BOX.feedback,
+    };
+  },
+  components: {
+    WikiPanel,
+  },
+  methods: {
+    icon_url: iconLink,
+    author_url: authorLink,
+    ts2str,
+    ellipsis(value) {
+      value = value ? value.trim() : "";
+      if (value.length > 100) {
+        return value.slice(0, 100) + "...";
+      }
+      return value;
     },
-    components: {
-      WikiPanel,
+    chuck(arr, number = 3) {
+      let output = [];
+      for (let i = 0; i < arr.length; i += number) {
+        output.push(arr.slice(i, i + number));
+      }
+      return output;
     },
-    methods: {
-      icon_url,
-      author_url: authorLink,
-      img_error_handle(e) {
-        e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
-      },
-      ellipsis(value) {
-        value = value ? value.trim() : "";
-        if (value.length > 100) {
-          return value.slice(0, 100) + "...";
+  },
+  created() {
+    // 获取热门成就
+    getStatRank('cj').then((res) => {
+      res = res.data;
+      let source_ids = [];
+      res.forEach((item) => {
+        if (item.name.startsWith("cj")) {
+          let id = item.name.split("-").pop();
+          source_ids.push(id);
+          this.views[id] = item.value;
         }
-        return value;
-      },
-      chuck(arr, number = 3) {
-        let output = [];
-        for (let i = 0; i < arr.length; i += number) {
-          output.push(arr.slice(i, i + number));
-        }
-        return output;
-      },
-    },
-    created() {
-      // 获取热门成就
-      getStatRank('cj').then((res) => {
-        res = res.data;
-        let source_ids = [];
-        res.forEach((item) => {
-          if (item.name.startsWith("cj")) {
-            let id = item.name.split("-").pop();
-            source_ids.push(id);
-            this.views[id] = item.value;
-          }
-        });
-
-        get_achievements({
-          ids: source_ids,
-          limit: source_ids.length,
-        }).then((res) => {
-          res = res.data;
-          // 按照长度分批
-          if (res.code === 200) this.hot_achievements = this.chuck(Object.values(res.data.achievements));
-        });
       });
 
-      // 获取成就列表
-      get_achievements({}).then(
-          (res) => {
-            res = res.data;
-            // 按照长度分批
-            if (res.code === 200) this.newest_achievements = this.chuck(Object.values(res.data.achievements));
-          },
-          () => {
-            this.newest_achievements = false;
-          }
-      );
+      get_achievements({
+        ids: source_ids,
+        limit: source_ids.length,
+      }).then((res) => {
+        res = res.data;
+        // 按照长度分批
+        if (res.code === 200) this.hot_achievements = this.chuck(Object.values(res.data.achievements));
+      });
+    });
 
-      // 获取最新成就攻略列表
-      WikiPost.newests('achievement').then(
-          (res) => {
-            res = res.data;
-            if (res.code === 200) this.newest_posts = res.data.newest;
-          },
-          () => {
-            this.newest_posts = false;
-          }
-      );
-    },
-  };
+    // 获取成就列表
+    get_achievements({}).then(
+        (res) => {
+          res = res.data;
+          // 按照长度分批
+          if (res.code === 200) this.newest_achievements = this.chuck(Object.values(res.data.achievements));
+        },
+        () => {
+          this.newest_achievements = false;
+        }
+    );
+
+    // 获取最新成就攻略列表
+    WikiPost.newests('achievement').then(
+        (res) => {
+          res = res.data;
+          if (res.code === 200) this.newest_posts = res.data.newest;
+        },
+        () => {
+          this.newest_posts = false;
+        }
+    );
+  },
+};
 </script>
 
 <style lang="less">
-  @import "../assets/css/home.less";
+@import "../assets/css/views/home.less";
 </style>

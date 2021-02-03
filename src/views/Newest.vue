@@ -1,5 +1,5 @@
 <template>
-    <div class="m-cj-index">
+    <div class="m-newest-view">
         <span class="u-list-empty" v-if="!$_.get(achievements, 'length')"
             >👻 暂无记录</span
         >

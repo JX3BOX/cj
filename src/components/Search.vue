@@ -52,5 +52,5 @@ export default {
 </script>
 
 <style lang="less">
-    @import '../assets/css/search.less';
+    @import '../assets/css/components/search.less';
 </style>

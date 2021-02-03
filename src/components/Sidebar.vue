@@ -1,5 +1,5 @@
 <template>
-    <div class="m-cj-aside-left">
+    <div class="m-left-side">
         <el-select v-model="sidebar.general">
             <el-option
                 v-for="type in menu_types"
@@ -210,5 +210,5 @@ export default {
 </script>
 
 <style lang="less">
-@import "../assets/css/left_side.less";
+@import "../assets/css/components/left_side.less";
 </style>

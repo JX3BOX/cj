@@ -10,6 +10,7 @@ function get_total_count() {
   })
 }
 
+// 获取成就列表
 function get_achievements(params) {
   return $http({
     method: 'GET',
@@ -19,5 +20,14 @@ function get_achievements(params) {
   });
 }
 
-export {get_total_count, get_achievements};
+function get_relation_achievements(source_id) {
+  if (!source_id) return null;
+  return $http({
+    method: "GET",
+    url: `${__helperUrl}api/achievement/${source_id}/relations`,
+    headers: {Accept: "application/prs.helper.v2+json"},
+  });
+}
+
+export {get_total_count, get_achievements, get_relation_achievements};
 

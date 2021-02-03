@@ -1,0 +1,350 @@
+.m-achievement-singles {
+  margin-top: -10px;
+  padding: 0;
+}
+
+.m-achievement-single {
+  .pr;
+  .w(100%);
+  margin: 10px 0;
+  padding: 12px;
+  background: @bg-light;
+  border: 1px solid #eeeeee;
+  .r(5px);
+  transition: border 0.3s linear;
+  font-weight: normal;
+  box-sizing: border-box;
+
+  &:hover {
+    border-color: @border-active;
+    z-index: 100;
+
+    .u-header .u-title {
+      color: #d60036;
+    }
+  }
+
+  & > a {
+    .db;
+  }
+
+  .u-header {
+    .pr;
+    .pb(12px);
+    text-align: center;
+    font-size: 12px;
+    border-bottom: 1px solid #eaeaea;
+
+    .u-title {
+      .db;
+      .mt(0);
+      .mb(0);
+      .bold;
+      text-align: left;
+      font-size: 14px;
+      cursor: pointer;
+      transition: color 0.1s ease;
+    }
+
+    .u-other {
+      .pa;
+      top: 0;
+      right: 0;
+
+      .u-attr {
+        .dbi;
+        .ml(15px);
+        opacity: 0.6;
+        vertical-align: top;
+      }
+
+      .u-fav {
+        .mt(-4px);
+        opacity: 1;
+      }
+    }
+  }
+
+  .u-body {
+    .pr;
+    .clearfix;
+    .w(100%);
+    margin: 20px 0 0;
+    color: #555555;
+    text-shadow: 0 0 1px #cccccc;
+
+    @u-body-right: 120px;
+
+    .u-left {
+      .mr(@u-body-right);
+    }
+
+    .u-right {
+      text-align: right;
+      .pa;
+      .rt(0);
+
+      .u-attr {
+        text-align: left;
+      }
+    }
+
+    .u-attr {
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .u-icon {
+      .fl;
+      font-size: 0;
+
+      img {
+        width: 36px;
+        border-radius: 5px;
+      }
+    }
+
+    .u-desc {
+      .db;
+      margin-left: 46px;
+      font-size: 14px;
+      .lh(1.6em);
+      min-height: 1.6em;
+      color: #555555;
+      cursor: pointer;
+    }
+
+    .u-item-simple {
+      .mr(40px);
+      font-size: 0;
+    }
+
+    .u-point {
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-indent: -24px;
+      background: url("@{url}dashboard/point.svg") no-repeat center center;
+      .bold;
+      color: #333333;
+    }
+  }
+
+  .u-footer {
+    margin-top: 10px;
+    text-align: center;
+
+    .u-ch,
+    .u-subs {
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .u-ch {
+      font-weight: bold;
+    }
+
+    .u-subs {
+      margin-top: 20px;
+      margin-left: -15px;
+      margin-right: -15px;
+
+      &:after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+
+      .u-sub {
+        margin: 5px 0;
+        text-align: left;
+
+        a {
+          vertical-align: middle;
+          display: inline-block;
+          color: #666666;
+
+          span {
+            vertical-align: middle;
+            transition: opacity 0.2s ease;
+          }
+
+          .u-icon {
+            width: 24px;
+            margin-right: 10px;
+            border-radius: 3px;
+            vertical-align: middle;
+          }
+
+          &:hover span {
+            box-shadow: 0 1px 0 #666666;
+          }
+        }
+      }
+    }
+
+    .u-seriess {
+      display: inline-block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 15px 10px;
+      border: 1px solid darken(#f1f8ff, 10%);
+      background-color: #f1f8ff;
+      box-sizing: border-box;
+
+      .u-series {
+        float: left;
+        position: relative;
+        margin: 0 5px;
+        opacity: 0.6;
+        transition: opacity 0.2s linear;
+        z-index: 15;
+
+        &:hover, &.active {
+          opacity: 1;
+        }
+
+        .u-icon {
+          width: 36px;
+          border-radius: 5px;
+        }
+
+        &:hover {
+          .detail {
+            .db;
+          }
+        }
+
+        .detail {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 200px;
+          margin-top: 5px;
+          padding: 10px;
+          font-size: 14px;
+          color: #ffffff;
+          background-color: rgba(0, 0, 0, 0.7);
+          z-index: 100;
+
+          &:before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            width: calc(~"100% + 4px");
+            height: calc(~"100% + 4px");
+            border: 1px solid rgba(0, 0, 0, 0.7);
+            box-sizing: border-box;
+          }
+
+          * {
+            .db;
+            .mt(0);
+            .mb(4px);
+            line-height: 1.2em;
+          }
+
+          p {
+            color: #dddddd;
+          }
+        }
+      }
+    }
+  }
+
+  &.fold .u-footer {
+    display: none;
+  }
+
+  .u-expand {
+    position: relative;
+    margin-top: 10px;
+    padding-top: 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+    z-index: 5;
+
+    &.disable {
+      opacity: 0.3;
+      cursor: default;
+
+      .u-icon {
+        .none !important;
+      }
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    hr {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      width: calc(~"100% - 30px");
+      margin: 0;
+
+      border-top: 1px solid @color-cyan;
+      transform: translateY(-50%);
+      z-index: 9;
+      .h(1px);
+    }
+
+    &:hover {
+      background-color: #e9ffee;
+
+      .u-icon {
+        background-color: #e9ffee;
+      }
+    }
+
+    .u-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 30px;
+      height: 16px;
+      text-align: center;
+      color: @color-gray;
+      background-color: @bg-light;
+      background-position: center center;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      transition: background-color 0.3s linear;
+    }
+
+    .u-icon.el-icon-caret-top {
+      display: block;
+    }
+
+    .u-icon.el-icon-caret-bottom {
+      display: none;
+    }
+  }
+
+  &.fold .u-expand {
+    .u-icon.el-icon-caret-top {
+      display: none;
+    }
+
+    .u-icon.el-icon-caret-bottom {
+      display: block;
+    }
+  }
+}
+
+@media screen and (max-width: @ipad) {
+  .m-achievement-single {
+    .u-footer {
+      .u-subs {
+        .u-sub {
+          .w(100%);
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@
             :publishEnable="true"
             :feedbackEnable="true"
         >
-            <img slot="logo" svg-inline src="./assets/img/cj.svg" />
+            <img slot="logo" svg-inline src="./assets/img/achievement.svg" />
             <AchievementCount />
         </Breadcrumb>
         <LeftSidebar>
@@ -29,7 +29,7 @@
 import AchievementCount from "./components/AchievementCount.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Search from "@/components/Search.vue";
-import Info from "@/components/Info.vue";
+import Info from "@/components/Extend.vue";
 
 export default {
     name: "App",
@@ -55,7 +55,7 @@ export default {
                 if (
                     !this.$route.params.sub &&
                     !this.$route.params.detail &&
-                    !this.$route.params.cj_id
+                    !this.$route.params.source_id
                 ) {
                     this.$store.state.sidebar.sub = null;
                     this.$store.state.sidebar.detail = null;

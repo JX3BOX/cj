@@ -1,5 +1,5 @@
 <template>
-  <div class="m-cj-aside-right" :class="{isHome : isHome}">
+  <div class="m-right-side" :class="{isHome : isHome}">
     <RightSideMsg>
       <em>官方反馈交流Q群</em> :
       <strong>
@@ -21,7 +21,7 @@
         >
           <ul class="u-list">
             <li v-for="(rank, k) in ranks" :key="k">
-              <a class="u-contributor" :href="author_url(rank.user_id)">
+              <a class="u-contributor" :href="rank.user_id ? author_url(rank.user_id) : null">
                 <i class="u-avatar">
                   <img :src="rank.user_avatar | resolveAvatarPath" :alt="rank.user_nickname"/>
                 </i>
@@ -81,107 +81,103 @@
         </el-collapse-item>
       </el-collapse>
     </div>
-
-    <!-- <Github_REPO REPO="cj" coder="5"/> -->
   </div>
 </template>
 
 <script>
-  const {JX3BOX} = require("@jx3box/jx3box-common");
-  import {get_groups} from '../service/group';
+import {authorLink} from '@jx3box/jx3box-common/js/utils'
 
-  export default {
-    name: "Info",
-    props: [],
-    data: function () {
-      return {
-        active_rank_type: "11",
-        rank_types: [
-          {sub: "11", name: "秘境"},
-          {sub: "40", name: "家园"},
-          {sub: "7", name: "任务"},
-          {sub: "5", name: "技艺"},
-          {sub: "9", name: "战斗"},
-          {sub: "6", name: "阅读"},
-          {sub: "16", name: "活动"},
-          {sub: "8", name: "足迹"},
-          {sub: "15", name: "节日"},
-        ],
-        ranks: null,
-        groups: null,
-        isHome: true
-      };
+const {JX3BOX} = require("@jx3box/jx3box-common");
+import {get_groups} from '../service/group';
+
+export default {
+  name: "Extend",
+  data() {
+    return {
+      active_rank_type: "11",
+      rank_types: [
+        {sub: "11", name: "秘境"},
+        {sub: "40", name: "家园"},
+        {sub: "7", name: "任务"},
+        {sub: "5", name: "技艺"},
+        {sub: "9", name: "战斗"},
+        {sub: "6", name: "阅读"},
+        {sub: "16", name: "活动"},
+        {sub: "8", name: "足迹"},
+        {sub: "15", name: "节日"},
+      ],
+      ranks: null,
+      groups: null,
+      isHome: true
+    };
+  },
+  methods: {
+    author_url: authorLink,
+    copy_success() {
+      this.$notify({title: "复制成功", type: "success"});
     },
-    computed: {},
-    methods: {
-      author_url(user_id) {
-        return `${JX3BOX.__Root}/author?uid=${user_id}`;
-      },
-      copy_success() {
-        this.$notify({title: "复制成功", type: "success"});
-      },
-      copy_error() {
-        this.$notify({title: "浏览器不支持", type: "error"});
-      },
-      get_users_ranks(sub) {
-        let that = this;
-        that.$http({
-          method: "GET",
-          url:
-              `${JX3BOX.__helperUrl}api/achievement/users/ranking` +
-              (sub ? `?sub=${sub}` : ""),
-          headers: {Accept: "application/prs.helper.v2+json"},
-          withCredentials: true,
-        }).then(
-            function (data) {
-              data = data.data;
-              if (data.code === 200) {
-                that.ranks = data.data.ranking;
-              }
-            },
-            function () {
-              that.ranks = false;
-            }
-        );
-      },
-      checkIsHome: function () {
-        this.isHome = this.$route.name == 'home' || !this.$route.name
-      }
+    copy_error() {
+      this.$notify({title: "浏览器不支持", type: "error"});
     },
-    mounted: function () {
-      // 获取成就群
-      get_groups('achievement', {order_by: 'server', group_by: 'server'}).then(
-          (data) => {
+    get_users_ranks(sub) {
+      let that = this;
+      that.$http({
+        method: "GET",
+        url:
+            `${JX3BOX.__helperUrl}api/achievement/users/ranking` +
+            (sub ? `?sub=${sub}` : ""),
+        headers: {Accept: "application/prs.helper.v2+json"},
+        withCredentials: true,
+      }).then(
+          function (data) {
             data = data.data;
             if (data.code === 200) {
-              this.groups = data.data.groups;
+              that.ranks = data.data.ranking;
             }
           },
-          () => {
-            this.groups = false;
+          function () {
+            that.ranks = false;
           }
-      )
-      this.checkIsHome()
+      );
     },
-    watch: {
-      active_rank_type: {
-        immediate: true,
-        handler() {
-          this.get_users_ranks(this.active_rank_type);
+    checkIsHome: function () {
+      this.isHome = this.$route.name == 'home' || !this.$route.name
+    }
+  },
+  mounted: function () {
+    // 获取成就群
+    get_groups('achievement', {order_by: 'server', group_by: 'server'}).then(
+        (data) => {
+          data = data.data;
+          if (data.code === 200) {
+            this.groups = data.data.groups;
+          }
         },
+        () => {
+          this.groups = false;
+        }
+    )
+    this.checkIsHome()
+  },
+  watch: {
+    active_rank_type: {
+      immediate: true,
+      handler() {
+        this.get_users_ranks(this.active_rank_type);
       },
-      '$route.name': function () {
-        this.checkIsHome()
-      }
     },
-    filters: {
-      resolveAvatarPath: function (val) {
-        return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
-      },
+    '$route.name': function () {
+      this.checkIsHome()
+    }
+  },
+  filters: {
+    resolveAvatarPath: function (val) {
+      return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
     },
-  };
+  },
+};
 </script>
 
 <style lang="less">
-  @import "../assets/css/right_side.less";
+@import "../assets/css/components/right_side.less";
 </style>
