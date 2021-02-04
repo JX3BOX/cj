@@ -19,11 +19,7 @@
         </template>
       </WikiPanel>
 
-      <Relations
-          ref="relations"
-          :source-id="id"
-          @relations_got="relations_got"
-      />
+      <Relations :source-id="id" />
 
       <!-- 历史版本 -->
       <WikiRevisions type="achievement" :source-id="id" />
@@ -64,8 +60,6 @@ export default {
   data() {
     return {
       wiki_post: null,
-      show_relations: false,
-      show_relations_primary: true,
     };
   },
   computed: {
@@ -75,9 +69,6 @@ export default {
   },
   methods: {
     publish_url: publishLink,
-    relations_got(relations) {
-      this.show_relations = this.$_.get(relations, "length", 0) > 0;
-    },
   },
   created() {
     if (this.id) postStat('cj', this.id);
