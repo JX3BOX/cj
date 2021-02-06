@@ -236,7 +236,7 @@
                                 <div class="u-author">
                                     <img
                                         class="u-icon"
-                                        :src="post.user_avatar"
+                                        :src="post.user_avatar | showAvatar"
                                         :alt="post.user_nickname"
                                     />
                                     <a
@@ -309,7 +309,7 @@
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { WikiPost } from "@jx3box/jx3box-common/js/helper";
-import { authorLink, ts2str, iconLink } from "@jx3box/jx3box-common/js/utils";
+import { authorLink, ts2str, iconLink,getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
 import { get_achievements } from "@/service/achievement";
 
@@ -345,6 +345,11 @@ export default {
             }
             return output;
         },
+    },
+    filters : {
+        showAvatar : function (val){
+            return getThumbnail(val,20,true)
+        }
     },
     created() {
         // 获取热门成就
