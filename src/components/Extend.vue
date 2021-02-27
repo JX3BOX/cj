@@ -97,8 +97,9 @@ export default {
       active_rank_type: "11",
       rank_types: [
         {sub: "11", name: "秘境"},
-        {sub: "40", name: "家园"},
         {sub: "7", name: "任务"},
+        {sub: "10", name: "声望"},
+        {sub: "40", name: "家园"},
         {sub: "5", name: "技艺"},
         {sub: "9", name: "战斗"},
         {sub: "6", name: "阅读"},
