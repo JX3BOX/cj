@@ -33,7 +33,7 @@
                 }).then((data) => {
                         data = data.data;
                         if (data.code === 200) {
-                            that.achievements = data.data.achievements.sort((a, b) => {
+                            that.achievements = data.data.achievements && data.data.achievements.sort((a, b) => {
                                 let a_level = this.$_.get(a.post, 'level', 1);
                                 let b_level = this.$_.get(b.post, 'level', 1);
                                 return a_level - b_level

@@ -14,6 +14,18 @@ module.exports = {
                     request.setHeader("origin", "");
                 }
             },
+            "/api/messages": {
+                "target": "https://helper.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
+            "/api/post/favorite":{
+                "target": "https://helper.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
             "/api/summary": {
                 "target": "https://next.jx3box.com",
                 "onProxyReq": function (request) {
