@@ -55,6 +55,12 @@
                             <span> 珍奇成就</span>
                         </router-link>
                     </li>
+                    <li class="u-qlink">
+                        <a target="_blank" href="https://www.jx3box.com/knowledge/#/pet">
+                            <i class="el-icon-lollipop"></i>
+                            <span> 宠物密鉴</span>
+                        </a>
+                    </li>
                 </ul>
             </template>
         </WikiPanel>
