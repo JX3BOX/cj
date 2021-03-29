@@ -93,7 +93,7 @@ export default {
                 if (res.code === 200) this.wiki_post = res.data;
                 if (this.wiki_post && this.wiki_post.source) {
                   let pet = this.wiki_post.source.pet;
-                  if (pet.id) postStat('pet', pet.id);
+                  if (pet && pet.id) postStat('pet', pet.id);
                 }
               },
               () => {
