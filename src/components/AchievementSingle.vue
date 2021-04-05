@@ -69,7 +69,7 @@
 
 const {JX3BOX} = require("@jx3box/jx3box-common");
 import {ts2str, iconLink} from "@jx3box/jx3box-common/js/utils";
-import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
+import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple.vue";
 
 export default {
