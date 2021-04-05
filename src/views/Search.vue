@@ -34,7 +34,6 @@ export default {
     methods: {
         // 获取成就搜索列表
         get_achievements(keyword, page, length) {
-            if (!keyword) return [];
             let data = { keyword: keyword, page: page };
             if (typeof length !== "undefined") data["limit"] = length;
             return new Promise((resolve, reject) => {
