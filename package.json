@@ -9,10 +9,10 @@
         "update": "npm install @jx3box/jx3box-common-ui@latest @jx3box/jx3box-common@latest @jx3box/jx3box-editor@latest @jx3box/jx3box-comment-ui@latest"
     },
     "dependencies": {
-        "@jx3box/jx3box-comment-ui": "^1.4.2",
-        "@jx3box/jx3box-common": "^6.4.2",
-        "@jx3box/jx3box-common-ui": "^4.6.2",
-        "@jx3box/jx3box-editor": "^0.6.1",
+        "@jx3box/jx3box-comment-ui": "^1.4.4",
+        "@jx3box/jx3box-common": "^6.4.8",
+        "@jx3box/jx3box-common-ui": "^4.6.7",
+        "@jx3box/jx3box-editor": "^0.6.5",
         "axios": "^0.19.2",
         "core-js": "^3.4.3",
         "csslab": "^4.0.3",
@@ -30,6 +30,7 @@
     },
     "devDependencies": {
         "@babel/compat-data": "^7.12.5",
+        "@babel/plugin-proposal-optional-chaining": "^7.14.5",
         "@vue/cli-plugin-babel": "^4.0.0",
         "@vue/cli-plugin-eslint": "^4.0.0",
         "@vue/cli-plugin-router": "^4.0.0",
