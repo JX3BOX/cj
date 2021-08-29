@@ -25,6 +25,7 @@
 
 <script>
 import Achievements from "@/components/Achievements.vue";
+import {getWaitingAchievements} from "../service/achievement";
 
 const { JX3BOX } = require("@jx3box/jx3box-common");
 
@@ -44,22 +45,14 @@ export default {
         // 获取成就列表
         get_achievements(page) {
             let that = this;
-            this.$http({
-                method: "GET",
-                url: `${JX3BOX.__helperUrl}api/achievements/waiting`,
-                headers: { Accept: "application/prs.helper.v2+json" },
-                params: { page: page },
-                withCredentials: true,
-            }).then(
-                function(data) {
+            getWaitingAchievements().then((data) => {
                     data = data.data;
                     if (data.code === 200) {
                         that.achievements = data.data.achievements;
                         that.achievements_count = data.data.total;
                         that.old = data.data.old;
                     }
-                },
-                function() {
+                }, () => {
                     that.achievements = false;
                 }
             );
@@ -72,7 +65,6 @@ export default {
             });
         },
     },
-    mounted: function() {},
     components: {
         Achievements,
     },

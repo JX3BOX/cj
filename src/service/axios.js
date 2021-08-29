@@ -3,6 +3,7 @@ import { __next } from "@jx3box/jx3box-common/data/jx3box.json";
 
 const $http = axios.create({
     withCredentials: true,
+    headers: {'JX3-Client-Type': 2}
 });
 
 const $next = axios.create({

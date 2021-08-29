@@ -33,14 +33,9 @@ import Info from "@/components/Extend.vue";
 
 export default {
     name: "App",
-    data: function() {
+    data() {
         return {
         };
-    },
-    computed: {},
-    methods: {},
-    filters: {},
-    mounted: function() {
     },
     components: {
         AchievementCount,

@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-  import {get_total_count} from '../service/achievement';
+  import {getAchievementsTotal} from '../service/achievement';
 
   export default {
     name: "AchievementCount",
@@ -19,9 +19,9 @@
         count: {},
       };
     },
-    mounted() {
+    created() {
       // 获取成就统计信息
-      get_total_count().then(
+      getAchievementsTotal().then(
           (data) => {
             data = data.data;
             if (data.code === 200) this.count = data.data.count;

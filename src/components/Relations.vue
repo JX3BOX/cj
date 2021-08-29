@@ -22,7 +22,7 @@
           <router-link class="u-title" v-for="(relation, key) in relations" :key="key"
                        :to="{ name: 'view', params: { source_id: relation.ID } }">
             <img class="u-icon" :src="icon_url(relation.IconID)"
-                 @error.once="() => {$event.target.src = icon_url()}" />
+                 @error.once="() => {$event.target.src = icon_url()}"/>
             <span class="u-text" v-text="relation.Name"></span>
           </router-link>
         </div>
@@ -136,60 +136,59 @@
 </template>
 
 <script>
-const {JX3BOX} = require("@jx3box/jx3box-common");
-import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
-import {get_relation_achievements} from "@/service/achievement";
-import {iconLink} from '@jx3box/jx3box-common/js/utils';
+  const {JX3BOX} = require("@jx3box/jx3box-common");
+  import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
+  import {getRelationAchievements} from "../service/achievement";
+  import {iconLink} from '@jx3box/jx3box-common/js/utils';
 
-export default {
-  name: "Relation",
-  props: ["sourceId"],
-  data() {
-    return {
-      relations: null,
-      npc: null,
-      show_npc: false,
-    };
-  },
-  methods: {
-    icon_url: iconLink,
-    // 获取boss信息
-    getBossInfo(npcid) {
-      npcid && this.$http.get(`${JX3BOX.__node}npc/id/${npcid}`).then(
-          (res) => {
-            res = res.data;
-            if (res.list && res.list.length) this.npc = res.list[0];
-          }
-      );
+  export default {
+    name: "Relation",
+    props: ["sourceId"],
+    data() {
+      return {
+        relations: null,
+        npc: null,
+        show_npc: false,
+      };
     },
-  },
-  components: {
-    WikiPanel,
-  },
-  watch: {
-    sourceId: {
-      immediate: true,
-      handler() {
-        if (this.sourceId) {
-          get_relation_achievements(this.sourceId).then(
-              (res) => {
-                res = res.data;
-                if (res.code === 200) {
-                  let result = res.data;
-                  this.relations = result.relations;
-
-                  // 获取boss信息
-                  this.getBossInfo(result.boss_id);
-                }
-              }
-          );
-        }
+    methods: {
+      icon_url: iconLink,
+      // 获取boss信息
+      getBossInfo(npcid) {
+        npcid && this.$http.get(`${JX3BOX.__node}npc/id/${npcid}`).then(
+            (res) => {
+              res = res.data;
+              if (res.list && res.list.length) this.npc = res.list[0];
+            }
+        );
       },
     },
-  },
-};
+    components: {
+      WikiPanel,
+    },
+    watch: {
+      sourceId: {
+        immediate: true,
+        handler() {
+          if (this.sourceId) {
+            getRelationAchievements(this.sourceId).then((res) => {
+                  res = res.data;
+                  if (res.code === 200) {
+                    let result = res.data;
+                    this.relations = result.relations;
+
+                    // 获取boss信息
+                    this.getBossInfo(result.boss_id);
+                  }
+                }
+            );
+          }
+        },
+      },
+    },
+  };
 </script>
 
 <style lang="less">
-@import '../assets/css/components/relation.less';
+  @import '../assets/css/components/relation.less';
 </style>
