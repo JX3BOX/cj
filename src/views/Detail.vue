@@ -27,7 +27,7 @@
                         class="m-thx"
                         slot="single-append"
                         :postId="id"
-                        postType="cj"
+                        postType="achievement"
                         :userId="author_id"
                         :adminBoxcoinEnable="isRevision"
                         :userBoxcoinEnable="isRevision"
