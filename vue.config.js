@@ -44,6 +44,12 @@ module.exports = {
                     request.setHeader("origin", "");
                 }
             },
+            "/api/inspire":{
+                "target": "https://pay.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            }
         },
         disableHostCheck: true
     },

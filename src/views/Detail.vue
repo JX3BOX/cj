@@ -23,10 +23,18 @@
                 </template>
                 <template slot="body">
                     <Article :content="wiki_post.post.content" />
+                    <Thx
+                    class="m-thx"
+                    v-if="isRevision"
+                    slot="single-append"
+                    :postId="id"
+                    postType="cj"
+                    :userId="author_id"
+                    :adminBoxcoinEnable="true"
+                    :userBoxcoinEnable="true"
+                />
                 </template>
             </WikiPanel>
-
-            <!-- <Thx class="m-thx" slot="single-append" :postId="id" postType="jx3dat" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true"/> -->
 
             <Relations :source-id="id" />
 
@@ -65,6 +73,12 @@ export default {
     computed: {
         id() {
             return this.$route.params.source_id;
+        },
+        isRevision: function () {
+            return !!this.$route.params.post_id;
+        },
+        author_id: function () {
+            return ~~this.wiki_post.post.user_id;
         },
     },
     methods: {
