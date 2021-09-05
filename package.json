@@ -6,10 +6,10 @@
         "build": "vue-cli-service build",
         "lint": "vue-cli-service lint",
         "inspect": "vue inspect > output.js",
-        "update": "npm install @jx3box/jx3box-common-ui@latest @jx3box/jx3box-common@latest @jx3box/jx3box-editor@latest @jx3box/jx3box-comment-ui@latest"
+        "update": "npm install @jx3box/jx3box-common-ui@latest @jx3box/jx3box-common@latest @jx3box/jx3box-editor@latest"
     },
     "dependencies": {
-        "@jx3box/jx3box-comment-ui": "^1.5.2",
+        "@jx3box/jx3box-comment-ui": "^1.5.6",
         "@jx3box/jx3box-common": "^6.5.9",
         "@jx3box/jx3box-common-ui": "^4.9.9",
         "@jx3box/jx3box-editor": "^0.7.3",

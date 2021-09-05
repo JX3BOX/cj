@@ -10,7 +10,8 @@ let store = {
             general: 1,
             sub: null,
             detail: null,
-        }
+        },
+        client : location.href.includes('origin') ? 'origin' : 'std'
     },
     mutations: {
     },
