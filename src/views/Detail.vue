@@ -24,15 +24,14 @@
                 <template slot="body">
                     <Article :content="wiki_post.post.content" />
                     <Thx
-                    class="m-thx"
-                    v-if="isRevision"
-                    slot="single-append"
-                    :postId="id"
-                    postType="cj"
-                    :userId="author_id"
-                    :adminBoxcoinEnable="true"
-                    :userBoxcoinEnable="true"
-                />
+                        class="m-thx"
+                        slot="single-append"
+                        :postId="id"
+                        postType="cj"
+                        :userId="author_id"
+                        :adminBoxcoinEnable="isRevision"
+                        :userBoxcoinEnable="isRevision"
+                    />
                 </template>
             </WikiPanel>
 
