@@ -300,12 +300,17 @@ export default {
         isStd: function () {
             return this.$store.state.client == "std";
         },
+        client : function (){
+            return this.$store.state.client
+        }
     },
     components: {
         WikiPanel,
     },
     methods: {
-        icon_url: iconLink,
+        icon_url: function (id) {
+            return iconLink(id);
+        },
         author_url: authorLink,
         ts2str,
         ellipsis(value) {
