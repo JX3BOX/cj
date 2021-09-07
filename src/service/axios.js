@@ -1,15 +1,15 @@
 import axios from "axios";
-import { __next } from "@jx3box/jx3box-common/data/jx3box.json";
-import {jx3ClientType} from "@jx3box/jx3box-common/js/utils";
+import { jx3ClientType } from "@jx3box/jx3box-common/js/utils";
 
-const $http = axios.create({
-    withCredentials: true,
-    headers: {'JX3-Client-Type': jx3ClientType()}
-});
+function $http(disClient = false) {
+    const headers = { Accept: "application/prs.helper.v2+json" };
+    if (disClient) {
+        headers["JX3-Client-Type"] = jx3ClientType();
+    }
+    return axios.create({
+        withCredentials: true,
+        headers: headers,
+    });
+}
 
-const $next = axios.create({
-    withCredentials: true,
-    baseURL: process.env.NODE_ENV === "production" ? __next : "/",
-});
-
-export { $http, $next, axios };
+export { $http, axios };
