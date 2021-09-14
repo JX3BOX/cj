@@ -85,6 +85,7 @@ export default {
     },
     created() {
         if (this.id) postStat("cj", this.id);
+        if (this.id) postStat("origin_cj", this.id);
     },
     components: {
         AchievementSingle,
