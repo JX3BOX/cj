@@ -56,7 +56,7 @@
             </template>
         </WikiPanel>
 
-        <WikiPanel :border-none="true" v-if="isStd">
+        <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
                 <span>热门成就</span>
@@ -282,7 +282,7 @@ import {
     iconLink,
     getThumbnail,
 } from "@jx3box/jx3box-common/js/utils";
-import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements } from "../service/achievement";
 
 export default {
@@ -335,7 +335,8 @@ export default {
     },
     created() {
         // 获取热门成就
-        getStatRank("cj", "views", 12).then((res) => {
+        const hot_key = this.client == 'origin' ? 'origin_cj' : 'cj'
+        getStatRank(hot_key, "views", 12).then((res) => {
             res = res.data;
             let source_ids = [];
             res.forEach((item) => {

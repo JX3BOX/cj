@@ -53,9 +53,9 @@
 
 <script>
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
-import WikiRevisions from "@jx3box/jx3box-common-ui/src/WikiRevisions";
-import WikiComments from "@jx3box/jx3box-common-ui/src/WikiComments";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
+import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
+import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
 import AchievementSingle from "@/components/AchievementSingle.vue";
 import Relations from "@/components/Relations.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
@@ -79,14 +79,21 @@ export default {
         author_id: function () {
             return ~~this.wiki_post.post.user_id;
         },
+        client: function () {
+            return this.$store.state.client;
+        },
     },
     methods: {
         publish_url: publishLink,
+        triggerStat: function () {
+            if (this.client == "origin") {
+                postStat("origin_cj", this.id);
+            } else {
+                postStat("cj", this.id);
+            }
+        },
     },
-    created() {
-        if (this.id) postStat("cj", this.id);
-        if (this.id) postStat("origin_cj", this.id);
-    },
+    created() {},
     components: {
         AchievementSingle,
         WikiPanel,
@@ -109,6 +116,8 @@ export default {
                                 let pet = this.wiki_post.source.pet;
                                 if (pet && pet.id) postStat("pet", pet.id);
                             }
+
+                            this.triggerStat();
                         },
                         () => {
                             this.wiki_post = null;
@@ -126,6 +135,8 @@ export default {
                         (res) => {
                             res = res.data;
                             if (res.code === 200) this.wiki_post = res.data;
+
+                            this.triggerStat();
                         },
                         () => {
                             this.wiki_post = null;

@@ -220,7 +220,7 @@
 
 <script>
 const { JX3BOX } = require("@jx3box/jx3box-common");
-import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getRelationAchievements } from "../service/achievement";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 
