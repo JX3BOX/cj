@@ -1,5 +1,5 @@
 <template>
-    <div id="app" >
+    <div id="app">
         <Header></Header>
         <Breadcrumb
             name="成就百科"
@@ -8,7 +8,7 @@
             :publishEnable="true"
             :feedbackEnable="true"
         >
-            <img slot="logo" svg-inline src="./assets/img/achievement.svg" />
+            <img slot="logo" svg-inline :src="getAppIcon('cj')" />
             <AchievementCount />
         </Breadcrumb>
         <LeftSidebar>
@@ -30,12 +30,11 @@ import AchievementCount from "./components/AchievementCount.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Search from "@/components/Search.vue";
 import Info from "@/components/Extend.vue";
-
+import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "App",
     data() {
-        return {
-        };
+        return {};
     },
     components: {
         AchievementCount,
@@ -74,9 +73,12 @@ export default {
             },
         },
     },
+    methods : {
+        getAppIcon
+    }
 };
 </script>
 
 <style lang="less">
-    @import './assets/css/index.less';
+@import "./assets/css/index.less";
 </style>
