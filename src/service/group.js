@@ -1,8 +1,7 @@
-import { $http } from "./axios";
-import { __helperUrl } from "@jx3box/jx3box-common/data/jx3box.json";
+import {$helper} from "@jx3box/jx3box-common/js/https";
 
 function get_groups(type, params) {
-    return $http(false).get(`${__helperUrl}api/groups/${type}`, {
+    return $helper().get(`api/groups/${type}`, {
         params: params,
     });
 }
