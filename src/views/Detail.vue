@@ -131,7 +131,7 @@ export default {
             handler() {
                 if (this.$route.params.post_id) {
                     // 获取指定攻略
-                    WikiPost.view(this.$route.params.post_id).then(
+                    WikiPost.view(this.$route.params.post_id, {type: 'achievement'}).then(
                         (res) => {
                             res = res.data;
                             if (res.code === 200) this.wiki_post = res.data;
