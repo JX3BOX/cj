@@ -23,7 +23,7 @@
                         </router-link>
                     </li>
                     <li class="u-qlink">
-                        <a target="_blank" href="https://www.jx3box.com/tool/8104/">
+                        <a target="_blank" href="/bbs/8104">
                             <i class="el-icon-medal"></i>
                             <span>隐藏成就</span>
                         </a>
