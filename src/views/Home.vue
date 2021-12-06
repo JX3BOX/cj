@@ -29,23 +29,17 @@
                         </a>
                     </li>
                     <li class="u-qlink">
-                        <router-link :to="{ name: 'out_print' }">
-                            <i class="el-icon-coin"></i>
-                            <span>绝版成就</span>
-                        </router-link>
-                    </li>
-                    <li class="u-qlink">
                         <router-link :to="{ name: 'adventure' }">
                             <i class="el-icon-ice-drink"></i>
                             <span>奇遇成就</span>
                         </router-link>
                     </li>
-                    <li class="u-qlink">
+                    <!-- <li class="u-qlink">
                         <router-link :to="{ name: 'rare' }">
                             <i class="el-icon-milk-tea"></i>
                             <span>珍奇成就</span>
                         </router-link>
-                    </li>
+                    </li> -->
                     <li class="u-qlink">
                         <a target="_blank" href="/knowledge/#/pet">
                             <i class="el-icon-lollipop"></i>
