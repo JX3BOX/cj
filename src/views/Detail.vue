@@ -14,7 +14,7 @@
                 </template>
                 <template slot="head-actions">
                     <a
-                        class="el-button el-button--primary"
+                        class="el-button el-button--success"
                         :href="publish_url(`achievement/${id}`)"
                     >
                         <i class="el-icon-edit"></i>

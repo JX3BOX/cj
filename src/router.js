@@ -39,9 +39,9 @@ const routes = [
         }
     },
     // 单页
-    {name: 'view', path: '/view/:source_id(\\d+)/:post_id(\\d+)?', component: Detail},
+    { name: 'view', path: '/view/:source_id(\\d+)/:post_id(\\d+)?', component: Detail },
     // 搜索
-    {name: 'search', path: '/search/:keyword(.+)?', component: Search},
+    { name: 'search', path: '/search/:keyword(.+)?', component: Search },
     // 最新成就
     {
         name: 'newest', path: '/newest', component: Newest, beforeEnter: (to, from, next) => {
@@ -79,11 +79,16 @@ const routes = [
     },
 
     // 默认页重定向
-    {path: '*', redirect: 'home'}
+    { path: '*', redirect: 'home' }
 ];
 
 const router = new VueRouter({
     routes
 });
+
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch((err) => err);
+};
 
 export default router;

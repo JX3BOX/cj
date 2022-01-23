@@ -1,4 +1,4 @@
-import {$helper} from "@jx3box/jx3box-common/js/https";
+import { $helper } from "@jx3box/jx3box-common/js/https";
 
 // 获取成就统计信息
 function getAchievementsTotal() {
