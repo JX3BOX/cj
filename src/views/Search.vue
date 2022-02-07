@@ -66,7 +66,7 @@
       $route: {
         immediate: true,
         async handler() {
-          this.page = parseInt(this.$route.query.page);
+          this.page = parseInt(this.$route.query.page) || 1;
           let data = await this.get_achievements(
               this.$route.params.keyword,
               this.page,
