@@ -1,13 +1,7 @@
 <template>
     <div class="m-waiting-view">
-        <el-alert
-            v-if="old"
-            title="所有成就都已经有了各自的攻略，以下是一些比较老旧的成就攻略"
-            type="success"
-        ></el-alert>
-        <span class="u-list-empty" v-if="!$_.get(achievements, 'length')"
-            >👻 暂无记录</span
-        >
+        <el-alert v-if="old" title="所有成就都已经有了各自的攻略，以下是一些比较老旧的成就攻略" type="success"></el-alert>
+        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true" />
         <el-pagination
             background
@@ -25,13 +19,13 @@
 
 <script>
 import Achievements from "@/components/Achievements.vue";
-import {getWaitingAchievements} from "../service/achievement";
+import { getWaitingAchievements } from "../service/achievement";
 
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import { get } from 'lodash'
 
 export default {
     name: "Waiting",
-    data: function() {
+    data: function () {
         return {
             achievements: null,
             achievements_count: 0,
@@ -40,19 +34,25 @@ export default {
             length: 15,
         };
     },
-    computed: {},
+    computed: {
+        isEmpty() {
+            return !get(this.achievements, 'length')
+        }
+    },
     methods: {
         // 获取成就列表
         get_achievements(page) {
             let that = this;
-            getWaitingAchievements().then((data) => {
+            getWaitingAchievements().then(
+                (data) => {
                     data = data.data;
                     if (data.code === 200) {
                         that.achievements = data.data.achievements;
                         that.achievements_count = data.data.total;
                         that.old = data.data.old;
                     }
-                }, () => {
+                },
+                () => {
                     that.achievements = false;
                 }
             );

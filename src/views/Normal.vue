@@ -1,56 +1,57 @@
 <template>
-  <div class="m-normal-view">
-    <Achievements :achievements="achievements" :fold="true"/>
-  </div>
+    <div class="m-normal-view">
+        <Achievements :achievements="achievements" :fold="true" />
+    </div>
 </template>
 
 <script>
-  import Achievements from "@/components/Achievements.vue";
-  import {getMenuAchievements} from "../service/achievement";
+import Achievements from "@/components/Achievements.vue";
+import { getMenuAchievements } from "../service/achievement";
 
-  const {JX3BOX} = require("@jx3box/jx3box-common");
+import { get } from 'lodash'
 
-  export default {
+export default {
     name: "Normal",
     data() {
-      return {
-        achievements: null,
-      };
+        return {
+            achievements: null,
+        };
     },
     methods: {
-      // 获取成就列表
-      get_achievements(sub, detail) {
-        if (!sub) return [];
-        getMenuAchievements(sub, detail).then((data) => {
-              data = data.data;
-              if (data.code === 200) {
-                this.achievements = data.data.achievements && data.data.achievements.length && data.data.achievements.sort((a, b) => {
-                  let a_level = this.$_.get(a.post, 'level', 1);
-                  let b_level = this.$_.get(b.post, 'level', 1);
-                  return a_level - b_level
-                });
-              }
-            },
-            () => {
-              this.achievements = false;
-            }
-        );
-      },
+        // 获取成就列表
+        get_achievements(sub, detail) {
+            if (!sub) return [];
+            getMenuAchievements(sub, detail).then(
+                (data) => {
+                    data = data.data;
+                    if (data.code === 200) {
+                        this.achievements =
+                            data.data.achievements &&
+                            data.data.achievements.length &&
+                            data.data.achievements.sort((a, b) => {
+                                let a_level = get(a.post, "level", 1);
+                                let b_level = get(b.post, "level", 1);
+                                return a_level - b_level;
+                            });
+                    }
+                },
+                () => {
+                    this.achievements = false;
+                }
+            );
+        },
     },
     components: {
-      Achievements,
+        Achievements,
     },
     watch: {
-      $route: {
-        immediate: true,
-        handler() {
-          // 获取成就列表
-          this.get_achievements(
-              this.$route.params.sub,
-              this.$route.params.detail
-          );
+        $route: {
+            immediate: true,
+            handler() {
+                // 获取成就列表
+                this.get_achievements(this.$route.params.sub, this.$route.params.detail);
+            },
         },
-      },
     },
-  };
+};
 </script>

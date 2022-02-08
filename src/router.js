@@ -66,14 +66,14 @@ const routes = [
     // 奇遇成就
     {
         name: 'adventure', path: '/adventure', component: Adventure, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 3;
+            store.state.sidebar.general = 5;
             next();
         }
     },
-    // 珍奇成就
+    // 宠物成就
     {
         name: 'rare', path: '/rare', component: Rare, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 3;
+            store.state.sidebar.general = 4;
             next();
         }
     },

@@ -1,6 +1,6 @@
 <template>
     <div class="m-adventure-view">
-        <span class="u-list-empty" v-if="!$_.get(achievements, 'length')">👻 暂无记录</span>
+        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true" />
         <el-pagination
             background
@@ -19,8 +19,7 @@
 <script>
 import Achievements from "@/components/Achievements.vue";
 import { getAdventureAchievements } from "../service/achievement";
-
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import { get } from 'lodash'
 
 export default {
     name: "Adventure",
@@ -31,6 +30,11 @@ export default {
             page: 1,
             length: 15,
         };
+    },
+    computed: {
+        isEmpty() {
+            return !get(this.achievements, 'length')
+        }
     },
     methods: {
         // 获取成就列表

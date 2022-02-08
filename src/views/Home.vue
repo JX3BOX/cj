@@ -29,10 +29,10 @@
                         </a>
                     </li>
                     <li class="u-qlink">
-                        <router-link :to="{ name: 'adventure' }">
+                        <a target="_blank" href="/adventure">
                             <i class="el-icon-ice-drink"></i>
-                            <span>奇遇成就</span>
-                        </router-link>
+                            <span>奇遇大全</span>
+                        </a>
                     </li>
                     <!-- <li class="u-qlink">
                         <router-link :to="{ name: 'rare' }">
@@ -41,9 +41,9 @@
                         </router-link>
                     </li> -->
                     <li class="u-qlink">
-                        <a target="_blank" href="/knowledge/#/pet">
+                        <a target="_blank" href="/pet">
                             <i class="el-icon-lollipop"></i>
-                            <span>宠物密鉴</span>
+                            <span>宠物大全</span>
                         </a>
                     </li>
                 </ul>

@@ -11,7 +11,6 @@ Vue.use(JX3BOX_UI);
 
 
 Vue.prototype.$http = require("axios");
-Vue.prototype.$_ = require("lodash");
 
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard);
