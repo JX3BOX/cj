@@ -79,6 +79,18 @@ function getAchievementRanking(sub) {
     return $helper().get(`api/achievement/users/ranking` + (sub ? `?sub=${sub}` : ""));
 }
 
+// 获取角色的成就状态
+function getRoleAchievements(role_id) {
+    return $helper().get(`api/achievement/roles/${role_id}`)
+}
+
+// 批量更新角色的成就状态
+function updateRoleAchievements(role_id, list){
+    return $helper().post(`api/achievement/roles/${role_id}/done`, {
+        list
+    })
+}
+
 export {
     getAchievementsTotal,
     getMenus,
@@ -92,4 +104,6 @@ export {
     getRareAchievements,
     getOutPrintAchievements,
     getAchievementRanking,
+    getRoleAchievements,
+    updateRoleAchievements,
 };

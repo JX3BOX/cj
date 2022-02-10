@@ -1,5 +1,10 @@
 <template>
     <div class="m-left-side">
+        <el-select v-model="currentRole" value-key="ID" placeholder="请选择当前角色">
+            <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
+
+            </el-option>
+        </el-select>
         <el-select v-model="sidebar.general">
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
@@ -25,9 +30,10 @@
 </template>
 
 <script>
-import { getMenus } from "../service/achievement";
+import { getMenus, getRoleAchievements } from "@/service/achievement";
 
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
+import { getUserRoles } from '@/service/team';
 
 export default {
     name: "Sidebar",
@@ -44,6 +50,9 @@ export default {
                 { value: 5, label: "奇遇成就" },
                 // { value: 3, label: "其他板块" },
             ],
+
+            roleList: [],
+            currentRole: ''
         };
     },
     watch: {
@@ -60,6 +69,14 @@ export default {
                 if (that.sidebar.general) that.get_menus(this.sidebar.general);
             },
         },
+        currentRole: {
+            deep: true,
+            handler(val) {
+                this.$store.commit('SET_STATE', { key: 'role', value: val })
+
+                this.loadRoleAchievements()
+            }
+        }
     },
     methods: {
         filterNode(value, data) {
@@ -201,7 +218,32 @@ export default {
             }
             return null;
         },
+
+        // 获取用户角色列表
+        loadUserRoles() {
+            getUserRoles().then(res => {
+                this.roleList = res.data.data.list
+                sessionStorage.setItem('cj-roles', JSON.stringify(this.roleList));
+            })
+        },
+        // 获取角色成就状态
+        loadRoleAchievements() {
+            getRoleAchievements(this.currentRole.ID).then(res => {
+                this.$store.commit('SET_STATE', { key: 'achievements', value: res.data.data.list })
+            })
+        }
     },
+    mounted() {
+        if (sessionStorage.getItem('cj-roles')) {
+            this.roleList = JSON.parse(sessionStorage.getItem('cj-roles'))
+        } else {
+            this.loadUserRoles()
+        }
+
+        if (this.roleList.length) {
+            this.currentRole = this.roleList[0]
+        }
+    }
 };
 </script>
 

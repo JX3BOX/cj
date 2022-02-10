@@ -11,9 +11,14 @@ let store = {
             sub: null,
             detail: null,
         },
-        client : location.href.includes('origin') ? 'origin' : 'std'
+        client : location.href.includes('origin') ? 'origin' : 'std',
+        role: '',
+        achievements: []
     },
     mutations: {
+        SET_STATE: (state, { key, value }) => {
+            state[key] = value
+        }
     },
     getters: {
     },

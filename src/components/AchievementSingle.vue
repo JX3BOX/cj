@@ -5,6 +5,7 @@
             <div class="u-other">
                 <span class="u-attr" v-text="achievement.post ? '修订时间：' + ts2str(achievement.post.updated) : ''"></span>
                 <span class="u-attr" v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"></span>
+                <el-button class="u-attr u-fav" type="success" size="mini" icon="el-icon-check" @click.stop="finish" :disabled="completed">完成</el-button>
                 <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-id="achievement.ID" />
             </div>
         </div>
@@ -79,7 +80,9 @@
 import { ts2str, iconLink } from "@jx3box/jx3box-common/js/utils";
 import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple.vue";
-import { star } from '@/filters/star'
+import { star } from '@/filters/star';
+import { updateRoleAchievements } from "@/service/achievement";
+import User from '@jx3box/jx3box-common/js/user'
 
 export default {
     name: "AchievementSingle",
@@ -97,6 +100,18 @@ export default {
         hasContent: function () {
             return this.achievement && Object.keys(this.achievement).length;
         },
+        completeAchievements() {
+            return this.$store.state.achievements
+        },
+        currentRole() {
+            return this.$store.state.role
+        },
+        completed() {
+            return this.completeAchievements.includes(this.achievement.ID)
+        },
+        isLogin() {
+            return User.isLogin()
+        }
     },
     methods: {
         ts2str,
@@ -120,6 +135,17 @@ export default {
             if (value) value = value.replace(/\\n/g, "<br>");
             return value;
         },
+        finish() {
+            if (!this.isLogin) {
+                User.toLogin()
+            }
+            const list = [...new Set([...this.completeAchievements, this.achievement.ID])];
+
+            updateRoleAchievements(this.currentRole.ID, list).then(res => {
+                this.$notify.success('操作成功')
+                this.$store.commit('SET_STATE', { key: 'achievements', value: res.data.data.list });
+            })
+        }
     },
     components: {
         "item-simple": ItemSimple,
