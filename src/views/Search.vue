@@ -41,9 +41,7 @@
           searchAchievements(data).then(
               (data) => {
                 data = data.data;
-                if (data.code === 200) {
-                  resolve(data.data);
-                }
+                resolve(data.data);
               },
               () => {
                 resolve(false);

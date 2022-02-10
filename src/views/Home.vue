@@ -11,7 +11,7 @@
             <template slot="body">
                 <ul class="u-qlinks">
                     <li class="u-qlink">
-                        <a style="background-color:#FE7979;" target="_blank" href="/tool/9126/">
+                        <a style="background-color: #fe7979" target="_blank" href="/tool/9126/">
                             <i class="el-icon-trophy"></i>
                             <span>游戏内看百科</span>
                         </a>
@@ -58,11 +58,7 @@
             <template slot="body">
                 <div class="m-achievement-slider">
                     <el-carousel height="66px" direction="vertical" indicator-position="none">
-                        <el-carousel-item
-                            v-for="(items, key) in hot_achievements"
-                            :key="key"
-                            class="m-carousel m-hot"
-                        >
+                        <el-carousel-item v-for="(items, key) in hot_achievements" :key="key" class="m-carousel m-hot">
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
@@ -95,35 +91,11 @@
                                                 </span>
                                                 <span class="u-rank" v-if="views[item.ID]">
                                                     <i class="el-icon-watermelon"></i>
-                                                    <span
-                                                        v-text="
-                                                            `昨日 - ${
-                                                                views[item.ID][
-                                                                    'yesterday'
-                                                                ]
-                                                            }`
-                                                        "
-                                                    ></span>
+                                                    <span v-text="`昨日 - ${views[item.ID]['yesterday']}`"></span>
                                                     <i class="el-icon-grape"></i>
-                                                    <span
-                                                        v-text="
-                                                            `七天 - ${
-                                                                views[item.ID][
-                                                                    '7days'
-                                                                ]
-                                                            }`
-                                                        "
-                                                    ></span>
+                                                    <span v-text="`七天 - ${views[item.ID]['7days']}`"></span>
                                                     <i class="el-icon-pear"></i>
-                                                    <span
-                                                        v-text="
-                                                            `三十天 - ${
-                                                                views[item.ID][
-                                                                    '30days'
-                                                                ]
-                                                            }`
-                                                        "
-                                                    ></span>
+                                                    <span v-text="`三十天 - ${views[item.ID]['30days']}`"></span>
                                                 </span>
                                             </div>
                                         </router-link>
@@ -145,17 +117,8 @@
                 <router-link class="other" :to="{ name: 'newest' }">查看更多 &raquo;</router-link>
             </template>
             <template slot="body">
-                <el-carousel
-                    height="66px"
-                    direction="vertical"
-                    :interval="3500"
-                    indicator-position="none"
-                >
-                    <el-carousel-item
-                        v-for="(items, key) in newest_achievements"
-                        :key="key"
-                        class="m-carousel"
-                    >
+                <el-carousel height="66px" direction="vertical" :interval="3500" indicator-position="none">
+                    <el-carousel-item v-for="(items, key) in newest_achievements" :key="key" class="m-carousel">
                         <el-row :gutter="20">
                             <el-col :md="8" v-for="(item, k) in items" :key="k">
                                 <router-link
@@ -198,32 +161,14 @@
                         <div class="m-head">
                             <div class="m-user">
                                 <div class="u-author">
-                                    <img
-                                        class="u-icon"
-                                        :src="post.user_avatar | showAvatar"
-                                        :alt="post.user_nickname"
-                                    />
-                                    <a
-                                        :href="
-                                            post.user_id
-                                                ? author_url(post.user_id)
-                                                : null
-                                        "
-                                        class="u-name"
-                                        v-text="post.user_nickname"
-                                    ></a>
+                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
+                                    <a :href="post.user_id ? author_url(post.user_id) : null" class="u-name" v-text="post.user_nickname"></a>
                                 </div>
                                 <div class="u-updated" v-text="ts2str(post.updated)"></div>
                             </div>
                             <div class="m-achievement">
                                 <div class="u-achievement">
-                                    <img
-                                        class="u-icon"
-                                        :src="icon_url(post.source_icon_id)"
-                                        @error.once="
-                                            $event.target.src = icon_url('')
-                                        "
-                                    />
+                                    <img class="u-icon" :src="icon_url(post.source_icon_id)" @error.once="$event.target.src = icon_url('')" />
                                     <router-link
                                         class="u-name"
                                         :to="{
@@ -235,18 +180,8 @@
                                         v-text="post.title"
                                     ></router-link>
                                 </div>
-                                <div
-                                    class="u-level"
-                                    v-text="
-                                        '综合难度：' +
-                                            $options.filters.star(post.level)
-                                    "
-                                ></div>
-                                <div
-                                    class="u-remark"
-                                    v-if="post.remark"
-                                    v-text="'📑 ' + post.remark"
-                                ></div>
+                                <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
+                                <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                             </div>
                         </div>
                         <div class="m-body">
@@ -267,17 +202,13 @@
 </template>
 
 <script>
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import { feedback } from '@jx3box/jx3box-common/data/jx3box.json'
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { WikiPost } from "@jx3box/jx3box-common/js/helper";
-import {
-    authorLink,
-    ts2str,
-    iconLink,
-    getThumbnail,
-} from "@jx3box/jx3box-common/js/utils";
+import { authorLink, ts2str, iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements } from "../service/achievement";
+import { star } from '@/filters/star'
 
 export default {
     name: "Home",
@@ -287,16 +218,16 @@ export default {
             hot_achievements: null,
             newest_achievements: null,
             newest_posts: null,
-            feedback: JX3BOX.feedback,
+            feedback
         };
     },
     computed: {
         isStd: function () {
             return this.$store.state.client == "std";
         },
-        client : function (){
-            return this.$store.state.client
-        }
+        client: function () {
+            return this.$store.state.client;
+        },
     },
     components: {
         WikiPanel,
@@ -307,6 +238,7 @@ export default {
         },
         author_url: authorLink,
         ts2str,
+        star,
         ellipsis(value) {
             value = value ? value.trim() : "";
             if (value.length > 100) {
@@ -329,7 +261,7 @@ export default {
     },
     created() {
         // 获取热门成就
-        const hot_key = this.client == 'origin' ? 'origin_cj' : 'cj'
+        const hot_key = this.client == "origin" ? "origin_cj" : "cj";
         getStatRank(hot_key, "views", 12).then((res) => {
             res = res.data;
             let source_ids = [];
@@ -347,10 +279,7 @@ export default {
             }).then((res) => {
                 res = res.data;
                 // 按照长度分批
-                if (res.code === 200)
-                    this.hot_achievements = this.chuck(
-                        Object.values(res.data.achievements)
-                    );
+                this.hot_achievements = this.chuck(Object.values(res.data.achievements));
             });
         });
 
@@ -359,10 +288,7 @@ export default {
             (res) => {
                 res = res.data;
                 // 按照长度分批
-                if (res.code === 200)
-                    this.newest_achievements = this.chuck(
-                        Object.values(res.data.achievements)
-                    );
+                this.newest_achievements = this.chuck(Object.values(res.data.achievements));
             },
             () => {
                 this.newest_achievements = false;
@@ -373,7 +299,7 @@ export default {
         WikiPost.newests("achievement").then(
             (res) => {
                 res = res.data;
-                if (res.code === 200) this.newest_posts = res.data.newest;
+                this.newest_posts = res.data.newest;
             },
             () => {
                 this.newest_posts = false;

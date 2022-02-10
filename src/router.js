@@ -43,26 +43,26 @@ const routes = [
     // 搜索
     { name: 'search', path: '/search/:keyword(.+)?', component: Search },
     // 最新成就
-    {
-        name: 'newest', path: '/newest', component: Newest, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 3;
-            next();
-        }
-    },
+    // {
+    //     name: 'newest', path: '/newest', component: Newest, beforeEnter: (to, from, next) => {
+    //         store.state.sidebar.general = 3;
+    //         next();
+    //     }
+    // },
     // 待攻略成就
-    {
-        name: 'waiting', path: '/waiting', component: Waiting, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 3;
-            next();
-        }
-    },
+    // {
+    //     name: 'waiting', path: '/waiting', component: Waiting, beforeEnter: (to, from, next) => {
+    //         store.state.sidebar.general = 3;
+    //         next();
+    //     }
+    // },
     // 绝版成就
-    {
-        name: 'out_print', path: '/out_print', component: OutPrint, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 3;
-            next();
-        }
-    },
+    // {
+    //     name: 'out_print', path: '/out_print', component: OutPrint, beforeEnter: (to, from, next) => {
+    //         store.state.sidebar.general = 3;
+    //         next();
+    //     }
+    // },
     // 奇遇成就
     {
         name: 'adventure', path: '/adventure', component: Adventure, beforeEnter: (to, from, next) => {

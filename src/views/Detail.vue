@@ -111,7 +111,7 @@ export default {
                     WikiPost.newest("achievement", this.id).then(
                         (res) => {
                             res = res.data;
-                            if (res.code === 200) this.wiki_post = res.data;
+                            this.wiki_post = res.data;
                             if (this.wiki_post && this.wiki_post.source) {
                                 let pet = this.wiki_post.source.pet;
                                 if (pet && pet.id) postStat("pet", pet.id);
@@ -134,7 +134,7 @@ export default {
                     WikiPost.view(this.$route.params.post_id, {type: 'achievement'}).then(
                         (res) => {
                             res = res.data;
-                            if (res.code === 200) this.wiki_post = res.data;
+                            this.wiki_post = res.data;
 
                             this.triggerStat();
                         },

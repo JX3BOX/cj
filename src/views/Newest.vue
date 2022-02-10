@@ -38,10 +38,8 @@ export default {
             getNewestAchievements(page).then(
                 (data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        this.achievements = data.data.achievements;
-                        this.achievements_count = data.data.total;
-                    }
+                    this.achievements = data.data.achievements;
+                    this.achievements_count = data.data.total;
                 },
                 () => {
                     this.achievements = false;

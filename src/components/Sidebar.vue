@@ -27,7 +27,6 @@
 <script>
 import { getMenus } from "../service/achievement";
 
-const { JX3BOX } = require("@jx3box/jx3box-common");
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
 
 export default {
@@ -127,11 +126,13 @@ export default {
             if (general === 4) {
                 that.menus = [{ name: "宠物成就", id: "rare", router: "rare" }];
                 that.$router.push({ name: 'rare' })
+                that.$refs.tree.setCurrentKey('rare')
                 return;
             }
             if (general === 5) {
                 that.menus = [{ name: "奇遇成就", id: "adventure", router: "adventure" }];
                 that.$router.push({ name: 'adventure' })
+                // that.$refs.tree.setCurrentKey('adventure')
                 return;
             }
 

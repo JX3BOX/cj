@@ -24,11 +24,3 @@ new Vue({
     store,
     render: h => h(App),
 }).$mount("#app");
-
-// 注册全局过滤器
-import * as filters from "./filters";
-
-Object.keys(filters).forEach((key) => {
-    Vue.filter(key, filters[key]);
-});
-

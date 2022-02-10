@@ -1,5 +1,5 @@
 <template>
-    <div class="m-right-side" :class="{isHome : isHome}">
+    <div class="m-right-side" :class="{isHome: isHome}">
         <RightSideMsg>
             <em>官方反馈交流Q群</em> :
             <strong>
@@ -90,10 +90,9 @@
 
 <script>
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
-
-const { JX3BOX } = require("@jx3box/jx3box-common");
 import { get_groups } from "../service/group";
 import { getAchievementRanking } from "../service/achievement";
+import { __ossRoot, __ossMirror } from '@jx3box/jx3box-common/data/jx3box.json'
 
 export default {
     name: "Extend",
@@ -130,9 +129,7 @@ export default {
             getAchievementRanking(sub).then(
                 (data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        that.ranks = data.data.ranking;
-                    }
+                    that.ranks = data.data.ranking;
                 },
                 () => {
                     that.ranks = false;
@@ -174,7 +171,7 @@ export default {
     },
     filters: {
         resolveAvatarPath: function (val) {
-            return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
+            return val.replace(__ossRoot, __ossMirror);
         },
     },
 };

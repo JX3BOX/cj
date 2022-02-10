@@ -3,7 +3,10 @@
  * @param {*} level 综合难度
  */
 
-export default (level) => {
+const star = (level) => {
     return "⭐️".repeat(level ? level : 1);
 }
 
+export {
+    star
+}

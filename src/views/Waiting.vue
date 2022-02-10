@@ -46,11 +46,9 @@ export default {
             getWaitingAchievements().then(
                 (data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        that.achievements = data.data.achievements;
-                        that.achievements_count = data.data.total;
-                        that.old = data.data.old;
-                    }
+                    that.achievements = data.data.achievements;
+                    that.achievements_count = data.data.total;
+                    that.old = data.data.old;
                 },
                 () => {
                     that.achievements = false;
