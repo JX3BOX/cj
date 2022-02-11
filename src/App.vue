@@ -1,13 +1,7 @@
 <template>
     <div id="app">
         <Header></Header>
-        <Breadcrumb
-            name="成就百科"
-            slug="achievement"
-            root="/cj"
-            :publishEnable="true"
-            :feedbackEnable="true"
-        >
+        <Breadcrumb name="成就百科" slug="achievement" root="/cj" :publishEnable="true" :feedbackEnable="true">
             <img slot="logo" svg-inline :src="getAppIcon('cj')" />
             <AchievementCount />
         </Breadcrumb>
@@ -46,36 +40,23 @@ export default {
         $route: {
             immediate: true,
             handler() {
-                if (
-                    !this.$route.params.sub &&
-                    !this.$route.params.detail &&
-                    !this.$route.params.source_id
-                ) {
+                if (!this.$route.params.sub && !this.$route.params.detail && !this.$route.params.source_id) {
                     this.$store.state.sidebar.sub = null;
                     this.$store.state.sidebar.detail = null;
                 } else {
-                    if (this.$route.params.sub)
-                        this.$store.state.sidebar.sub = this.$route.params.sub;
-                    if (this.$route.params.detail)
-                        this.$store.state.sidebar.detail = this.$route.params.detail;
+                    if (this.$route.params.sub) this.$store.state.sidebar.sub = this.$route.params.sub;
+                    if (this.$route.params.detail) this.$store.state.sidebar.detail = this.$route.params.detail;
                 }
 
-                if (
-                    this.$store.state.sidebar.general == 3 &&
-                    this.$route.name
-                ) {
-                    this.$set(
-                        this.$store.state.sidebar,
-                        "other",
-                        this.$route.name
-                    );
+                if (this.$store.state.sidebar.general == 3 && this.$route.name) {
+                    this.$set(this.$store.state.sidebar, "other", this.$route.name);
                 }
             },
         },
     },
-    methods : {
-        getAppIcon
-    }
+    methods: {
+        getAppIcon,
+    },
 };
 </script>
 

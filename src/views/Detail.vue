@@ -1,10 +1,6 @@
 <template>
     <div class="m-detail-view">
-        <AchievementSingle
-            v-if="wiki_post && wiki_post.source"
-            :achievement="wiki_post.source"
-            show-favorite="true"
-        />
+        <AchievementSingle v-if="wiki_post && wiki_post.source" :achievement="wiki_post.source" show-favorite="true" />
 
         <div class="m-wiki-post-panel" v-if="wiki_post && wiki_post.post">
             <WikiPanel :wiki-post="wiki_post">
@@ -13,25 +9,14 @@
                     <span class="u-txt">成就攻略</span>
                 </template>
                 <template slot="head-actions">
-                    <a
-                        class="el-button el-button--primary"
-                        :href="publish_url(`achievement/${id}`)"
-                    >
+                    <a class="el-button el-button--primary" :href="publish_url(`achievement/${id}`)">
                         <i class="el-icon-edit"></i>
                         <span>完善成就攻略</span>
                     </a>
                 </template>
                 <template slot="body">
                     <Article :content="wiki_post.post.content" />
-                    <Thx
-                        class="m-thx"
-                        slot="single-append"
-                        :postId="id"
-                        postType="achievement"
-                        :userId="author_id"
-                        :adminBoxcoinEnable="isRevision"
-                        :userBoxcoinEnable="isRevision"
-                    />
+                    <Thx class="m-thx" slot="single-append" :postId="id" postType="achievement" :userId="author_id" :adminBoxcoinEnable="isRevision" :userBoxcoinEnable="isRevision" mode="wiki" />
                 </template>
             </WikiPanel>
 
@@ -73,19 +58,19 @@ export default {
         id() {
             return this.$route.params.source_id;
         },
-        isRevision: function () {
+        isRevision: function() {
             return !!this.$route.params.post_id;
         },
-        author_id: function () {
+        author_id: function() {
             return ~~this.wiki_post.post.user_id;
         },
-        client: function () {
+        client: function() {
             return this.$store.state.client;
         },
     },
     methods: {
         publish_url: publishLink,
-        triggerStat: function () {
+        triggerStat: function() {
             if (this.client == "origin") {
                 postStat("origin_cj", this.id);
             } else {
@@ -131,7 +116,7 @@ export default {
             handler() {
                 if (this.$route.params.post_id) {
                     // 获取指定攻略
-                    WikiPost.view(this.$route.params.post_id, {type: 'achievement'}).then(
+                    WikiPost.view(this.$route.params.post_id, { type: "achievement" }).then(
                         (res) => {
                             res = res.data;
                             this.wiki_post = res.data;

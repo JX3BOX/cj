@@ -18,44 +18,58 @@ Vue.use(VueRouter);
 const routes = [
     // 主页
     {
-        name: 'home', path: '/home', component: Home, beforeEnter: (to, from, next) => {
+        name: "home",
+        path: "/home",
+        component: Home,
+        beforeEnter: (to, from, next) => {
             store.state.sidebar.general = 1;
             next();
-        }
+        },
     },
     // 常规
     {
-        name: 'normal', path: '/:sub(\\d+)/:detail(\\d+)?', component: Normal, beforeEnter: (to, from, next) => {
+        name: "normal",
+        path: "/:sub(\\d+)/:detail(\\d+)?",
+        component: Normal,
+        beforeEnter: (to, from, next) => {
             store.state.sidebar.general = 1;
             next();
-        }
+        },
     },
     // 五甲
     {
-        name: 'top_five', path: '/top_five/:sub(\\d+)?/:detail(\\d+)?', component: Normal,
+        name: "top_five",
+        path: "/top_five/:sub(\\d+)?/:detail(\\d+)?",
+        component: Normal,
         beforeEnter: (to, from, next) => {
             store.state.sidebar.general = 2;
             next();
-        }
+        },
     },
     // 单页
-    { name: 'view', path: '/view/:source_id(\\d+)/:post_id(\\d+)?', component: Detail },
+    { name: "view", path: "/view/:source_id(\\d+)/:post_id(\\d+)?", component: Detail },
     // 搜索
-    { name: 'search', path: '/search/:keyword(.+)?', component: Search },
+    { name: "search", path: "/search/:keyword(.+)?", component: Search },
     // 最新成就
-    // {
-    //     name: 'newest', path: '/newest', component: Newest, beforeEnter: (to, from, next) => {
-    //         store.state.sidebar.general = 3;
-    //         next();
-    //     }
-    // },
+    {
+        name: "newest",
+        path: "/newest",
+        component: Newest,
+        beforeEnter: (to, from, next) => {
+            store.state.sidebar.general = 3;
+            next();
+        },
+    },
     // 待攻略成就
-    // {
-    //     name: 'waiting', path: '/waiting', component: Waiting, beforeEnter: (to, from, next) => {
-    //         store.state.sidebar.general = 3;
-    //         next();
-    //     }
-    // },
+    {
+        name: "waiting",
+        path: "/waiting",
+        component: Waiting,
+        beforeEnter: (to, from, next) => {
+            store.state.sidebar.general = 3;
+            next();
+        },
+    },
     // 绝版成就
     // {
     //     name: 'out_print', path: '/out_print', component: OutPrint, beforeEnter: (to, from, next) => {
@@ -65,25 +79,31 @@ const routes = [
     // },
     // 奇遇成就
     {
-        name: 'adventure', path: '/adventure', component: Adventure, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 5;
+        name: "adventure",
+        path: "/adventure",
+        component: Adventure,
+        beforeEnter: (to, from, next) => {
+            store.state.sidebar.general = 3;
             next();
-        }
+        },
     },
     // 宠物成就
     {
-        name: 'rare', path: '/rare', component: Rare, beforeEnter: (to, from, next) => {
-            store.state.sidebar.general = 4;
+        name: "rare",
+        path: "/rare",
+        component: Rare,
+        beforeEnter: (to, from, next) => {
+            store.state.sidebar.general = 3;
             next();
-        }
+        },
     },
 
     // 默认页重定向
-    { path: '*', redirect: 'home' }
+    { path: "*", redirect: "home" },
 ];
 
 const router = new VueRouter({
-    routes
+    routes,
 });
 
 const originalPush = VueRouter.prototype.push;

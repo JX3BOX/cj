@@ -34,12 +34,6 @@
                             <span>奇遇大全</span>
                         </a>
                     </li>
-                    <!-- <li class="u-qlink">
-                        <router-link :to="{ name: 'rare' }">
-                            <i class="el-icon-milk-tea"></i>
-                            <span>珍奇成就</span>
-                        </router-link>
-                    </li> -->
                     <li class="u-qlink">
                         <a target="_blank" href="/pet">
                             <i class="el-icon-lollipop"></i>

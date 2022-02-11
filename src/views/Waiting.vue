@@ -21,11 +21,11 @@
 import Achievements from "@/components/Achievements.vue";
 import { getWaitingAchievements } from "../service/achievement";
 
-import { get } from 'lodash'
+import { get } from "lodash";
 
 export default {
     name: "Waiting",
-    data: function () {
+    data: function() {
         return {
             achievements: null,
             achievements_count: 0,
@@ -36,8 +36,8 @@ export default {
     },
     computed: {
         isEmpty() {
-            return !get(this.achievements, 'length')
-        }
+            return !get(this.achievements, "length");
+        },
     },
     methods: {
         // 获取成就列表

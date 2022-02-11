@@ -11,7 +11,7 @@
         <div class="m-menus">
             <el-tree
                 class="filter-tree"
-                :class="{ other: [3,4,5,].includes(sidebar.general) }"
+                :class="{ other: [3].includes(sidebar.general) }"
                 :data="menus"
                 node-key="id"
                 :expand-on-click-node="false"
@@ -19,7 +19,6 @@
                 :filter-node-method="filterNode"
                 ref="tree"
             >
-                <!-- TODO: 奇遇成就和宠物成就router active -->
                 <router-link class="el-tree-node__label" slot-scope="{ data }" :to="menu_url(data)">
                     <span class="u-name" v-text="data.name"></span>
                     <em v-if="data.achievements_count" class="u-count" v-text="`(${data.achievements_count})`"></em>
@@ -46,9 +45,9 @@ export default {
             menu_types: [
                 { value: 1, label: "常规成就" },
                 { value: 2, label: "五甲成就" },
-                { value: 4, label: "宠物成就" },
-                { value: 5, label: "奇遇成就" },
-                // { value: 3, label: "其他板块" },
+                // { value: 4, label: "宠物成就" },
+                // { value: 5, label: "奇遇成就" },
+                { value: 3, label: "其他板块" },
             ],
 
             roleList: [],
@@ -133,25 +132,25 @@ export default {
                 that.menus = [
                     { name: "最新成就", id: "newest", router: "newest" },
                     { name: "待攻略成就", id: "waiting", router: "waiting" },
-                    { name: "绝版成就", id: "out_print", router: "out_print" },
+                    // { name: "绝版成就", id: "out_print", router: "out_print" },
                     { name: "奇遇成就", id: "adventure", router: "adventure" },
                     { name: "珍奇成就", id: "rare", router: "rare" },
                 ];
                 return;
             }
 
-            if (general === 4) {
-                that.menus = [{ name: "宠物成就", id: "rare", router: "rare" }];
-                that.$router.push({ name: 'rare' })
-                that.$refs.tree.setCurrentKey('rare')
-                return;
-            }
-            if (general === 5) {
-                that.menus = [{ name: "奇遇成就", id: "adventure", router: "adventure" }];
-                that.$router.push({ name: 'adventure' })
-                // that.$refs.tree.setCurrentKey('adventure')
-                return;
-            }
+            // if (general === 4) {
+            //     that.menus = [{ name: "宠物成就", id: "rare", router: "rare" }];
+            //     that.$router.push({ name: 'rare' })
+            //     that.$refs.tree.setCurrentKey('rare')
+            //     return;
+            // }
+            // if (general === 5) {
+            //     that.menus = [{ name: "奇遇成就", id: "adventure", router: "adventure" }];
+            //     that.$router.push({ name: 'adventure' })
+            //     // that.$refs.tree.setCurrentKey('adventure')
+            //     return;
+            // }
 
             getMenus(general).then(
                 (data) => {
@@ -212,8 +211,8 @@ export default {
                         params: { sub: data.sub, detail: data.detail },
                     };
                 case 3:
-                case 4:
-                case 5:
+                // case 4:
+                // case 5:
                     return { name: data.router };
             }
             return null;

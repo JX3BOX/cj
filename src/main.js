@@ -10,8 +10,6 @@ import "@jx3box/jx3box-common/css/normalize.css";
 Vue.use(JX3BOX_UI);
 
 
-Vue.prototype.$http = require("axios");
-
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard);
 

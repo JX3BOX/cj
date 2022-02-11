@@ -19,7 +19,7 @@
 <script>
 import Achievements from "@/components/Achievements.vue";
 import { getAdventureAchievements } from "../service/achievement";
-import { get } from 'lodash'
+import { get } from "lodash";
 
 export default {
     name: "Adventure",
@@ -33,8 +33,8 @@ export default {
     },
     computed: {
         isEmpty() {
-            return !get(this.achievements, 'length')
-        }
+            return !get(this.achievements, "length");
+        },
     },
     methods: {
         // 获取成就列表
