@@ -1,10 +1,19 @@
 <template>
     <div class="m-left-side">
-        <el-select v-model="currentRole" value-key="ID" placeholder="请选择当前角色">
-            <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
-
-            </el-option>
-        </el-select>
+        <div class="m-related-roles">
+            <div v-if="!isLogin" class="u-tip el-alert el-alert--warning is-light">
+                <i class="el-icon-warning-outline"></i> 可以前往魔盒<a href="/team/role/bind" target="_blank">团队平台</a>绑定你的角色
+            </div>
+            <el-select v-model="currentRole" value-key="ID" placeholder="请选择当前角色" :disabled="!isLogin" popper-class="m-related-roles-options">
+                <span slot="prefix" class="u-prefix">关联角色</span>
+                <el-option v-for="role in roleList" :key="role.ID" :value="role" :label="role.name">
+                    <span class="u-role">
+                        <span class="u-role-name"><img class="u-role-icon" :src="showSchoolIcon(role.mount)" />{{ role.name }}</span>
+                        <span class="u-role-server">{{ role.server }}</span>
+                    </span>
+                </el-option>
+            </el-select>
+        </div>
         <el-select v-model="sidebar.general">
             <el-option v-for="type in menu_types" :key="type.value" :label="type.label" :value="type.value"></el-option>
         </el-select>
@@ -32,8 +41,9 @@
 import { getMenus, getRoleAchievements } from "@/service/achievement";
 
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
-import { getUserRoles } from '@/service/team';
-
+import { getUserRoles } from "@/service/team";
+import User from "@jx3box/jx3box-common/js/user";
+import { showSchoolIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "Sidebar",
     props: ["sidebar"],
@@ -51,7 +61,8 @@ export default {
             ],
 
             roleList: [],
-            currentRole: ''
+            currentRole: "",
+            isLogin: User.isLogin(),
         };
     },
     watch: {
@@ -71,11 +82,11 @@ export default {
         currentRole: {
             deep: true,
             handler(val) {
-                this.$store.commit('SET_STATE', { key: 'role', value: val })
+                this.$store.commit("SET_STATE", { key: "role", value: val });
 
-                this.loadRoleAchievements()
-            }
-        }
+                this.loadRoleAchievements();
+            },
+        },
     },
     methods: {
         filterNode(value, data) {
@@ -89,7 +100,7 @@ export default {
             if (data.own_achievements_count === 0) {
                 first_node = node.childNodes[0];
                 if (first_node) {
-                    setTimeout(function () {
+                    setTimeout(function() {
                         that.$router.push({
                             name: that.sidebar.general == 2 ? "top_five" : "normal",
                             params: {
@@ -174,7 +185,7 @@ export default {
         },
         expand_menu() {
             let that = this;
-            that.$nextTick(function () {
+            that.$nextTick(function() {
                 // 默认展开当前菜单
                 let key = "";
                 if (that.sidebar.general != 3) {
@@ -211,8 +222,8 @@ export default {
                         params: { sub: data.sub, detail: data.detail },
                     };
                 case 3:
-                // case 4:
-                // case 5:
+                    // case 4:
+                    // case 5:
                     return { name: data.router };
             }
             return null;
@@ -220,29 +231,32 @@ export default {
 
         // 获取用户角色列表
         loadUserRoles() {
-            getUserRoles().then(res => {
-                this.roleList = res.data.data.list
-                sessionStorage.setItem('cj-roles', JSON.stringify(this.roleList));
-            })
+            this.isLogin && getUserRoles().then((res) => {
+                this.roleList = res.data?.data?.list.filter((item) => {
+                    return !!item.player_id;
+                }) || [];
+                sessionStorage.setItem("cj-roles", JSON.stringify(this.roleList));
+            });
         },
         // 获取角色成就状态
         loadRoleAchievements() {
-            getRoleAchievements(this.currentRole.ID).then(res => {
-                this.$store.commit('SET_STATE', { key: 'achievements', value: res.data.data.list })
-            })
-        }
+            getRoleAchievements(this.currentRole.ID).then((res) => {
+                this.$store.commit("SET_STATE", { key: "achievements", value: res.data.data.list });
+            });
+        },
+        showSchoolIcon,
     },
     mounted() {
-        if (sessionStorage.getItem('cj-roles')) {
-            this.roleList = JSON.parse(sessionStorage.getItem('cj-roles'))
+        if (sessionStorage.getItem("cj-roles")) {
+            this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
         } else {
-            this.loadUserRoles()
+            this.loadUserRoles();
         }
 
         if (this.roleList.length) {
-            this.currentRole = this.roleList[0]
+            this.currentRole = this.roleList[0];
         }
-    }
+    },
 };
 </script>
 
