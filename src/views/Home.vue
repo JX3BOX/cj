@@ -228,7 +228,7 @@ export default {
     },
     methods: {
         icon_url: function (id) {
-            return iconLink(id);
+            return iconLink(id,this.client);
         },
         author_url: authorLink,
         ts2str,

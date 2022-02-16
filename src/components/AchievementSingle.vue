@@ -119,7 +119,7 @@ export default {
         ts2str,
         star,
         icon_url: function(id) {
-            return iconLink(id);
+            return iconLink(id,this.client);
         },
         url_filter(source_id) {
             if (this.jump === true || typeof this.jump === "undefined") {

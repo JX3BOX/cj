@@ -111,7 +111,7 @@ export default {
     },
     methods: {
         icon_url: function(id) {
-            return iconLink(id);
+            return iconLink(id,this.client);
         },
         // 获取boss信息
         getBossInfo(npcid) {
