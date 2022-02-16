@@ -1,17 +1,12 @@
 <template>
-    <WikiPanel class="m-relations-panel" scene="detail" v-if="relations && relations.length || npc">
+    <WikiPanel class="m-relations-panel" scene="detail" v-if="(relations && relations.length) || npc">
         <template slot="head-title">
             <i class="el-icon-link"></i>
             <span>关联成就</span>
             <em class="u-remark">同BOSS下的其它成就</em>
         </template>
         <template slot="head-actions">
-            <el-button
-                type="primary"
-                class="u-boss"
-                :class="{ on: show_npc }"
-                @click="show_npc = !show_npc"
-            >BOSS属性参考</el-button>
+            <el-button type="primary" class="u-boss" :class="{ on: show_npc }" @click="show_npc = !show_npc">BOSS属性参考</el-button>
         </template>
         <template slot="body">
             <div class="m-section">
@@ -21,16 +16,15 @@
                     <span v-if="relations && !relations.length">💧 暂无相关成就</span>
                 </div>
                 <div class="m-relations" v-if="relations && relations.length">
-                    <router-link
-                        class="u-title"
-                        v-for="(relation, key) in relations"
-                        :key="key"
-                        :to="{ name: 'view', params: { source_id: relation.ID } }"
-                    >
+                    <router-link class="u-title" v-for="(relation, key) in relations" :key="key" :to="{ name: 'view', params: { source_id: relation.ID } }">
                         <img
                             class="u-icon"
                             :src="icon_url(relation.IconID)"
-                            @error.once="() => {$event.target.src = icon_url()}"
+                            @error.once="
+                                () => {
+                                    $event.target.src = icon_url();
+                                }
+                            "
                         />
                         <span class="u-text" v-text="relation.Name"></span>
                     </router-link>
@@ -96,7 +90,7 @@ import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getRelationAchievements } from "../service/achievement";
 import { getBossInfo } from "../service/relations";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
-import bossInfo from '@/assets/data/boss.json';
+import bossInfo from "@/assets/data/boss.json";
 
 export default {
     name: "Relation",
@@ -107,26 +101,25 @@ export default {
             npc: null,
             show_npc: false,
 
-            bossInfo
+            bossInfo,
         };
     },
-    computed : {
-        client : function (){
-            return this.$store.state.client
-        }
+    computed: {
+        client: function() {
+            return this.$store.state.client;
+        },
     },
     methods: {
-        icon_url: function (id) {
+        icon_url: function(id) {
             return iconLink(id);
         },
         // 获取boss信息
         getBossInfo(npcid) {
             npcid &&
-                getBossInfo(npcid)
-                    .then((res) => {
-                        res = res.data;
-                        if (res.list && res.list.length) this.npc = res.list[0];
-                    });
+                getBossInfo(npcid).then((res) => {
+                    res = res.data;
+                    if (res.list && res.list.length) this.npc = res.list[0];
+                });
         },
     },
     components: {

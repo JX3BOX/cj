@@ -15,7 +15,14 @@
                     </a>
                 </template>
                 <template slot="body">
+                    <div class="m-wiki-compatible" v-if="compatible">
+                        <i class="el-icon-warning-outline"></i> 暂无怀旧服攻略，以下为正式服攻略，仅作参考，<a class="s-link" :href="publish_url(`achievement/${id}`)">参与修订</a>。
+                    </div>
                     <Article :content="wiki_post.post.content" />
+                    <div class="m-wiki-signature">
+                        <i class="el-icon-edit"></i>
+                        本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
+                    </div>
                     <Thx class="m-thx" slot="single-append" :postId="id" postType="achievement" :userId="author_id" :adminBoxcoinEnable="isRevision" :userBoxcoinEnable="isRevision" mode="wiki" />
                 </template>
             </WikiPanel>
@@ -28,7 +35,7 @@
             <!-- 百科评论 -->
             <WikiComments type="achievement" :source-id="id" />
         </div>
-        <div class="m-wiki-post-empty" v-else>
+        <div class="m-wiki-post-empty" v-if="is_empty">
             <i class="el-icon-s-opportunity"></i>
             <span>暂无攻略，我要</span>
             <a class="s-link" :href="publish_url(`achievement/${id}`)">完善攻略</a>
@@ -46,17 +53,22 @@ import Relations from "@/components/Relations.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { WikiPost } from "@jx3box/jx3box-common/js/helper";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
-
+import { ts2str } from "@jx3box/jx3box-common/js/utils.js";
 export default {
     name: "Detail",
     data() {
         return {
             wiki_post: null,
+            compatible: false,
+            is_empty: true,
         };
     },
     computed: {
         id() {
             return this.$route.params.source_id;
+        },
+        post_id: function() {
+            return this.$route.params.post_id;
         },
         isRevision: function() {
             return !!this.$route.params.post_id;
@@ -66,6 +78,12 @@ export default {
         },
         client: function() {
             return this.$store.state.client;
+        },
+        user_name: function() {
+            return this.wiki_post?.post?.user_nickname;
+        },
+        updated_at: function() {
+            return ts2str(this.wiki_post?.post.updated);
         },
     },
     methods: {
@@ -77,8 +95,55 @@ export default {
                 postStat("cj", this.id);
             }
         },
+        loadData: function() {
+            // 获取最新攻略
+            if (this.id) {
+                if (this.client == "std") {
+                    WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
+                        let data = res?.data?.data;
+                        this.wiki_post = data;
+                        if (data) {
+                            this.is_empty = false;
+                        }
+                        console.log("获取正式服攻略");
+                        this.triggerStat();
+                    });
+                } else {
+                    WikiPost.newest("achievement", this.id, 1, "origin")
+                        .then((res) => {
+                            let data = res?.data?.data;
+                            this.wiki_post = data;
+                            if (data) {
+                                this.is_empty = false;
+                            }
+                            console.log("获取怀旧服攻略");
+                            this.triggerStat();
+                            return data;
+                        })
+                        .finally((data) => {
+                            if (!data) {
+                                console.log("兼容：获取正式服攻略");
+                                WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
+                                    let data = res?.data?.data;
+                                    this.wiki_post = data;
+                                    if (data) {
+                                        this.is_empty = false;
+                                    }
+                                    this.compatible = true;
+                                });
+                            }
+                        });
+                }
+            }
+        },
+        loadRevision: function() {
+            // 获取指定攻略
+            WikiPost.view(this.post_id, { type: "achievement" }).then((res) => {
+                this.wiki_post = res?.data?.data;
+            });
+        },
+        ts2str,
     },
-    created() {},
     components: {
         AchievementSingle,
         WikiPanel,
@@ -89,47 +154,22 @@ export default {
     },
     watch: {
         id: {
-            immediate: true,
             handler() {
-                // 获取最新攻略
-                if (this.id) {
-                    WikiPost.newest("achievement", this.id).then(
-                        (res) => {
-                            res = res.data;
-                            this.wiki_post = res.data;
-                            if (this.wiki_post && this.wiki_post.source) {
-                                let pet = this.wiki_post.source.pet;
-                                if (pet && pet.id) postStat("pet", pet.id);
-                            }
-
-                            this.triggerStat();
-                        },
-                        () => {
-                            this.wiki_post = null;
-                        }
-                    );
-                }
+                this.loadData();
             },
         },
-        "$route.params.post_id": {
-            immediate: true,
+        post_id: {
             handler() {
-                if (this.$route.params.post_id) {
-                    // 获取指定攻略
-                    WikiPost.view(this.$route.params.post_id, { type: "achievement" }).then(
-                        (res) => {
-                            res = res.data;
-                            this.wiki_post = res.data;
-
-                            this.triggerStat();
-                        },
-                        () => {
-                            this.wiki_post = null;
-                        }
-                    );
-                }
+                this.loadRevision();
             },
         },
+    },
+    mounted: function() {
+        if (this.post_id) {
+            this.loadRevision();
+        } else {
+            this.loadData();
+        }
     },
 };
 </script>

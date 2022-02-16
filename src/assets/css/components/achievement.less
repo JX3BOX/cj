@@ -31,12 +31,12 @@
     .u-header {
         .pr;
         .pb(12px);
-        text-align: center;
+        // text-align: center;
         font-size: 12px;
         border-bottom: 1px solid #eaeaea;
 
         .u-title {
-            .db;
+            // .db;
             .mt(0);
             .mb(0);
             .bold;
@@ -69,20 +69,22 @@
         .pr;
         .clearfix;
         .w(100%);
-        margin: 20px 0 0;
         color: #555555;
         text-shadow: 0 0 1px #cccccc;
+        padding:20px 0 0 0;
 
         @u-body-right: 120px;
 
         .u-left {
             .mr(@u-body-right);
+            .clearfix;
+            .pointer;
         }
 
         .u-right {
             text-align: right;
             .pa;
-            .rt(0);
+            .rt(0,20px);
 
             .u-attr {
                 text-align: left;

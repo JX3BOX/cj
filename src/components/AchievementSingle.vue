@@ -5,13 +5,15 @@
             <div class="u-other">
                 <span class="u-attr" v-text="achievement.post ? '修订时间：' + ts2str(achievement.post.updated) : ''"></span>
                 <span class="u-attr" v-text="achievement.post ? '综合难度：' + star(achievement.post.level) : ''"></span>
-                <el-button class="u-attr u-fav" :type="completed ? 'info' : 'success'" plain size="mini" icon="el-icon-check" @click.stop="finish" :disabled="completed">{{completed ? '已完成' : '完成'}}</el-button>
-                <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-id="achievement.ID" />
+                <el-button class="u-attr u-fav" :type="completed ? 'info' : 'success'" plain size="mini" icon="el-icon-check" @click.stop="finish" :disabled="completed">{{
+                    completed ? "已完成" : "完成"
+                }}</el-button>
+                <!-- <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-id="achievement.ID" /> -->
             </div>
         </div>
         <div class="u-body">
-            <div class="u-left">
-                <a class="u-attr u-icon" :target="targetable" @click="url_filter(achievement.ID)">
+            <div class="u-left" @click="url_filter(achievement.ID)">
+                <div class="u-attr u-icon">
                     <img
                         :src="icon_url(achievement.IconID)"
                         @error.once="
@@ -20,8 +22,8 @@
                             }
                         "
                     />
-                </a>
-                <a class="u-attr u-desc" v-html="achievement.Desc" @click="url_filter(achievement.ID)"></a>
+                </div>
+                <div class="u-attr u-desc" v-html="achievement.Desc"></div>
             </div>
             <div class="u-right">
                 <item-simple class="u-attr u-item-simple" :item="achievement.Item" only-icon="true" :icon-size="'36px'" />
@@ -68,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="u-expand" :class="{ disable: empty }" @click="fold = !fold">
+        <div class="u-expand" v-if="!empty" :class="{ disable: empty }" @click="fold = !fold">
             <hr />
             <i class="u-icon el-icon-caret-top"></i>
             <i class="u-icon el-icon-caret-bottom"></i>
@@ -153,7 +155,7 @@ export default {
     },
     components: {
         "item-simple": ItemSimple,
-        Fav,
+        // Fav,
     },
 };
 </script>
