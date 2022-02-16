@@ -106,7 +106,6 @@ export default {
                             this.is_empty = false;
                         }
                         console.log("获取正式服攻略");
-                        this.triggerStat();
                     });
                 } else {
                     WikiPost.newest("achievement", this.id, 1, "origin")
@@ -117,7 +116,6 @@ export default {
                                 this.is_empty = false;
                             }
                             console.log("获取怀旧服攻略");
-                            this.triggerStat();
                             return data;
                         })
                         .finally((data) => {
@@ -135,12 +133,14 @@ export default {
                         });
                 }
             }
+            this.triggerStat();
         },
         loadRevision: function() {
             // 获取指定攻略
             WikiPost.view(this.post_id, { type: "achievement" }).then((res) => {
                 this.wiki_post = res?.data?.data;
             });
+            this.triggerStat();
         },
         ts2str,
     },

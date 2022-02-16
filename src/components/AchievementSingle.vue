@@ -8,7 +8,7 @@
                 <el-button class="u-attr u-fav" :type="completed ? 'info' : 'success'" plain size="mini" icon="el-icon-check" @click.stop="finish" :disabled="completed">{{
                     completed ? "已完成" : "完成"
                 }}</el-button>
-                <!-- <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-id="achievement.ID" /> -->
+                <Fav v-if="showFavorite" class="u-attr u-fav" post-type="achievement" :post-id="achievement.ID" />
             </div>
         </div>
         <div class="u-body">
