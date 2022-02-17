@@ -116,9 +116,9 @@ export default {
                                 this.is_empty = false;
                             }
                             console.log("获取怀旧服攻略");
-                            return data;
+                            return !!data.post;
                         })
-                        .finally((data) => {
+                        .then((data) => {
                             if (!data) {
                                 console.log("兼容：获取正式服攻略");
                                 WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
