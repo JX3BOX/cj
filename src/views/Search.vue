@@ -1,5 +1,6 @@
 <template>
     <div class="m-search-view">
+        <span class="u-list-empty" v-if="isEmpty">👻 暂无记录</span>
         <Achievements :achievements="achievements" :fold="true" />
         <el-pagination
             background
@@ -29,6 +30,11 @@ export default {
             page: 1,
             length: 15,
         };
+    },
+    computed: {
+        isEmpty() {
+            return !this.achievements?.length
+        },
     },
     methods: {
         // 获取成就搜索列表
