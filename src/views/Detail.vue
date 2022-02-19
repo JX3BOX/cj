@@ -83,7 +83,7 @@ export default {
             return this.wiki_post?.post?.user_nickname;
         },
         updated_at: function() {
-            return ts2str(this.wiki_post?.post.updated);
+            return ts2str(this.wiki_post?.post?.updated);
         },
     },
     methods: {
@@ -102,7 +102,7 @@ export default {
                     WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
                         let data = res?.data?.data;
                         this.wiki_post = data;
-                        if (data) {
+                        if (data.post) {
                             this.is_empty = false;
                         }
                         console.log("获取正式服攻略");
@@ -112,7 +112,7 @@ export default {
                         .then((res) => {
                             let data = res?.data?.data;
                             this.wiki_post = data;
-                            if (data) {
+                            if (data.post) {
                                 this.is_empty = false;
                             }
                             console.log("获取怀旧服攻略");
@@ -124,7 +124,7 @@ export default {
                                 WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
                                     let data = res?.data?.data;
                                     this.wiki_post = data;
-                                    if (data) {
+                                    if (data.post) {
                                         this.is_empty = false;
                                     }
                                     this.compatible = true;
