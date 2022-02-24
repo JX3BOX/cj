@@ -231,12 +231,17 @@ export default {
 
         // 获取用户角色列表
         loadUserRoles() {
-            this.isLogin && getUserRoles().then((res) => {
-                this.roleList = res.data?.data?.list.filter((item) => {
-                    return !!item.player_id;
-                }) || [];
-                sessionStorage.setItem("cj-roles", JSON.stringify(this.roleList));
-            });
+            this.isLogin &&
+                getUserRoles().then((res) => {
+                    this.roleList =
+                        res.data?.data?.list.filter((item) => {
+                            return !!item.player_id;
+                        }) || [];
+                    sessionStorage.setItem("cj-roles", JSON.stringify(this.roleList));
+                    if (this.roleList.length) {
+                        this.currentRole = this.roleList[0];
+                    }
+                });
         },
         // 获取角色成就状态
         loadRoleAchievements() {
@@ -251,10 +256,6 @@ export default {
             this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
         } else {
             this.loadUserRoles();
-        }
-
-        if (this.roleList.length) {
-            this.currentRole = this.roleList[0];
         }
     },
 };

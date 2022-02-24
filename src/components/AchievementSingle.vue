@@ -119,7 +119,7 @@ export default {
         ts2str,
         star,
         icon_url: function(id) {
-            return iconLink(id,this.client);
+            return iconLink(id, this.client);
         },
         url_filter(source_id) {
             if (this.jump === true || typeof this.jump === "undefined") {
@@ -141,6 +141,13 @@ export default {
             if (!this.isLogin) {
                 User.toLogin();
             }
+
+            if (!this.currentRole) {
+                this.$alert("请先在侧边栏选择一个关联的角色", "警告", {
+                    confirmButtonText: "确定",
+                });
+            }
+
             const list = [...new Set([...this.completeAchievements, this.achievement.ID])];
 
             updateRoleAchievements(this.currentRole.ID, list).then((res) => {
