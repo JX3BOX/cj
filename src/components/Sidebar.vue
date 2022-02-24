@@ -254,6 +254,9 @@ export default {
     mounted() {
         if (sessionStorage.getItem("cj-roles")) {
             this.roleList = JSON.parse(sessionStorage.getItem("cj-roles"));
+            if (this.roleList.length) {
+                this.currentRole = this.roleList[0];
+            }
         } else {
             this.loadUserRoles();
         }
