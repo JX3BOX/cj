@@ -146,6 +146,7 @@ export default {
                 this.$alert("请先在侧边栏选择一个关联的角色", "警告", {
                     confirmButtonText: "确定",
                 });
+                return
             }
 
             const list = [...new Set([...this.completeAchievements, this.achievement.ID])];
