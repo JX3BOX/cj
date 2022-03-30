@@ -23,7 +23,7 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx class="m-thx" :postId="id" postType="achievement" :userId="author_id" :adminBoxcoinEnable="isRevision" :userBoxcoinEnable="isRevision" mode="wiki" :key="'achievement-thx-' + id"/>
+                    <Thx class="m-thx" :postId="id" postType="achievement" :postTitle="favTitle" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" mode="wiki" :authors="authors" :key="'achievement-thx-' + id"/>
                 </template>
             </WikiPanel>
 
@@ -85,6 +85,21 @@ export default {
         updated_at: function() {
             return ts2str(this.wiki_post?.post?.updated);
         },
+        authors: function (){
+            if (!this.isRevision) {
+                return this.wiki_post?.users?.filter(user => user.id)?.map(user => {
+                    return {
+                        user_id: user.id,
+                        user_avatar: user.avatar,
+                        display_name: user.nickname
+                    }
+                }) || []
+            }
+            return []
+        },
+        favTitle : function (){
+            return this.wiki_post?.source?.Name
+        }
     },
     methods: {
         publish_url: publishLink,
