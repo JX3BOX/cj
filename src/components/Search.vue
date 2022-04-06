@@ -28,7 +28,7 @@ export default {
             delete this.$store.state.scroll_tops["search"];
             this.$router.push({
                 name: "search",
-                params: { keyword: this.keyword },
+                params: { keyword: this.keyword.trim().replace(/(?:^\[)|(?:\]$)/gi, '') },
             });
         },
     },
