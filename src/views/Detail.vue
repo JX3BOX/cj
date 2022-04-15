@@ -16,7 +16,7 @@
                 </template>
                 <template slot="body">
                     <div class="m-wiki-compatible" v-if="compatible">
-                        <i class="el-icon-warning-outline"></i> 暂无怀旧服攻略，以下为正式服攻略，仅作参考，<a class="s-link" :href="publish_url(`achievement/${id}`)">参与修订</a>。
+                        <i class="el-icon-warning-outline"></i> 暂无缘起攻略，以下为重制攻略，仅作参考，<a class="s-link" :href="publish_url(`achievement/${id}`)">参与修订</a>。
                     </div>
                     <Article :content="wiki_post.post.content" />
                     <div class="m-wiki-signature">
@@ -120,7 +120,7 @@ export default {
                         if (data.post) {
                             this.is_empty = false;
                         }
-                        console.log("获取正式服攻略");
+                        console.log("获取重制攻略");
                     });
                 } else {
                     WikiPost.newest("achievement", this.id, 1, "origin")
@@ -130,12 +130,12 @@ export default {
                             if (data.post) {
                                 this.is_empty = false;
                             }
-                            console.log("获取怀旧服攻略");
+                            console.log("获取缘起攻略");
                             return !!data.post;
                         })
                         .then((data) => {
                             if (!data) {
-                                console.log("兼容：获取正式服攻略");
+                                console.log("兼容：获取重制攻略");
                                 WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
                                     let data = res?.data?.data;
                                     this.wiki_post = data;
