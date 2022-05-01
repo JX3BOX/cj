@@ -153,13 +153,6 @@
                 <el-row class="m-posts">
                     <el-col class="m-post" v-for="(post, key) in newest_posts" :key="key">
                         <div class="m-head">
-                            <div class="m-user">
-                                <div class="u-author">
-                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
-                                    <a :href="post.user_id ? author_url(post.user_id) : null" class="u-name" v-text="post.user_nickname"></a>
-                                </div>
-                                <div class="u-updated" v-text="ts2str(post.updated)"></div>
-                            </div>
                             <div class="m-achievement">
                                 <div class="u-achievement">
                                     <img class="u-icon" :src="icon_url(post.source_icon_id)" @error.once="$event.target.src = icon_url('')" />
@@ -176,6 +169,13 @@
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
+                            </div>
+                            <div class="m-user">
+                                <div class="u-author">
+                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
+                                    <a :href="post.user_id ? author_url(post.user_id) : null" class="u-name" v-text="post.user_nickname"></a>
+                                </div>
+                                <div class="u-updated" v-text="ts2str(post.updated)"></div>
                             </div>
                         </div>
                         <div class="m-body">
@@ -199,7 +199,7 @@
 import { feedback } from '@jx3box/jx3box-common/data/jx3box.json'
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { WikiPost } from "@jx3box/jx3box-common/js/helper";
-import { authorLink, ts2str, iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
+import { authorLink, ts2str, iconLink, getThumbnail, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements } from "../service/achievement";
 import { star } from '@/filters/star'
@@ -250,7 +250,7 @@ export default {
     },
     filters: {
         showAvatar: function (val) {
-            return getThumbnail(val, 20, true);
+            return showAvatar(val);
         },
     },
     created() {
