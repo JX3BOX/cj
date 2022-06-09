@@ -138,7 +138,7 @@ export default {
                                 console.log("兼容：获取重制攻略");
                                 WikiPost.newest("achievement", this.id, 1, "std").then((res) => {
                                     let data = res?.data?.data;
-                                    this.wiki_post = data;
+                                    this.wiki_post.post = data.post;
                                     if (data.post) {
                                         this.is_empty = false;
                                     }
