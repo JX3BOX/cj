@@ -198,8 +198,8 @@
 <script>
 import { feedback } from '@jx3box/jx3box-common/data/jx3box.json'
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
-import { WikiPost } from "@jx3box/jx3box-common/js/helper";
-import { authorLink, ts2str, iconLink, getThumbnail, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { wiki } from "@jx3box/jx3box-common/js/wiki";
+import { authorLink, ts2str, iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements } from "../service/achievement";
 import { star } from '@/filters/star'
@@ -290,7 +290,7 @@ export default {
         );
 
         // 获取最新成就攻略列表
-        WikiPost.newests("achievement").then(
+        wiki.list("achievement").then(
             (res) => {
                 res = res.data;
                 this.newest_posts = res.data.newest;
