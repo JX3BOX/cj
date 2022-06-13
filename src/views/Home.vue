@@ -290,7 +290,7 @@ export default {
         );
 
         // 获取最新成就攻略列表
-        wiki.list("achievement").then(
+        wiki.list({ type: "achievement" }).then(
             (res) => {
                 res = res.data;
                 this.newest_posts = res.data.newest;
