@@ -23,7 +23,7 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx class="m-thx" :postId="id" postType="achievement" :postTitle="favTitle" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" mode="wiki" :authors="authors" :key="'achievement-thx-' + id"/>
+                    <Thx class="m-thx" :postId="id" postType="achievement" :postTitle="favTitle" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" mode="wiki" :authors="authors" :key="'achievement-thx-' + id" :client="client" />
                 </template>
             </WikiPanel>
 
