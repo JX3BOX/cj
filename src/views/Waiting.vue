@@ -43,7 +43,7 @@ export default {
         // 获取成就列表
         get_achievements(page) {
             let that = this;
-            getWaitingAchievements().then(
+            getWaitingAchievements(page).then(
                 (data) => {
                     data = data.data;
                     that.achievements = data.data.achievements;
