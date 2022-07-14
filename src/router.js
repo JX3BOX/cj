@@ -104,11 +104,20 @@ const routes = [
 
 const router = new VueRouter({
     routes,
+    mode: 'history',
 });
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch((err) => err);
 };
+
+router.beforeEach((to, from, next) => {
+    if (to.fullPath.includes('/#')) {
+        next(to.fullPath.replace('/#', ''));
+    }
+    next()
+});
+
 
 export default router;
