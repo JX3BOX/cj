@@ -104,6 +104,7 @@ const routes = [
 
 const router = new VueRouter({
     routes,
+    base: '/cj',
     mode: 'history',
 });
 
