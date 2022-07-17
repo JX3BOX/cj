@@ -19,7 +19,7 @@ const routes = [
     // 主页
     {
         name: "home",
-        path: "/home",
+        path: "/",
         component: Home,
         beforeEnter: (to, from, next) => {
             store.state.sidebar.general = 1;
@@ -97,9 +97,6 @@ const routes = [
             next();
         },
     },
-
-    // 默认页重定向
-    { path: "*", redirect: "home" },
 ];
 
 const router = new VueRouter({
