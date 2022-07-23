@@ -23,7 +23,7 @@
                         </router-link>
                     </li>
                     <li class="u-qlink">
-                        <a target="_blank" href="/bbs/8104">
+                        <a target="_blank" :href="hiddenAchievementsPostLink">
                             <i class="el-icon-medal"></i>
                             <span>隐藏成就</span>
                         </a>
@@ -199,7 +199,7 @@
 import { feedback } from '@jx3box/jx3box-common/data/jx3box.json'
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki";
-import { authorLink, ts2str, iconLink, showAvatar } from "@jx3box/jx3box-common/js/utils";
+import { authorLink, ts2str, iconLink, showAvatar,getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements } from "../service/achievement";
 import { star } from '@/filters/star'
@@ -212,7 +212,7 @@ export default {
             hot_achievements: null,
             newest_achievements: null,
             newest_posts: null,
-            feedback
+            feedback,
         };
     },
     computed: {
@@ -222,6 +222,10 @@ export default {
         client: function () {
             return this.$store.state.client;
         },
+        hiddenAchievementsPostLink : function (){
+            let id = this.client == 'std' ? 8104 : 43543
+            return getLink('bbs',id)
+        }
     },
     components: {
         WikiPanel,
