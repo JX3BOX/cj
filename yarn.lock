@@ -1046,10 +1046,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.1.1":
-  "integrity" "sha512-YuOHW1WxFei+71z6mqLsKYqsbUN414nRT9bWjY8vwuEgoipqArquhCNnMadMjQZTG6aVfL2o5mReRAnJZKhoXg=="
-  "resolved" "https://registry.npmmirror.com/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.1.1.tgz"
-  "version" "6.1.1"
+"@jx3box/jx3box-common-ui@^6.1.2":
+  "integrity" "sha512-wHfs6soewyDPcV50B8iC2B5q2Lu+/GWh9lXFdBVOQi+ZUPf1XC9CH63QIueUwcvu+Cj+aY+j40QOAKEp75X6Bw=="
+  "resolved" "https://registry.npmmirror.com/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.1.2.tgz"
+  "version" "6.1.2"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.0"
     "@jx3box/jx3box-common" "^7.4.0"
