@@ -1045,10 +1045,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.3.6":
-  "integrity" "sha512-jcGJPsVLB5yZXvF1yQnNnd8vyy9bl9Gz0rEdApb1oQCRzdGkEQSI4KL5jca7qgV2crEnM4IMgLzsNsnQpYwNYg=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.3.6.tgz"
-  "version" "6.3.6"
+"@jx3box/jx3box-common-ui@^6.4.0":
+  "integrity" "sha512-G/eQz/LOsIEUvxtpT9hLeXK96WUHD70D5ozog8L0K+ZZqc2LWOYciUHatf5v4qWyU+GVQq+AzFIbQ1tzp6U5uQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.4.0.tgz"
+  "version" "6.4.0"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.1"
     "@jx3box/jx3box-common" "^7.4.8"
@@ -1096,10 +1096,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8":
-  "integrity" "sha512-GHy1L2SwZUAr3f2NZ0hcb7krW9i7fNoJvpfO4UOlNcFvQdmoM9BI63CwuV9422ivUz+nyovKRNgKQ0++dxqJ2g=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.4.8.tgz"
-  "version" "7.4.8"
+"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8", "@jx3box/jx3box-common@^7.5.0":
+  "integrity" "sha512-zt/FCjVUEeeagoh2gnMsvHtweP5PsBiUO3qBEayVc3fTSWWauxBQj2I0F+6QUSuZvypepOdsjzpDZdnnTS3Nag=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.5.0.tgz"
+  "version" "7.5.0"
   dependencies:
     "axios" "^0.20.0"
     "cheerio" "1.0.0-rc.10"
