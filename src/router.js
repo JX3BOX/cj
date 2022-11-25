@@ -114,6 +114,9 @@ router.beforeEach((to, from, next) => {
     if (to.fullPath.includes('/#')) {
         next(to.fullPath.replace('/#', ''));
     }
+    if (to.fullPath.includes('/achievement')) {
+        next(to.fullPath.replace('/achievement', ''));
+    }
     next()
 });
 
