@@ -155,7 +155,11 @@
                         <div class="m-head">
                             <div class="m-achievement">
                                 <div class="u-achievement">
-                                    <img class="u-icon" :src="icon_url(post.source_icon_id)" @error.once="$event.target.src = icon_url('')" />
+                                    <img
+                                        class="u-icon"
+                                        :src="icon_url(post.source_icon_id)"
+                                        @error.once="$event.target.src = icon_url('')"
+                                    />
                                     <router-link
                                         class="u-name"
                                         :to="{
@@ -165,6 +169,7 @@
                                             },
                                         }"
                                         v-text="post.title"
+                                        target="_blank"
                                     ></router-link>
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
@@ -172,8 +177,17 @@
                             </div>
                             <div class="m-user">
                                 <div class="u-author">
-                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
-                                    <a :href="post.user_id ? author_url(post.user_id) : null" class="u-name" v-text="post.user_nickname"></a>
+                                    <img
+                                        class="u-icon"
+                                        :src="post.user_avatar | showAvatar"
+                                        :alt="post.user_nickname"
+                                    />
+                                    <a
+                                        :href="post.user_id ? author_url(post.user_id) : null"
+                                        class="u-name"
+                                        v-text="post.user_nickname"
+                                        target="_blank"
+                                    ></a>
                                 </div>
                                 <div class="u-updated" v-text="ts2str(post.updated)"></div>
                             </div>
@@ -196,13 +210,13 @@
 </template>
 
 <script>
-import { feedback } from '@jx3box/jx3box-common/data/jx3box.json'
+import { feedback } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki";
-import { authorLink, ts2str, iconLink, showAvatar,getLink } from "@jx3box/jx3box-common/js/utils";
+import { authorLink, ts2str, iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { getAchievements } from "../service/achievement";
-import { star } from '@/filters/star'
+import { star } from "@/filters/star";
 
 export default {
     name: "Home",
@@ -222,17 +236,17 @@ export default {
         client: function () {
             return this.$store.state.client;
         },
-        hiddenAchievementsPostLink : function (){
-            let id = this.client == 'std' ? 8104 : 43543
-            return getLink('bbs',id)
-        }
+        hiddenAchievementsPostLink: function () {
+            let id = this.client == "std" ? 8104 : 43543;
+            return getLink("bbs", id);
+        },
     },
     components: {
         WikiPanel,
     },
     methods: {
         icon_url: function (id) {
-            return iconLink(id,this.client);
+            return iconLink(id, this.client);
         },
         author_url: authorLink,
         ts2str,
