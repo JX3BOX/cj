@@ -20,6 +20,7 @@
                         <router-link :to="{ name: 'waiting' }">
                             <i class="el-icon-edit-outline"></i>
                             <span>待攻略成就</span>
+                            <span class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
                         </router-link>
                     </li>
                     <li class="u-qlink">
@@ -215,7 +216,7 @@ import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki";
 import { authorLink, ts2str, iconLink, showAvatar, getLink } from "@jx3box/jx3box-common/js/utils";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import { getAchievements } from "../service/achievement";
+import { getAchievements, getWaitingRate } from "../service/achievement";
 import { star } from "@/filters/star";
 
 export default {
@@ -227,6 +228,7 @@ export default {
             newest_achievements: null,
             newest_posts: null,
             feedback,
+            solveRate: 0,
         };
     },
     computed: {
@@ -264,6 +266,15 @@ export default {
                 output.push(arr.slice(i, i + number));
             }
             return output;
+        },
+        waitingColorStyle() {
+            if (this.solveRate > 95) {
+                return "color: #8dfa58";
+            } else if (this.solveRate > 60) {
+                return "color: #e2d849";
+            } else {
+                return "color: #ff3838";
+            }
         },
     },
     filters: {
@@ -306,7 +317,10 @@ export default {
                 this.newest_achievements = false;
             }
         );
-
+        getWaitingRate().then((res) => {
+            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
+            this.solveRate = (solve / all) * 100;
+        });
         // 获取最新成就攻略列表
         wiki.list({ type: "achievement" }).then(
             (res) => {

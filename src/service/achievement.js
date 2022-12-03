@@ -3,7 +3,7 @@ import { $helper } from "@jx3box/jx3box-common/js/https";
 const client = location.href.includes("origin") ? "origin" : "std";
 
 // 获取成就统计信息
-function getAchievementsTotal() {
+export function getAchievementsTotal() {
     return $helper().get(`/api/achievements/count`, {
         params: {
             client,
@@ -12,7 +12,7 @@ function getAchievementsTotal() {
 }
 
 // 侧边栏分组
-function getMenus(general) {
+export function getMenus(general) {
     return $helper().get(`/api/achievement/menus`, {
         params: {
             general,
@@ -22,9 +22,9 @@ function getMenus(general) {
 }
 
 // 获取菜单下成就
-function getMenuAchievements(sub, detail) {
+export function getMenuAchievements(sub, detail) {
     let url = `/api/achievements/${sub}`
-    if(detail) url += `/${detail}`
+    if (detail) url += `/${detail}`
     return $helper().get(url, {
         params: {
             client,
@@ -33,19 +33,19 @@ function getMenuAchievements(sub, detail) {
 }
 
 // 获取成就列表
-function getAchievements(params) {
+export function getAchievements(params) {
     return $helper().get(`/api/achievements`, {
         params: Object.assign(params, { client }),
     });
 }
 
-function searchAchievements(params) {
+export function searchAchievements(params) {
     return $helper().get(`/api/achievement/search`, {
         params: Object.assign(params, { client }),
     });
 }
 
-function getRelationAchievements(source_id) {
+export function getRelationAchievements(source_id) {
     return $helper().get(`/api/achievement/${source_id}/relations`, {
         params: {
             client,
@@ -53,7 +53,7 @@ function getRelationAchievements(source_id) {
     });
 }
 
-function getNewestAchievements(page) {
+export function getNewestAchievements(page) {
     return $helper().get(`/api/achievements/newest`, {
         params: {
             page,
@@ -62,7 +62,7 @@ function getNewestAchievements(page) {
     });
 }
 
-function getAdventureAchievements(page) {
+export function getAdventureAchievements(page) {
     return $helper().get(`/api/achievements/adventure`, {
         params: {
             page,
@@ -71,7 +71,7 @@ function getAdventureAchievements(page) {
     });
 }
 
-function getWaitingAchievements(page) {
+export function getWaitingAchievements(page) {
     return $helper().get(`/api/achievements/waiting`, {
         params: {
             page,
@@ -80,7 +80,15 @@ function getWaitingAchievements(page) {
     });
 }
 
-function getRareAchievements(page) {
+export function getWaitingRate() {
+    const params = {
+        type: 'achievement',
+        client
+    };
+    return $helper().get(`/api/wiki/posts/counter`, { params });
+}
+
+export function getRareAchievements(page) {
     return $helper().get(`/api/achievements/rare`, {
         params: {
             page,
@@ -89,7 +97,7 @@ function getRareAchievements(page) {
     });
 }
 
-function getOutPrintAchievements(page) {
+export function getOutPrintAchievements(page) {
     return $helper().get(`/api/achievements/out_print`, {
         params: {
             page,
@@ -99,12 +107,12 @@ function getOutPrintAchievements(page) {
 }
 
 // 贡献排行榜
-function getAchievementRanking(sub) {
+export function getAchievementRanking(sub) {
     return $helper().get(`/api/achievement/users/ranking` + (sub ? `?sub=${sub}` : ""));
 }
 
 // 获取角色的成就状态
-function getRoleAchievements(role_id) {
+export function getRoleAchievements(role_id) {
     return $helper().get(`/api/achievement/roles/${role_id}`, {
         params: {
             client,
@@ -113,29 +121,12 @@ function getRoleAchievements(role_id) {
 }
 
 // 批量更新角色的成就状态
-function updateRoleAchievements(role_id, list) {
+export function updateRoleAchievements(role_id, list) {
     return $helper().post(`api/achievement/roles/${role_id}/done`, {
         list,
-    },{
+    }, {
         params: {
             client,
         },
     });
 }
-
-export {
-    getAchievementsTotal,
-    getMenus,
-    getMenuAchievements,
-    getAchievements,
-    searchAchievements,
-    getRelationAchievements,
-    getNewestAchievements,
-    getAdventureAchievements,
-    getWaitingAchievements,
-    getRareAchievements,
-    getOutPrintAchievements,
-    getAchievementRanking,
-    getRoleAchievements,
-    updateRoleAchievements,
-};
