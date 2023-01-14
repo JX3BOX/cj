@@ -1045,15 +1045,15 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.5.6":
-  "integrity" "sha512-BNA3SZ99ZMmv5CpOdbt84+vrOgHFTIsT6npTWn6CrDAPrr55TW7FuEjKykdS/QRWyz9tH9t7Un7kjpZy+8f9Dw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.5.6.tgz"
-  "version" "6.5.6"
+"@jx3box/jx3box-common-ui@^6.5.7":
+  "integrity" "sha512-J89A1xGwICQqC2yKy28bRshkAhIZD4lI1yts76fqFC7cp3z/x3NaFjFiH/EyifRUPIPiYeX77TfY7MYWRVbWgQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.5.7.tgz"
+  "version" "6.5.7"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.1"
-    "@jx3box/jx3box-common" "^7.4.8"
-    "@jx3box/jx3box-data" "^1.11.5"
-    "@jx3box/jx3box-editor" "^1.5.5"
+    "@jx3box/jx3box-common" "^7.6.1"
+    "@jx3box/jx3box-data" "^3.0.3"
+    "@jx3box/jx3box-editor" "^1.6.1"
     "axios" "^0.26.1"
     "dayjs" "^1.11.0"
     "element-ui" "^2.13.2"
@@ -1096,10 +1096,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8", "@jx3box/jx3box-common@^7.5.2":
-  "integrity" "sha512-8rfPpZEzQxhTTg/4+XDLIRf4tRyjDaffiPGfLGdVjjtTMMczo3NC+R5qNi6c+3vUmXGtcxSB06pq3RXLFJwSNA=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.5.2.tgz"
-  "version" "7.5.2"
+"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.6.1":
+  "integrity" "sha512-4NtjK4PzZf2DgFLT1nk7/XI9FAJjr5jnXShpSyRtG+Qs6on2+s1drKZBD8EY0XsxzReRVpjTjEIeEzGf4hyxUg=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.6.1.tgz"
+  "version" "7.6.1"
   dependencies:
     "axios" "^0.20.0"
     "cheerio" "1.0.0-rc.10"
@@ -1108,7 +1108,7 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-data@^1.0.9", "@jx3box/jx3box-data@^1.11.1", "@jx3box/jx3box-data@^1.11.3", "@jx3box/jx3box-data@^1.11.5":
+"@jx3box/jx3box-data@^1.0.9", "@jx3box/jx3box-data@^1.11.3":
   "integrity" "sha512-GMoBXDuYsF+7eAGvRyrp5zmppcX0q3OQQfgWtj3U/GAg40ToNBDfx1UQj3dHz1a1kQk2jweYgTKGwIuspnXMlQ=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-1.11.5.tgz"
   "version" "1.11.5"
@@ -1117,16 +1117,21 @@
     "fs" "0.0.1-security"
     "path" "^0.12.7"
 
-"@jx3box/jx3box-editor@^1.5.5", "@jx3box/jx3box-editor@^1.6.1":
-  "integrity" "sha512-cFjBTVtrqMhklmJg11xPckHbiX3wL2JjOhaDy3iFVg0ureaqZBqeZiRFiIhu9v6vYHJ0IhQgjT7bNWhiJQXbuw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.6.1.tgz"
-  "version" "1.6.1"
+"@jx3box/jx3box-data@^3.0.3":
+  "integrity" "sha512-LsLwo0OsUxAWcb3+VdpCaCLP8HfLmBWEIolXFe13OOIq2dXYDlNuF6U1EWQZtzVk+1BplDJCWf+5qclPCdFyGA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.3.tgz"
+  "version" "3.0.3"
+
+"@jx3box/jx3box-editor@^1.6.1", "@jx3box/jx3box-editor@^1.6.2":
+  "integrity" "sha512-nCuxmkAUbdfjtFeGl2NWshaJE3pCGPqpPxQDxmFSXFQSy90TB3SIDfKhNkjAOkDA0PRurtaeTng3GVWpt7c8ig=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.6.2.tgz"
+  "version" "1.6.2"
   dependencies:
-    "@jx3box/jx3box-common" "^7.4.2"
-    "@jx3box/jx3box-data" "^1.11.1"
+    "@jx3box/jx3box-common" "^7.6.1"
+    "@jx3box/jx3box-data" "^3.0.3"
     "@jx3box/jx3box-emotion" "^1.0.10"
     "@jx3box/jx3box-macro" "^1.0.1"
-    "@jx3box/jx3box-talent" "^1.1.2"
+    "@jx3box/jx3box-talent" "^1.1.7"
     "@jx3box/markdown" "^0.1.5"
     "@tinymce/tinymce-vue" "^3.2.2"
     "axios" "^0.19.2"
@@ -1165,10 +1170,10 @@
     "@jx3box/jx3box-common" "^5.0.4"
     "jquery" "^3.5.1"
 
-"@jx3box/jx3box-talent@^1.1.2":
-  "integrity" "sha512-Er1j6iRi0RgfWnuHB9JYozhyVFmZT6x1WqCldqoftg3aHcI91FR88NGrMtBGB6G67FQCEoSKOV3biuLDukRyJA=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-talent/-/jx3box-talent-1.1.3.tgz"
-  "version" "1.1.3"
+"@jx3box/jx3box-talent@^1.1.7":
+  "integrity" "sha512-eYv6O4sPT8JBTweOXT+P2SYEojgdsUEsRmrjrVI9bpfZjGnoBYJVN4uZw2zYoUhIT36xU1jL2DjyFQ8pQwgXTA=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-talent/-/jx3box-talent-1.1.7.tgz"
+  "version" "1.1.7"
   dependencies:
     "@jx3box/jx3box-common" "^7.4.2"
     "@jx3box/jx3box-data" "^1.11.3"
