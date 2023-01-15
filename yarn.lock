@@ -1032,10 +1032,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jx3box/jx3box-comment-ui@^1.7.0", "@jx3box/jx3box-comment-ui@^1.7.1":
-  "integrity" "sha512-ugP2f8pvmsXISY2AitUO06ptZIY/XgPeBy1qzvc9yhuP1vHF7Sv/4d4Zap0+6qtlbv05oXfCOVg7ALYzKZqliQ=="
-  "resolved" "https://registry.npmmirror.com/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.1.tgz"
-  "version" "1.7.1"
+"@jx3box/jx3box-comment-ui@^1.7.0", "@jx3box/jx3box-comment-ui@^1.7.2":
+  "integrity" "sha512-N1yd0tAOKZRit2KQjsibkNdmtgS6284DYlghGwZjAXTOyt0sHmgff49TApdGrUi8AWNBLr16BZINEDvn3mHCNw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-comment-ui/-/jx3box-comment-ui-1.7.2.tgz"
+  "version" "1.7.2"
   dependencies:
     "@jx3box/jx3box-common" "^7.0.18"
     "@jx3box/jx3box-emotion" "^1.0.10"
@@ -1045,15 +1045,15 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.5.7":
-  "integrity" "sha512-J89A1xGwICQqC2yKy28bRshkAhIZD4lI1yts76fqFC7cp3z/x3NaFjFiH/EyifRUPIPiYeX77TfY7MYWRVbWgQ=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.5.7.tgz"
-  "version" "6.5.7"
+"@jx3box/jx3box-common-ui@^6.6.0":
+  "integrity" "sha512-eB7UcvrcWxNL5Hn25+C7O3/0dlEVHJ2w81yHTqs5hjPC5HApd4yH9Kb2M1915kIdkCJfKoNqq9jlNIaMU9+Yyw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.6.0.tgz"
+  "version" "6.6.0"
   dependencies:
-    "@jx3box/jx3box-comment-ui" "^1.7.1"
+    "@jx3box/jx3box-comment-ui" "^1.7.2"
     "@jx3box/jx3box-common" "^7.6.1"
     "@jx3box/jx3box-data" "^3.0.3"
-    "@jx3box/jx3box-editor" "^1.6.1"
+    "@jx3box/jx3box-editor" "^1.6.2"
     "axios" "^0.26.1"
     "dayjs" "^1.11.0"
     "element-ui" "^2.13.2"
@@ -1122,7 +1122,7 @@
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.3.tgz"
   "version" "3.0.3"
 
-"@jx3box/jx3box-editor@^1.6.1", "@jx3box/jx3box-editor@^1.6.2":
+"@jx3box/jx3box-editor@^1.6.2":
   "integrity" "sha512-nCuxmkAUbdfjtFeGl2NWshaJE3pCGPqpPxQDxmFSXFQSy90TB3SIDfKhNkjAOkDA0PRurtaeTng3GVWpt7c8ig=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.6.2.tgz"
   "version" "1.6.2"
