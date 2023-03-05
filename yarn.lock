@@ -1045,15 +1045,15 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^7.0.2":
-  "integrity" "sha512-qdC96KLYTalxiBrWKoknuT98GEqkObiH1dzM9egwWxUDZR2tH6YarLUaE2tSWaT71fbd0oWdidvuwWSJoymQHw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.0.2.tgz"
-  "version" "7.0.2"
+"@jx3box/jx3box-common-ui@^7.0.5":
+  "integrity" "sha512-7W+o5iHsaz64hV2Ru69ofBHDJhxfAQuJexFOTWVoWQB0KvmgwNRLOJoKZX23tiez03ObQGw44XXGbj9AhAf+9w=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-7.0.5.tgz"
+  "version" "7.0.5"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.8"
-    "@jx3box/jx3box-common" "^7.7.2"
+    "@jx3box/jx3box-common" "^7.7.3"
     "@jx3box/jx3box-data" "^3.0.4"
-    "@jx3box/jx3box-editor" "^1.7.3"
+    "@jx3box/jx3box-editor" "^1.7.4"
     "axios" "^0.26.1"
     "dayjs" "^1.11.0"
     "element-ui" "^2.13.2"
@@ -1096,7 +1096,7 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.6.2", "@jx3box/jx3box-common@^7.6.8", "@jx3box/jx3box-common@^7.7.2", "@jx3box/jx3box-common@^7.7.3":
+"@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.6.2", "@jx3box/jx3box-common@^7.7.3":
   "integrity" "sha512-Kp2QS5CRGYruNEmZv0Jt8tXAMtHbVfS/B1yzZUjaBuz6sTs+C17i2Y3QFmZmcwfe35otzz+1ih6c03FBUaIQLw=="
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.7.3.tgz"
   "version" "7.7.3"
@@ -1131,14 +1131,14 @@
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.4.tgz"
   "version" "3.0.4"
 
-"@jx3box/jx3box-editor@^1.7.3", "@jx3box/jx3box-editor@^1.7.4":
-  "integrity" "sha512-L/rw+jECuU+ujTVHTYmLJtsd1IdLZWYrKL3B6HoHQ57J8TEaojXFSkFA+V1L1cfZgdX3tImNErlljURe9EETMw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.7.4.tgz"
-  "version" "1.7.4"
+"@jx3box/jx3box-editor@^1.7.4", "@jx3box/jx3box-editor@^1.7.5":
+  "integrity" "sha512-o6H0Ta+hj1wQfp9RDhFAoNQn/e1qcuPg6TdlUqC73fgOCIzlMi4VofDvwAQsujVz0WSbCDEO0Pn0634QVEnQ2A=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.7.5.tgz"
+  "version" "1.7.5"
   dependencies:
-    "@jx3box/jx3box-common" "^7.6.8"
+    "@jx3box/jx3box-common" "^7.7.3"
     "@jx3box/jx3box-data" "^3.0.4"
-    "@jx3box/jx3box-emotion" "^1.1.5"
+    "@jx3box/jx3box-emotion" "^1.1.8"
     "@jx3box/jx3box-macro" "^1.0.1"
     "@jx3box/jx3box-talent" "^1.1.9"
     "@jx3box/markdown" "^0.1.5"
@@ -1161,10 +1161,10 @@
     "vue-photoswipe.js" "^2.0.23"
     "xss" "^1.0.8"
 
-"@jx3box/jx3box-emotion@^1.1.5":
-  "integrity" "sha512-VT7re1IM60Om5zLtLigAom4LIXLNtmUuRukUVGpphK0Hg754UhbgPHPpPo55Gfot0xVvOB5AEtwjzJcZLNPQWw=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.1.5.tgz"
-  "version" "1.1.5"
+"@jx3box/jx3box-emotion@^1.1.5", "@jx3box/jx3box-emotion@^1.1.8":
+  "integrity" "sha512-5Imbftc7WSphIM1aCXj/7ea6jjb2gh8cl4F9zYXzKQWA8xklndMKMVhKrmzcGGM6pQtTyIwSvTD41rq0gLkaUw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-emotion/-/jx3box-emotion-1.1.8.tgz"
+  "version" "1.1.8"
   dependencies:
     "@jx3box/jx3box-common" "^5.9.8"
     "@jx3box/jx3box-data" "^1.0.9"
