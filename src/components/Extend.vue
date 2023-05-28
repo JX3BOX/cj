@@ -2,8 +2,8 @@
     <div class="m-right-side" :class="{isHome: isHome}">
         <RightSideMsg>
             <em>官方反馈交流Q群</em> :
-            <strong>
-                <a href="https://jq.qq.com/?_wv=1027&k=5S50j08">614370825</a>
+            <strong @click="onQQClick" class="u-link" title="点击复制">
+                <a>{{ qq }}</a>
             </strong>
         </RightSideMsg>
 
@@ -114,6 +114,8 @@ export default {
             ranks: null,
             groups: null,
             isHome: true,
+
+            qq: "614370825",
         };
     },
     methods: {
@@ -139,6 +141,15 @@ export default {
         checkIsHome: function () {
             this.isHome = this.$route.name == "home" || !this.$route.name;
         },
+        onQQClick() {
+            navigator.clipboard.writeText(this.qq).then(() => {
+                this.$notify({
+                    title: "复制成功",
+                    message: "内容：" + this.qq,
+                    type: "success",
+                });
+            })
+        }
     },
     mounted() {
         // 获取成就群
