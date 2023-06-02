@@ -11,7 +11,7 @@
         <Main :withoutRight="false">
             <Search />
             <router-view />
-            <RightSidebar>
+            <RightSidebar :show-toggle="isSingle">
                 <Info />
             </RightSidebar>
             <Footer />
@@ -35,6 +35,11 @@ export default {
         Sidebar,
         Search,
         Info,
+    },
+    computed: {
+        isSingle() {
+            return this.$route.name == "view";
+        },
     },
     watch: {
         $route: {
