@@ -13,6 +13,9 @@ Vue.use(JX3BOX_UI);
 import VueClipboard from 'vue-clipboard2'
 Vue.use(VueClipboard);
 
+import reporter from "@jx3box/jx3box-common/js/reporter";
+reporter.install(Vue);
+
 import router from "./router";
 import store from "./store";
 import App from "./App.vue";

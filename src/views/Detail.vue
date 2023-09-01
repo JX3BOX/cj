@@ -54,6 +54,7 @@ import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { ts2str } from "@jx3box/jx3box-common/js/utils.js";
+import { reportNow } from "@jx3box/jx3box-common/js/reporter";
 export default {
     name: "Detail",
     data() {
@@ -99,6 +100,9 @@ export default {
         },
         favTitle : function (){
             return this.wiki_post?.source?.Name
+        },
+        prefix() {
+            return this.client === 'std' ? 'www' : 'origin'
         }
     },
     methods: {
@@ -122,6 +126,13 @@ export default {
                     }
                     this.is_empty = isEmpty;
                     this.compatible = compatible;
+
+                    reportNow({
+                        caller: "cj_detail",
+                        data: {
+                            href: `${this.prefix}:/cj/view/${this.id}`
+                        }
+                    })
                 });
             }
             this.triggerStat();
