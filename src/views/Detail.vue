@@ -30,10 +30,10 @@
             <Relations :source-id="id" />
 
             <!-- 历史版本 -->
-            <WikiRevisions type="achievement" :source-id="id" />
+            <WikiRevisions type="achievement" :source-id="String(id)" />
 
             <!-- 百科评论 -->
-            <WikiComments type="achievement" :source-id="id" />
+            <WikiComments type="achievement" :source-id="String(id)" />
         </div>
         <div class="m-wiki-post-empty" v-if="is_empty">
             <i class="el-icon-s-opportunity"></i>
